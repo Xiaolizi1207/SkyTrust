@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(chmod:*)",
+      "Bash(mvn:*)",
+      "WebSearch",
+      "Bash(find src/main/java -type f -name *.java)",
+      "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.3.31\\\\src\\\\test' -type f -name *.java)",
+      "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.3.31\\\\src\\\\test\\\\java' -type f -name *.java)",
+      "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.3.31' -name checkstyle*.xml -o -name pmd*.xml -o -name spotbugs*.xml -o -name *.pmd)",
+      "Bash(dir pom.xml)",
+      "Bash(dir)",
+      "Bash(python -c \"import yaml; yaml.safe_load\\(open\\(''src/main/resources/application-dev.yml'', ''r'', encoding=''utf-8''\\)\\); print\\(''YAML语法正确''\\)\")",
+      "Bash(python -c \"import yaml; yaml.safe_load\\(open\\(''application-dev.yml'', encoding=''utf-8''\\)\\); print\\(''YAML syntax OK''\\)\")",
+      "Bash(grep -n \":[[:space:]]*[>|]\" *.yml)",
+      "Bash(grep -n \":[[:space:]]*$\" application-dev.yml)",
+      "Bash(java -version)",
+      "Bash(find . -name *.txt -newer logs/skytrust.log)"
+    ]
+  }
+}

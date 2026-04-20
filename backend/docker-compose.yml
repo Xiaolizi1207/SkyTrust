@@ -1,0 +1,256 @@
+# SkyTrust无人机共享租赁区块链平台 - Docker Compose配置
+version: '3.8'
+
+# 网络配置
+networks:
+  skytrust-network:
+    driver: bridge
+
+# 服务定义
+services:
+  # MySQL数据库
+  mysql:
+    image: mysql:8.0
+    container_name: skytrust-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: skytrust_root_123
+      MYSQL_DATABASE: skytrust_dev
+      MYSQL_USER: skytrust
+      MYSQL_PASSWORD: skytrust_123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis缓存
+  redis:
+    image: redis:7-alpine
+    container_name: skytrust-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+      - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # RabbitMQ消息队列
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: skytrust-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: skytrust
+      RABBITMQ_DEFAULT_PASS: skytrust_123
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # MinIO对象存储
+  minio:
+    image: minio/minio:latest
+    container_name: skytrust-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: skytrustadmin
+      MINIO_ROOT_PASSWORD: skytrustminio123
+      MINIO_DEFAULT_BUCKETS: "uploads,contracts,logs"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # MQTT Broker (Mosquitto)
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: skytrust-mqtt
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9002:9002"  # WebSocket端口
+    volumes:
+      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mqtt-data:/mosquitto/data
+      - mqtt-log:/mosquitto/log
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "mosquitto_pub", "-h", "localhost", "-t", "\$SYS/broker/uptime", "-m", "test", "-q", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Ethereum节点 (开发环境)
+  ganache:
+    image: trufflesuite/ganache-cli:latest
+    container_name: skytrust-ganache
+    restart: unless-stopped
+    ports:
+      - "8545:8545"
+    command: ganache-cli --host 0.0.0.0 --deterministic --db /data --networkId 1337 --gasLimit 0xfffffffffff
+    volumes:
+      - blockchain-data:/data
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-X", "POST", "-H", "Content-Type: application/json", "--data", '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}', "http://localhost:8545"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # AI服务 (Python Flask模拟)
+  ai-service:
+    image: python:3.11-alpine
+    container_name: skytrust-ai-service
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ai-service:/app
+    working_dir: /app
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+    command: >
+      sh -c "pip install flask flask-cors numpy pandas scikit-learn &&
+             flask run --host=0.0.0.0 --port=5000"
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Spring Boot应用
+  skytrust-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: skytrust-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # 数据库配置
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: skytrust_dev
+      DB_USER: skytrust
+      DB_PASSWORD: skytrust_123
+      # Redis配置
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      # RabbitMQ配置
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: skytrust
+      RABBITMQ_PASSWORD: skytrust_123
+      # MinIO配置
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: skytrustadmin
+      MINIO_SECRET_KEY: skytrustminio123
+      # MQTT配置
+      MQTT_BROKER_URL: tcp://mqtt:1883
+      MQTT_USERNAME: skytrust
+      MQTT_PASSWORD: skytrust123
+      # 区块链配置
+      BLOCKCHAIN_NODE_URL: http://ganache:8545
+      BLOCKCHAIN_CHAIN_ID: 1337
+      # AI服务配置
+      AI_SERVICE_URL: http://ai-service:5000
+      # JWT配置
+      JWT_SECRET: skytrust-jwt-secret-for-development
+    volumes:
+      - app-logs:/logs
+      - app-uploads:/uploads
+      - ./config/application-prod.yml:/app/config/application-prod.yml
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      mqtt:
+        condition: service_healthy
+      ganache:
+        condition: service_healthy
+      ai-service:
+        condition: service_healthy
+    networks:
+      - skytrust-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Nginx反向代理 (可选)
+  nginx:
+    image: nginx:alpine
+    container_name: skytrust-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - skytrust-app
+    networks:
+      - skytrust-network
+
+# 数据卷定义
+volumes:
+  mysql-data:
+  redis-data:
+  rabbitmq-data:
+  minio-data:
+  mqtt-data:
+  mqtt-log:
+  blockchain-data:
+  app-logs:
+  app-uploads:
