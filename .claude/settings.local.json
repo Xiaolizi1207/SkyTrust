@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.4.11\\\\SkyTrust2026.4.11\\\\frontend' -maxdepth 5 -type f -name *.json -o -name *.js -o -name *.ts -o -name *.vue -o -name *.jsx -o -name *.tsx -o -name *.html -o -name *.css)",
+      "Bash(python migrate_annotations.py)",
+      "Bash(mvn clean:*)",
+      "Bash(mvn compile:*)",
+      "Bash(python fix_annotations.py)"
+    ]
+  }
+}

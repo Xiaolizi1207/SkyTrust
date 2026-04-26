@@ -6,9 +6,9 @@ import com.skytrust.dto.PaymentDTO;
 import com.skytrust.entity.Payment;
 import com.skytrust.service.PaymentService;
 import com.skytrust.vo.PaymentVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "支付管理", description = "支付记录管理接口")
+@Tag(name = "支付管理", description = "支付记录管理接口")
 @Validated
 @RestController
 @RequestMapping("/api/payments")
@@ -37,7 +37,7 @@ public class PaymentController {
     /**
      * 创建支付记录
      */
-    @ApiOperation(value = "创建支付记录")
+    @Operation(summary = "创建支付记录")
     @PostMapping
     public Result<PaymentVO> createPayment(@Valid @RequestBody PaymentDTO paymentDTO) {
         // 转换DTO为实体
@@ -57,10 +57,10 @@ public class PaymentController {
     /**
      * 更新支付记录信息
      */
-    @ApiOperation(value = "更新支付记录信息")
+    @Operation(summary = "更新支付记录信息")
     @PutMapping("/{id}")
     public Result<PaymentVO> updatePayment(
-            @ApiParam(value = "支付记录ID", required = true) @PathVariable Long id,
+            @Parameter(description = "支付记录ID", required = true) @PathVariable Long id,
             @Valid @RequestBody PaymentDTO paymentDTO) {
         Payment payment = paymentService.getById(id);
         if (payment == null) {
@@ -82,9 +82,9 @@ public class PaymentController {
     /**
      * 获取支付记录详情
      */
-    @ApiOperation(value = "获取支付记录详情")
+    @Operation(summary = "获取支付记录详情")
     @GetMapping("/{id}")
-    public Result<PaymentVO> getPaymentById(@ApiParam(value = "支付记录ID", required = true) @PathVariable Long id) {
+    public Result<PaymentVO> getPaymentById(@Parameter(description = "支付记录ID", required = true) @PathVariable Long id) {
         Payment payment = paymentService.getById(id);
         if (payment == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "支付记录不存在");
@@ -95,9 +95,9 @@ public class PaymentController {
     /**
      * 删除支付记录（逻辑删除）
      */
-    @ApiOperation(value = "删除支付记录")
+    @Operation(summary = "删除支付记录")
     @DeleteMapping("/{id}")
-    public Result<Void> deletePayment(@ApiParam(value = "支付记录ID", required = true) @PathVariable Long id) {
+    public Result<Void> deletePayment(@Parameter(description = "支付记录ID", required = true) @PathVariable Long id) {
         boolean deleted = paymentService.logicRemoveById(id);
         if (!deleted) {
             return Result.error("支付记录删除失败");
@@ -108,15 +108,15 @@ public class PaymentController {
     /**
      * 分页查询支付记录列表
      */
-    @ApiOperation(value = "分页查询支付记录列表")
+    @Operation(summary = "分页查询支付记录列表")
     @GetMapping
     public Result<List<PaymentVO>> getPaymentList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "用户ID") @RequestParam(required = false) Long userId,
-            @ApiParam(value = "订单ID") @RequestParam(required = false) Long orderId,
-            @ApiParam(value = "支付状态") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "交易号") @RequestParam(required = false) String transactionNo) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "用户ID") @RequestParam(required = false) Long userId,
+            @Parameter(description = "订单ID") @RequestParam(required = false) Long orderId,
+            @Parameter(description = "支付状态") @RequestParam(required = false) Integer status,
+            @Parameter(description = "交易号") @RequestParam(required = false) String transactionNo) {
 
         // 简化处理：使用Service的list方法
         List<Payment> payments = paymentService.list();
@@ -141,9 +141,9 @@ public class PaymentController {
     /**
      * 根据订单ID查询支付记录
      */
-    @ApiOperation(value = "根据订单ID查询支付记录")
+    @Operation(summary = "根据订单ID查询支付记录")
     @GetMapping("/order/{orderId}")
-    public Result<PaymentVO> getPaymentByOrderId(@ApiParam(value = "订单ID", required = true) @PathVariable Long orderId) {
+    public Result<PaymentVO> getPaymentByOrderId(@Parameter(description = "订单ID", required = true) @PathVariable Long orderId) {
         Payment payment = paymentService.getByOrderId(orderId);
         if (payment == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "支付记录不存在");
@@ -154,9 +154,9 @@ public class PaymentController {
     /**
      * 根据交易号查询支付记录
      */
-    @ApiOperation(value = "根据交易号查询支付记录")
+    @Operation(summary = "根据交易号查询支付记录")
     @GetMapping("/transaction/{transactionNo}")
-    public Result<PaymentVO> getPaymentByTransactionNo(@ApiParam(value = "交易号", required = true) @PathVariable String transactionNo) {
+    public Result<PaymentVO> getPaymentByTransactionNo(@Parameter(description = "交易号", required = true) @PathVariable String transactionNo) {
         Payment payment = paymentService.getByTransactionNo(transactionNo);
         if (payment == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "支付记录不存在");
@@ -167,12 +167,12 @@ public class PaymentController {
     /**
      * 更新支付状态
      */
-    @ApiOperation(value = "更新支付状态")
+    @Operation(summary = "更新支付状态")
     @PostMapping("/{id}/status")
     public Result<Void> updatePaymentStatus(
-            @ApiParam(value = "支付记录ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "支付状态", required = true) @RequestParam Integer status,
-            @ApiParam(value = "备注") @RequestParam(required = false) String remark) {
+            @Parameter(description = "支付记录ID", required = true) @PathVariable Long id,
+            @Parameter(description = "支付状态", required = true) @RequestParam Integer status,
+            @Parameter(description = "备注") @RequestParam(required = false) String remark) {
 
         boolean updated = paymentService.updatePaymentStatus(id, status, remark);
         if (!updated) {
@@ -184,7 +184,7 @@ public class PaymentController {
     /**
      * 生成交易号
      */
-    @ApiOperation(value = "生成交易号")
+    @Operation(summary = "生成交易号")
     @GetMapping("/generate-transaction-no")
     public Result<String> generateTransactionNo() {
         String transactionNo = paymentService.generateTransactionNo();

@@ -6,9 +6,9 @@ import com.skytrust.dto.FlightRecordDTO;
 import com.skytrust.entity.FlightRecord;
 import com.skytrust.service.FlightRecordService;
 import com.skytrust.vo.FlightRecordVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "飞行记录管理", description = "飞行记录管理接口")
+@Tag(name = "飞行记录管理", description = "飞行记录管理接口")
 @Validated
 @RestController
 @RequestMapping("/api/flight-records")
@@ -37,7 +37,7 @@ public class FlightRecordController {
     /**
      * 创建飞行记录
      */
-    @ApiOperation(value = "创建飞行记录")
+    @Operation(summary = "创建飞行记录")
     @PostMapping
     public Result<FlightRecordVO> createFlightRecord(@Valid @RequestBody FlightRecordDTO flightRecordDTO) {
         // 转换DTO为实体
@@ -57,10 +57,10 @@ public class FlightRecordController {
     /**
      * 更新飞行记录信息
      */
-    @ApiOperation(value = "更新飞行记录信息")
+    @Operation(summary = "更新飞行记录信息")
     @PutMapping("/{id}")
     public Result<FlightRecordVO> updateFlightRecord(
-            @ApiParam(value = "飞行记录ID", required = true) @PathVariable Long id,
+            @Parameter(description = "飞行记录ID", required = true) @PathVariable Long id,
             @Valid @RequestBody FlightRecordDTO flightRecordDTO) {
         FlightRecord flightRecord = flightRecordService.getById(id);
         if (flightRecord == null) {
@@ -82,9 +82,9 @@ public class FlightRecordController {
     /**
      * 获取飞行记录详情
      */
-    @ApiOperation(value = "获取飞行记录详情")
+    @Operation(summary = "获取飞行记录详情")
     @GetMapping("/{id}")
-    public Result<FlightRecordVO> getFlightRecordById(@ApiParam(value = "飞行记录ID", required = true) @PathVariable Long id) {
+    public Result<FlightRecordVO> getFlightRecordById(@Parameter(description = "飞行记录ID", required = true) @PathVariable Long id) {
         FlightRecord flightRecord = flightRecordService.getById(id);
         if (flightRecord == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "飞行记录不存在");
@@ -95,9 +95,9 @@ public class FlightRecordController {
     /**
      * 删除飞行记录（逻辑删除）
      */
-    @ApiOperation(value = "删除飞行记录")
+    @Operation(summary = "删除飞行记录")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteFlightRecord(@ApiParam(value = "飞行记录ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteFlightRecord(@Parameter(description = "飞行记录ID", required = true) @PathVariable Long id) {
         boolean deleted = flightRecordService.logicRemoveById(id);
         if (!deleted) {
             return Result.error("飞行记录删除失败");
@@ -108,16 +108,16 @@ public class FlightRecordController {
     /**
      * 分页查询飞行记录列表
      */
-    @ApiOperation(value = "分页查询飞行记录列表")
+    @Operation(summary = "分页查询飞行记录列表")
     @GetMapping
     public Result<List<FlightRecordVO>> getFlightRecordList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "用户ID") @RequestParam(required = false) Long userId,
-            @ApiParam(value = "设备ID") @RequestParam(required = false) Long deviceId,
-            @ApiParam(value = "订单ID") @RequestParam(required = false) Long orderId,
-            @ApiParam(value = "飞行状态") @RequestParam(required = false) Integer flightStatus,
-            @ApiParam(value = "是否违规") @RequestParam(required = false) Boolean violation) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "用户ID") @RequestParam(required = false) Long userId,
+            @Parameter(description = "设备ID") @RequestParam(required = false) Long deviceId,
+            @Parameter(description = "订单ID") @RequestParam(required = false) Long orderId,
+            @Parameter(description = "飞行状态") @RequestParam(required = false) Integer flightStatus,
+            @Parameter(description = "是否违规") @RequestParam(required = false) Boolean violation) {
 
         // 简化处理：使用Service的list方法
         List<FlightRecord> flightRecords = flightRecordService.list();
@@ -143,9 +143,9 @@ public class FlightRecordController {
     /**
      * 根据设备ID查询飞行记录
      */
-    @ApiOperation(value = "根据设备ID查询飞行记录")
+    @Operation(summary = "根据设备ID查询飞行记录")
     @GetMapping("/device/{deviceId}")
-    public Result<List<FlightRecordVO>> getFlightRecordsByDeviceId(@ApiParam(value = "设备ID", required = true) @PathVariable Long deviceId) {
+    public Result<List<FlightRecordVO>> getFlightRecordsByDeviceId(@Parameter(description = "设备ID", required = true) @PathVariable Long deviceId) {
         List<FlightRecord> flightRecords = flightRecordService.getByDeviceId(deviceId);
         List<FlightRecordVO> flightRecordVOs = flightRecords.stream()
                 .map(this::convertToVO)
@@ -156,9 +156,9 @@ public class FlightRecordController {
     /**
      * 根据订单ID查询飞行记录
      */
-    @ApiOperation(value = "根据订单ID查询飞行记录")
+    @Operation(summary = "根据订单ID查询飞行记录")
     @GetMapping("/order/{orderId}")
-    public Result<FlightRecordVO> getFlightRecordByOrderId(@ApiParam(value = "订单ID", required = true) @PathVariable Long orderId) {
+    public Result<FlightRecordVO> getFlightRecordByOrderId(@Parameter(description = "订单ID", required = true) @PathVariable Long orderId) {
         FlightRecord flightRecord = flightRecordService.getByOrderId(orderId);
         if (flightRecord == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "飞行记录不存在");
@@ -169,9 +169,9 @@ public class FlightRecordController {
     /**
      * 根据用户ID查询飞行记录
      */
-    @ApiOperation(value = "根据用户ID查询飞行记录")
+    @Operation(summary = "根据用户ID查询飞行记录")
     @GetMapping("/user/{userId}")
-    public Result<List<FlightRecordVO>> getFlightRecordsByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<FlightRecordVO>> getFlightRecordsByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         List<FlightRecord> flightRecords = flightRecordService.getByUserId(userId);
         List<FlightRecordVO> flightRecordVOs = flightRecords.stream()
                 .map(this::convertToVO)

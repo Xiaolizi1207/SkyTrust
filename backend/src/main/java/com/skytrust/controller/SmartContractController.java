@@ -6,9 +6,9 @@ import com.skytrust.dto.SmartContractDTO;
 import com.skytrust.entity.SmartContract;
 import com.skytrust.service.SmartContractService;
 import com.skytrust.vo.SmartContractVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "智能合约管理", description = "智能合约管理接口")
+@Tag(name = "智能合约管理", description = "智能合约管理接口")
 @Validated
 @RestController
 @RequestMapping("/api/smart-contracts")
@@ -37,7 +37,7 @@ public class SmartContractController {
     /**
      * 创建智能合约记录
      */
-    @ApiOperation(value = "创建智能合约记录")
+    @Operation(summary = "创建智能合约记录")
     @PostMapping
     public Result<SmartContractVO> createSmartContract(@Valid @RequestBody SmartContractDTO contractDTO) {
         // 转换DTO为实体
@@ -57,10 +57,10 @@ public class SmartContractController {
     /**
      * 更新智能合约记录信息
      */
-    @ApiOperation(value = "更新智能合约记录信息")
+    @Operation(summary = "更新智能合约记录信息")
     @PutMapping("/{id}")
     public Result<SmartContractVO> updateSmartContract(
-            @ApiParam(value = "智能合约ID", required = true) @PathVariable Long id,
+            @Parameter(description = "智能合约ID", required = true) @PathVariable Long id,
             @Valid @RequestBody SmartContractDTO contractDTO) {
         SmartContract contract = smartContractService.getById(id);
         if (contract == null) {
@@ -82,9 +82,9 @@ public class SmartContractController {
     /**
      * 获取智能合约记录详情
      */
-    @ApiOperation(value = "获取智能合约记录详情")
+    @Operation(summary = "获取智能合约记录详情")
     @GetMapping("/{id}")
-    public Result<SmartContractVO> getSmartContractById(@ApiParam(value = "智能合约ID", required = true) @PathVariable Long id) {
+    public Result<SmartContractVO> getSmartContractById(@Parameter(description = "智能合约ID", required = true) @PathVariable Long id) {
         SmartContract contract = smartContractService.getById(id);
         if (contract == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "智能合约记录不存在");
@@ -95,9 +95,9 @@ public class SmartContractController {
     /**
      * 删除智能合约记录（逻辑删除）
      */
-    @ApiOperation(value = "删除智能合约记录")
+    @Operation(summary = "删除智能合约记录")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteSmartContract(@ApiParam(value = "智能合约ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteSmartContract(@Parameter(description = "智能合约ID", required = true) @PathVariable Long id) {
         boolean deleted = smartContractService.logicRemoveById(id);
         if (!deleted) {
             return Result.error("智能合约记录删除失败");
@@ -108,15 +108,15 @@ public class SmartContractController {
     /**
      * 分页查询智能合约记录列表
      */
-    @ApiOperation(value = "分页查询智能合约记录列表")
+    @Operation(summary = "分页查询智能合约记录列表")
     @GetMapping
     public Result<List<SmartContractVO>> getSmartContractList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "合约地址") @RequestParam(required = false) String contractAddress,
-            @ApiParam(value = "合约类型") @RequestParam(required = false) String contractType,
-            @ApiParam(value = "合约状态") @RequestParam(required = false) Integer contractStatus,
-            @ApiParam(value = "合约名称") @RequestParam(required = false) String contractName) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "合约地址") @RequestParam(required = false) String contractAddress,
+            @Parameter(description = "合约类型") @RequestParam(required = false) String contractType,
+            @Parameter(description = "合约状态") @RequestParam(required = false) Integer contractStatus,
+            @Parameter(description = "合约名称") @RequestParam(required = false) String contractName) {
 
         // 简化处理：使用Service的list方法
         List<SmartContract> contracts = smartContractService.list();
@@ -141,9 +141,9 @@ public class SmartContractController {
     /**
      * 根据合约地址查询合约
      */
-    @ApiOperation(value = "根据合约地址查询合约")
+    @Operation(summary = "根据合约地址查询合约")
     @GetMapping("/address/{contractAddress}")
-    public Result<SmartContractVO> getSmartContractByAddress(@ApiParam(value = "合约地址", required = true) @PathVariable String contractAddress) {
+    public Result<SmartContractVO> getSmartContractByAddress(@Parameter(description = "合约地址", required = true) @PathVariable String contractAddress) {
         SmartContract contract = smartContractService.getByContractAddress(contractAddress);
         if (contract == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "智能合约记录不存在");
@@ -154,9 +154,9 @@ public class SmartContractController {
     /**
      * 根据类型查询合约
      */
-    @ApiOperation(value = "根据类型查询合约")
+    @Operation(summary = "根据类型查询合约")
     @GetMapping("/type/{contractType}")
-    public Result<List<SmartContractVO>> getSmartContractsByType(@ApiParam(value = "合约类型", required = true) @PathVariable String contractType) {
+    public Result<List<SmartContractVO>> getSmartContractsByType(@Parameter(description = "合约类型", required = true) @PathVariable String contractType) {
         List<SmartContract> contracts = smartContractService.getByContractType(contractType);
         List<SmartContractVO> contractVOs = contracts.stream()
                 .map(this::convertToVO)
@@ -167,7 +167,7 @@ public class SmartContractController {
     /**
      * 获取最新部署的合约
      */
-    @ApiOperation(value = "获取最新部署的合约")
+    @Operation(summary = "获取最新部署的合约")
     @GetMapping("/latest")
     public Result<SmartContractVO> getLatestContract() {
         SmartContract contract = smartContractService.getLatestContract();

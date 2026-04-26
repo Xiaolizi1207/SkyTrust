@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skytrust.common.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -28,16 +30,21 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
     private ObjectMapper objectMapper;
 
     /**
+     * 注入 context-path，用于路径匹配前去除前缀
+     */
+    @Value("${server.servlet.context-path:}")
+    private String contextPath;
+
+    /**
      * 需要排除的路径（不进行包装）
      */
     private static final Set<String> EXCLUDE_PATHS = new HashSet<>();
 
     static {
-        // Swagger2 路径（Spring Boot 2.7 专用）
-        EXCLUDE_PATHS.add("/v2/api-docs");
+        // SpringDoc OpenAPI 3 / Knife4j 路径
+        EXCLUDE_PATHS.add("/v3/api-docs");
         EXCLUDE_PATHS.add("/swagger-ui");
         EXCLUDE_PATHS.add("/doc.html");
-        EXCLUDE_PATHS.add("/webjars");
         EXCLUDE_PATHS.add("/favicon.ico");
     }
 
@@ -63,6 +70,10 @@ public class GlobalResponseAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request, ServerHttpResponse response) {
 
         String path = request.getURI().getPath();
+        // 去除 context-path 前缀后再匹配（例如 /api/v3/api-docs → /v3/api-docs）
+        if (StringUtils.hasText(contextPath) && path.startsWith(contextPath)) {
+            path = path.substring(contextPath.length());
+        }
         for (String excludePath : EXCLUDE_PATHS) {
             if (path.startsWith(excludePath)) {
                 return body;

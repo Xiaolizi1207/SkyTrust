@@ -8,9 +8,9 @@ import com.skytrust.service.DictDataService;
 import com.skytrust.service.DictTypeService;
 import com.skytrust.vo.DictDataVO;
 import com.skytrust.vo.DictTypeVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "字典综合管理", description = "字典数据的综合查询接口")
+@Tag(name = "字典综合管理", description = "字典数据的综合查询接口")
 @RestController
 @RequestMapping("/api/dict")
 @RequiredArgsConstructor
@@ -40,7 +40,7 @@ public class DictController {
     /**
      * 获取所有启用的字典类型及其字典数据（用于前端缓存）
      */
-    @ApiOperation(value = "获取所有启用的字典类型及其字典数据")
+    @Operation(summary = "获取所有启用的字典类型及其字典数据")
     @GetMapping("/all-enabled")
     public Result<Map<String, List<DictDataVO>>> getAllEnabledDicts() {
         log.info("获取所有启用的字典类型及其字典数据请求");
@@ -69,10 +69,10 @@ public class DictController {
     /**
      * 根据字典类型编码获取启用的字典数据（前端通用接口）
      */
-    @ApiOperation(value = "根据字典类型编码获取启用的字典数据")
+    @Operation(summary = "根据字典类型编码获取启用的字典数据")
     @GetMapping("/type/{dictType}")
     public Result<List<DictDataVO>> getEnabledDictDataByType(
-            @ApiParam(value = "字典类型编码", required = true) @PathVariable String dictType) {
+            @Parameter(description = "字典类型编码", required = true) @PathVariable String dictType) {
         log.info("根据字典类型编码获取启用的字典数据请求: dictType={}", dictType);
 
         try {
@@ -90,11 +90,11 @@ public class DictController {
     /**
      * 根据字典类型编码和字典值获取字典标签
      */
-    @ApiOperation(value = "根据字典类型编码和字典值获取字典标签")
+    @Operation(summary = "根据字典类型编码和字典值获取字典标签")
     @GetMapping("/label")
     public Result<String> getDictLabelByTypeAndValue(
-            @ApiParam(value = "字典类型编码", required = true) @RequestParam String dictType,
-            @ApiParam(value = "字典值", required = true) @RequestParam String dictValue) {
+            @Parameter(description = "字典类型编码", required = true) @RequestParam String dictType,
+            @Parameter(description = "字典值", required = true) @RequestParam String dictValue) {
         log.info("根据字典类型编码和字典值获取字典标签请求: dictType={}, dictValue={}", dictType, dictValue);
 
         try {
@@ -112,11 +112,11 @@ public class DictController {
     /**
      * 根据字典类型编码和字典标签获取字典值
      */
-    @ApiOperation(value = "根据字典类型编码和字典标签获取字典值")
+    @Operation(summary = "根据字典类型编码和字典标签获取字典值")
     @GetMapping("/value")
     public Result<String> getDictValueByTypeAndLabel(
-            @ApiParam(value = "字典类型编码", required = true) @RequestParam String dictType,
-            @ApiParam(value = "字典标签", required = true) @RequestParam String dictLabel) {
+            @Parameter(description = "字典类型编码", required = true) @RequestParam String dictType,
+            @Parameter(description = "字典标签", required = true) @RequestParam String dictLabel) {
         log.info("根据字典类型编码和字典标签获取字典值请求: dictType={}, dictLabel={}", dictType, dictLabel);
 
         try {
@@ -134,7 +134,7 @@ public class DictController {
     /**
      * 批量根据字典类型编码和字典值获取字典标签
      */
-    @ApiOperation(value = "批量根据字典类型编码和字典值获取字典标签")
+    @Operation(summary = "批量根据字典类型编码和字典值获取字典标签")
     @PostMapping("/batch-labels")
     public Result<Map<String, String>> getBatchDictLabels(@RequestBody Map<String, List<String>> request) {
         log.info("批量根据字典类型编码和字典值获取字典标签请求");
@@ -163,7 +163,7 @@ public class DictController {
     /**
      * 刷新字典缓存（用于管理后台）
      */
-    @ApiOperation(value = "刷新字典缓存")
+    @Operation(summary = "刷新字典缓存")
     @PostMapping("/refresh-cache")
     public Result<Void> refreshDictCache() {
         log.info("刷新字典缓存请求");

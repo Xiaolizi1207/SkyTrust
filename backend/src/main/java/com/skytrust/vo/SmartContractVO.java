@@ -1,7 +1,7 @@
 package com.skytrust.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -11,63 +11,63 @@ import java.time.LocalDateTime;
  * @author SkyTrust Team
  */
 @Data
-@ApiModel(description = "智能合约视图对象")
+@Schema(description = "智能合约视图对象")
 public class SmartContractVO {
 
-    @ApiModelProperty(value = "智能合约ID", example = "1")
+    @Schema(description = "智能合约ID", example = "1")
     private Long id;
 
-    @ApiModelProperty(value = "合约名称", example = "租赁合约V1")
+    @Schema(description = "合约名称", example = "租赁合约V1")
     private String contractName;
 
-    @ApiModelProperty(value = "合约地址（唯一）", example = "0x742d35Cc6634C0532925a3b844Bc9e")
+    @Schema(description = "合约地址（唯一）", example = "0x742d35Cc6634C0532925a3b844Bc9e")
     private String contractAddress;
 
-    @ApiModelProperty(value = "合约ABI（JSON格式）", example = "[{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}]}]")
+    @Schema(description = "合约ABI（JSON格式）", example = "[{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}]}]")
     private String contractAbi;
 
-    @ApiModelProperty(value = "合约字节码", example = "0x608060405234801561001057600080fd5b5060")
+    @Schema(description = "合约字节码", example = "0x608060405234801561001057600080fd5b5060")
     private String contractBytecode;
 
-    @ApiModelProperty(value = "合约类型（0-租赁合约，1-支付合约，2-保险合约，3-设备合约）", example = "0")
+    @Schema(description = "合约类型（0-租赁合约，1-支付合约，2-保险合约，3-设备合约）", example = "0")
     private Integer contractType;
 
-    @ApiModelProperty(value = "合约版本", example = "1.0.0")
+    @Schema(description = "合约版本", example = "1.0.0")
     private String version;
 
-    @ApiModelProperty(value = "部署交易哈希", example = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
+    @Schema(description = "部署交易哈希", example = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef")
     private String deployTxHash;
 
-    @ApiModelProperty(value = "部署者地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
+    @Schema(description = "部署者地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
     private String deployerAddress;
 
-    @ApiModelProperty(value = "部署网络ID（链ID）", example = "1")
+    @Schema(description = "部署网络ID（链ID）", example = "1")
     private Integer chainId;
 
-    @ApiModelProperty(value = "部署时间", example = "2023-10-01T10:00:00")
+    @Schema(description = "部署时间", example = "2023-10-01T10:00:00")
     private LocalDateTime deployTime;
 
-    @ApiModelProperty(value = "合约状态（0-未激活，1-已激活，2-已暂停，3-已终止）", example = "1")
+    @Schema(description = "合约状态（0-未激活，1-已激活，2-已暂停，3-已终止）", example = "1")
     private Integer contractStatus;
 
-    @ApiModelProperty(value = "是否可升级（0-否，1-是）", example = "true")
+    @Schema(description = "是否可升级（0-否，1-是）", example = "true")
     private Boolean upgradable;
 
-    @ApiModelProperty(value = "升级合约地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
+    @Schema(description = "升级合约地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
     private String upgradeAddress;
 
-    @ApiModelProperty(value = "合约拥有者地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
+    @Schema(description = "合约拥有者地址", example = "0x742d35Cc6634C0532925a3b844Bc9e")
     private String ownerAddress;
 
-    @ApiModelProperty(value = "合约描述", example = "用于无人机租赁的智能合约")
+    @Schema(description = "合约描述", example = "用于无人机租赁的智能合约")
     private String description;
 
-    @ApiModelProperty(value = "备注", example = "主网部署合约")
+    @Schema(description = "备注", example = "主网部署合约")
     private String remark;
 
-    @ApiModelProperty(value = "创建时间", example = "2023-10-01T10:00:00")
+    @Schema(description = "创建时间", example = "2023-10-01T10:00:00")
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新时间", example = "2023-10-01T10:00:00")
+    @Schema(description = "更新时间", example = "2023-10-01T10:00:00")
     private LocalDateTime updateTime;
 }

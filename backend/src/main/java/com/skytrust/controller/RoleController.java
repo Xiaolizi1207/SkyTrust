@@ -8,9 +8,9 @@ import com.skytrust.entity.Role;
 import com.skytrust.service.RoleService;
 import com.skytrust.service.RoleMenuService;
 import com.skytrust.vo.RoleVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "角色管理", description = "角色的增删改查、状态管理等接口")
+@Tag(name = "角色管理", description = "角色的增删改查、状态管理等接口")
 @Validated
 @RestController
 @RequestMapping("/api/roles")
@@ -41,7 +41,7 @@ public class RoleController {
     /**
      * 创建角色
      */
-    @ApiOperation(value = "创建角色")
+    @Operation(summary = "创建角色")
     @PostMapping
     public Result<RoleVO> createRole(@Valid @RequestBody RoleDTO roleDTO) {
         log.info("创建角色请求: roleCode={}, roleName={}", roleDTO.getRoleCode(), roleDTO.getRoleName());
@@ -72,10 +72,10 @@ public class RoleController {
     /**
      * 更新角色
      */
-    @ApiOperation(value = "更新角色")
+    @Operation(summary = "更新角色")
     @PutMapping("/{id}")
     public Result<RoleVO> updateRole(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long id,
+            @Parameter(description = "角色ID", required = true) @PathVariable Long id,
             @Valid @RequestBody RoleDTO roleDTO) {
         log.info("更新角色请求: id={}, roleCode={}", id, roleDTO.getRoleCode());
 
@@ -112,9 +112,9 @@ public class RoleController {
     /**
      * 删除角色（逻辑删除）
      */
-    @ApiOperation(value = "删除角色")
+    @Operation(summary = "删除角色")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteRole(@ApiParam(value = "角色ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteRole(@Parameter(description = "角色ID", required = true) @PathVariable Long id) {
         log.info("删除角色请求: id={}", id);
 
         try {
@@ -135,9 +135,9 @@ public class RoleController {
     /**
      * 批量删除角色
      */
-    @ApiOperation(value = "批量删除角色")
+    @Operation(summary = "批量删除角色")
     @DeleteMapping("/batch")
-    public Result<Void> batchDeleteRoles(@ApiParam(value = "角色ID列表", required = true) @RequestBody List<Long> ids) {
+    public Result<Void> batchDeleteRoles(@Parameter(description = "角色ID列表", required = true) @RequestBody List<Long> ids) {
         log.info("批量删除角色请求: ids={}", ids);
 
         try {
@@ -155,9 +155,9 @@ public class RoleController {
     /**
      * 根据ID获取角色详情
      */
-    @ApiOperation(value = "获取角色详情")
+    @Operation(summary = "获取角色详情")
     @GetMapping("/{id}")
-    public Result<RoleVO> getRoleById(@ApiParam(value = "角色ID", required = true) @PathVariable Long id) {
+    public Result<RoleVO> getRoleById(@Parameter(description = "角色ID", required = true) @PathVariable Long id) {
         log.info("获取角色详情请求: id={}", id);
 
         try {
@@ -177,9 +177,9 @@ public class RoleController {
     /**
      * 根据角色代码获取角色详情
      */
-    @ApiOperation(value = "根据角色代码获取角色详情")
+    @Operation(summary = "根据角色代码获取角色详情")
     @GetMapping("/code/{roleCode}")
-    public Result<RoleVO> getRoleByCode(@ApiParam(value = "角色代码", required = true) @PathVariable String roleCode) {
+    public Result<RoleVO> getRoleByCode(@Parameter(description = "角色代码", required = true) @PathVariable String roleCode) {
         log.info("根据角色代码获取角色详情请求: roleCode={}", roleCode);
 
         try {
@@ -199,15 +199,15 @@ public class RoleController {
     /**
      * 获取角色列表（分页）
      */
-    @ApiOperation(value = "获取角色列表（分页）")
+    @Operation(summary = "获取角色列表（分页）")
     @GetMapping
     public Result<IPage<RoleVO>> getRoleList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "角色代码（模糊查询）") @RequestParam(required = false) String roleCode,
-            @ApiParam(value = "角色名称（模糊查询）") @RequestParam(required = false) String roleName,
-            @ApiParam(value = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "排序字段") @RequestParam(required = false) String orderBy) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "角色代码（模糊查询）") @RequestParam(required = false) String roleCode,
+            @Parameter(description = "角色名称（模糊查询）") @RequestParam(required = false) String roleName,
+            @Parameter(description = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
+            @Parameter(description = "排序字段") @RequestParam(required = false) String orderBy) {
         log.info("获取角色列表请求: page={}, size={}, roleCode={}, roleName={}, status={}",
                 page, size, roleCode, roleName, status);
 
@@ -224,7 +224,7 @@ public class RoleController {
     /**
      * 获取所有启用的角色列表
      */
-    @ApiOperation(value = "获取所有启用的角色列表")
+    @Operation(summary = "获取所有启用的角色列表")
     @GetMapping("/enabled")
     public Result<List<RoleVO>> getAllEnabledRoles() {
         log.info("获取所有启用的角色列表请求");
@@ -244,11 +244,11 @@ public class RoleController {
     /**
      * 更新角色状态
      */
-    @ApiOperation(value = "更新角色状态")
+    @Operation(summary = "更新角色状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateRoleStatus(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "角色ID", required = true) @PathVariable Long id,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("更新角色状态请求: id={}, status={}", id, status);
 
         try {
@@ -269,11 +269,11 @@ public class RoleController {
     /**
      * 批量更新角色状态
      */
-    @ApiOperation(value = "批量更新角色状态")
+    @Operation(summary = "批量更新角色状态")
     @PutMapping("/batch/status")
     public Result<Void> batchUpdateRoleStatus(
-            @ApiParam(value = "角色ID列表", required = true) @RequestBody List<Long> ids,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "角色ID列表", required = true) @RequestBody List<Long> ids,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("批量更新角色状态请求: ids={}, status={}", ids, status);
 
         try {
@@ -291,10 +291,10 @@ public class RoleController {
     /**
      * 检查角色代码是否已存在
      */
-    @ApiOperation(value = "检查角色代码是否已存在")
+    @Operation(summary = "检查角色代码是否已存在")
     @GetMapping("/check-role-code")
     public Result<Boolean> checkRoleCodeExists(
-            @ApiParam(value = "角色代码", required = true) @RequestParam String roleCode) {
+            @Parameter(description = "角色代码", required = true) @RequestParam String roleCode) {
         log.info("检查角色代码是否已存在请求: roleCode={}", roleCode);
 
         try {
@@ -322,9 +322,9 @@ public class RoleController {
      * 获取角色关联的菜单ID列表
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "获取角色关联的菜单ID列表")
+    @Operation(summary = "获取角色关联的菜单ID列表")
     @GetMapping("/{roleId}/menus")
-    public Result<List<Long>> getMenuIdsByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<Long>> getMenuIdsByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("获取角色关联的菜单ID列表请求: roleId={}", roleId);
 
         try {
@@ -340,11 +340,11 @@ public class RoleController {
      * 批量分配菜单给角色
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "批量分配菜单给角色")
+    @Operation(summary = "批量分配菜单给角色")
     @PostMapping("/{roleId}/menus")
     public Result<Void> batchAssignMenusToRole(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long roleId,
-            @ApiParam(value = "菜单ID列表", required = true) @RequestBody List<Long> menuIds) {
+            @Parameter(description = "角色ID", required = true) @PathVariable Long roleId,
+            @Parameter(description = "菜单ID列表", required = true) @RequestBody List<Long> menuIds) {
         log.info("批量分配菜单给角色请求: roleId={}, menuIds={}", roleId, menuIds);
 
         try {
@@ -366,11 +366,11 @@ public class RoleController {
      * 移除角色的菜单
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "移除角色的菜单")
+    @Operation(summary = "移除角色的菜单")
     @DeleteMapping("/{roleId}/menus/{menuId}")
     public Result<Void> removeMenuFromRole(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long roleId,
-            @ApiParam(value = "菜单ID", required = true) @PathVariable Long menuId) {
+            @Parameter(description = "角色ID", required = true) @PathVariable Long roleId,
+            @Parameter(description = "菜单ID", required = true) @PathVariable Long menuId) {
         log.info("移除角色的菜单请求: roleId={}, menuId={}", roleId, menuId);
 
         try {
@@ -389,9 +389,9 @@ public class RoleController {
      * 移除角色的所有菜单
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "移除角色的所有菜单")
+    @Operation(summary = "移除角色的所有菜单")
     @DeleteMapping("/{roleId}/menus")
-    public Result<Void> removeAllMenusFromRole(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<Void> removeAllMenusFromRole(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("移除角色的所有菜单请求: roleId={}", roleId);
 
         try {
@@ -410,9 +410,9 @@ public class RoleController {
      * 获取角色的权限标识列表
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "获取角色的权限标识列表")
+    @Operation(summary = "获取角色的权限标识列表")
     @GetMapping("/{roleId}/permissions")
-    public Result<List<String>> getPermsByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<String>> getPermsByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("获取角色的权限标识列表请求: roleId={}", roleId);
 
         try {
@@ -428,11 +428,11 @@ public class RoleController {
      * 分配菜单给角色
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "分配菜单给角色")
+    @Operation(summary = "分配菜单给角色")
     @PostMapping("/{roleId}/menu/{menuId}")
     public Result<Void> assignMenuToRole(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long roleId,
-            @ApiParam(value = "菜单ID", required = true) @PathVariable Long menuId) {
+            @Parameter(description = "角色ID", required = true) @PathVariable Long roleId,
+            @Parameter(description = "菜单ID", required = true) @PathVariable Long menuId) {
         log.info("分配菜单给角色请求: roleId={}, menuId={}", roleId, menuId);
 
         try {
@@ -454,11 +454,11 @@ public class RoleController {
      * 检查角色是否拥有指定权限
      */
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "检查角色是否拥有指定权限")
+    @Operation(summary = "检查角色是否拥有指定权限")
     @GetMapping("/{roleId}/check-permission")
     public Result<Boolean> checkRolePermission(
-            @ApiParam(value = "角色ID", required = true) @PathVariable Long roleId,
-            @ApiParam(value = "权限标识", required = true) @RequestParam String perms) {
+            @Parameter(description = "角色ID", required = true) @PathVariable Long roleId,
+            @Parameter(description = "权限标识", required = true) @RequestParam String perms) {
         log.info("检查角色是否拥有指定权限请求: roleId={}, perms={}", roleId, perms);
 
         try {

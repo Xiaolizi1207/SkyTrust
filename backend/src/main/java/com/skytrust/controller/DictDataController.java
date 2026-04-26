@@ -7,9 +7,9 @@ import com.skytrust.dto.DictDataDTO;
 import com.skytrust.entity.DictData;
 import com.skytrust.service.DictDataService;
 import com.skytrust.vo.DictDataVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "字典数据管理", description = "字典数据的增删改查等接口")
+@Tag(name = "字典数据管理", description = "字典数据的增删改查等接口")
 @Validated
 @RestController
 @RequestMapping("/api/dict-datas")
@@ -38,7 +38,7 @@ public class DictDataController {
     /**
      * 创建字典数据
      */
-    @ApiOperation(value = "创建字典数据")
+    @Operation(summary = "创建字典数据")
     @PostMapping
     public Result<DictDataVO> createDictData(@Valid @RequestBody DictDataDTO dictDataDTO) {
         log.info("创建字典数据请求: dictLabel={}, dictValue={}, dictType={}",
@@ -70,10 +70,10 @@ public class DictDataController {
     /**
      * 更新字典数据
      */
-    @ApiOperation(value = "更新字典数据")
+    @Operation(summary = "更新字典数据")
     @PutMapping("/{id}")
     public Result<DictDataVO> updateDictData(
-            @ApiParam(value = "字典数据ID", required = true) @PathVariable Long id,
+            @Parameter(description = "字典数据ID", required = true) @PathVariable Long id,
             @Valid @RequestBody DictDataDTO dictDataDTO) {
         log.info("更新字典数据请求: id={}, dictLabel={}", id, dictDataDTO.getDictLabel());
 
@@ -110,9 +110,9 @@ public class DictDataController {
     /**
      * 删除字典数据（逻辑删除）
      */
-    @ApiOperation(value = "删除字典数据")
+    @Operation(summary = "删除字典数据")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteDictData(@ApiParam(value = "字典数据ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteDictData(@Parameter(description = "字典数据ID", required = true) @PathVariable Long id) {
         log.info("删除字典数据请求: id={}", id);
 
         try {
@@ -133,9 +133,9 @@ public class DictDataController {
     /**
      * 批量删除字典数据
      */
-    @ApiOperation(value = "批量删除字典数据")
+    @Operation(summary = "批量删除字典数据")
     @DeleteMapping("/batch")
-    public Result<Void> batchDeleteDictDatas(@ApiParam(value = "字典数据ID列表", required = true) @RequestBody List<Long> ids) {
+    public Result<Void> batchDeleteDictDatas(@Parameter(description = "字典数据ID列表", required = true) @RequestBody List<Long> ids) {
         log.info("批量删除字典数据请求: ids={}", ids);
 
         try {
@@ -153,9 +153,9 @@ public class DictDataController {
     /**
      * 根据ID获取字典数据详情
      */
-    @ApiOperation(value = "获取字典数据详情")
+    @Operation(summary = "获取字典数据详情")
     @GetMapping("/{id}")
-    public Result<DictDataVO> getDictDataById(@ApiParam(value = "字典数据ID", required = true) @PathVariable Long id) {
+    public Result<DictDataVO> getDictDataById(@Parameter(description = "字典数据ID", required = true) @PathVariable Long id) {
         log.info("获取字典数据详情请求: id={}", id);
 
         try {
@@ -175,9 +175,9 @@ public class DictDataController {
     /**
      * 根据字典类型编码获取字典数据列表
      */
-    @ApiOperation(value = "根据字典类型编码获取字典数据列表")
+    @Operation(summary = "根据字典类型编码获取字典数据列表")
     @GetMapping("/type/{dictType}")
-    public Result<List<DictDataVO>> getDictDataByType(@ApiParam(value = "字典类型编码", required = true) @PathVariable String dictType) {
+    public Result<List<DictDataVO>> getDictDataByType(@Parameter(description = "字典类型编码", required = true) @PathVariable String dictType) {
         log.info("根据字典类型编码获取字典数据列表请求: dictType={}", dictType);
 
         try {
@@ -195,9 +195,9 @@ public class DictDataController {
     /**
      * 根据字典类型编码获取启用的字典数据列表
      */
-    @ApiOperation(value = "根据字典类型编码获取启用的字典数据列表")
+    @Operation(summary = "根据字典类型编码获取启用的字典数据列表")
     @GetMapping("/type/{dictType}/enabled")
-    public Result<List<DictDataVO>> getEnabledDictDataByType(@ApiParam(value = "字典类型编码", required = true) @PathVariable String dictType) {
+    public Result<List<DictDataVO>> getEnabledDictDataByType(@Parameter(description = "字典类型编码", required = true) @PathVariable String dictType) {
         log.info("根据字典类型编码获取启用的字典数据列表请求: dictType={}", dictType);
 
         try {
@@ -215,16 +215,16 @@ public class DictDataController {
     /**
      * 获取字典数据列表（分页）
      */
-    @ApiOperation(value = "获取字典数据列表（分页）")
+    @Operation(summary = "获取字典数据列表（分页）")
     @GetMapping
     public Result<IPage<DictDataVO>> getDictDataList(
-            @ApiParam(value = "页码", defaultValue = "1") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小", defaultValue = "10") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "字典标签（模糊查询）") @RequestParam(required = false) String dictLabel,
-            @ApiParam(value = "字典值（模糊查询）") @RequestParam(required = false) String dictValue,
-            @ApiParam(value = "字典类型编码") @RequestParam(required = false) String dictType,
-            @ApiParam(value = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "排序字段") @RequestParam(required = false) String orderBy) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "字典标签（模糊查询）") @RequestParam(required = false) String dictLabel,
+            @Parameter(description = "字典值（模糊查询）") @RequestParam(required = false) String dictValue,
+            @Parameter(description = "字典类型编码") @RequestParam(required = false) String dictType,
+            @Parameter(description = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
+            @Parameter(description = "排序字段") @RequestParam(required = false) String orderBy) {
         log.info("获取字典数据列表请求: page={}, size={}, dictLabel={}, dictValue={}, dictType={}, status={}",
                 page, size, dictLabel, dictValue, dictType, status);
 
@@ -242,11 +242,11 @@ public class DictDataController {
     /**
      * 更新字典数据状态
      */
-    @ApiOperation(value = "更新字典数据状态")
+    @Operation(summary = "更新字典数据状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateDictDataStatus(
-            @ApiParam(value = "字典数据ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "字典数据ID", required = true) @PathVariable Long id,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("更新字典数据状态请求: id={}, status={}", id, status);
 
         try {
@@ -267,11 +267,11 @@ public class DictDataController {
     /**
      * 批量更新字典数据状态
      */
-    @ApiOperation(value = "批量更新字典数据状态")
+    @Operation(summary = "批量更新字典数据状态")
     @PutMapping("/batch/status")
     public Result<Void> batchUpdateDictDataStatus(
-            @ApiParam(value = "字典数据ID列表", required = true) @RequestBody List<Long> ids,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "字典数据ID列表", required = true) @RequestBody List<Long> ids,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("批量更新字典数据状态请求: ids={}, status={}", ids, status);
 
         try {
@@ -289,9 +289,9 @@ public class DictDataController {
     /**
      * 设置字典数据为默认
      */
-    @ApiOperation(value = "设置字典数据为默认")
+    @Operation(summary = "设置字典数据为默认")
     @PutMapping("/{id}/default")
-    public Result<Void> setDictDataAsDefault(@ApiParam(value = "字典数据ID", required = true) @PathVariable Long id) {
+    public Result<Void> setDictDataAsDefault(@Parameter(description = "字典数据ID", required = true) @PathVariable Long id) {
         log.info("设置字典数据为默认请求: id={}", id);
 
         try {
@@ -312,11 +312,11 @@ public class DictDataController {
     /**
      * 根据字典类型编码和字典值获取字典数据
      */
-    @ApiOperation(value = "根据字典类型编码和字典值获取字典数据")
+    @Operation(summary = "根据字典类型编码和字典值获取字典数据")
     @GetMapping("/type-value")
     public Result<DictDataVO> getDictDataByTypeAndValue(
-            @ApiParam(value = "字典类型编码", required = true) @RequestParam String dictType,
-            @ApiParam(value = "字典值", required = true) @RequestParam String dictValue) {
+            @Parameter(description = "字典类型编码", required = true) @RequestParam String dictType,
+            @Parameter(description = "字典值", required = true) @RequestParam String dictValue) {
         log.info("根据字典类型编码和字典值获取字典数据请求: dictType={}, dictValue={}", dictType, dictValue);
 
         try {
@@ -336,11 +336,11 @@ public class DictDataController {
     /**
      * 根据字典类型编码和字典标签获取字典数据
      */
-    @ApiOperation(value = "根据字典类型编码和字典标签获取字典数据")
+    @Operation(summary = "根据字典类型编码和字典标签获取字典数据")
     @GetMapping("/type-label")
     public Result<DictDataVO> getDictDataByTypeAndLabel(
-            @ApiParam(value = "字典类型编码", required = true) @RequestParam String dictType,
-            @ApiParam(value = "字典标签", required = true) @RequestParam String dictLabel) {
+            @Parameter(description = "字典类型编码", required = true) @RequestParam String dictType,
+            @Parameter(description = "字典标签", required = true) @RequestParam String dictLabel) {
         log.info("根据字典类型编码和字典标签获取字典数据请求: dictType={}, dictLabel={}", dictType, dictLabel);
 
         try {
@@ -360,12 +360,12 @@ public class DictDataController {
     /**
      * 检查字典标签和值在同一个字典类型下是否已存在
      */
-    @ApiOperation(value = "检查字典标签和值是否已存在")
+    @Operation(summary = "检查字典标签和值是否已存在")
     @GetMapping("/check-exists")
     public Result<Boolean> checkDictLabelExists(
-            @ApiParam(value = "字典标签", required = true) @RequestParam String dictLabel,
-            @ApiParam(value = "字典值", required = true) @RequestParam String dictValue,
-            @ApiParam(value = "字典类型编码", required = true) @RequestParam String dictType) {
+            @Parameter(description = "字典标签", required = true) @RequestParam String dictLabel,
+            @Parameter(description = "字典值", required = true) @RequestParam String dictValue,
+            @Parameter(description = "字典类型编码", required = true) @RequestParam String dictType) {
         log.info("检查字典标签和值是否已存在请求: dictLabel={}, dictValue={}, dictType={}",
                 dictLabel, dictValue, dictType);
 

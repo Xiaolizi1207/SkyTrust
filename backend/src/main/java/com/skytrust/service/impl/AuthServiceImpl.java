@@ -6,7 +6,6 @@ import com.skytrust.common.ResultCode;
 import com.skytrust.common.utils.SecurityUtil;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.entity.User;
-import com.skytrust.enums.UserRoleEnum;
 import com.skytrust.enums.UserStatusEnum;
 import com.skytrust.exception.BusinessException;
 import com.skytrust.mapper.UserMapper;
@@ -111,52 +110,36 @@ public class AuthServiceImpl implements AuthService {
     public Result<LoginVO> register(String username, String password, String phone, String email) {
         log.info("用户注册: {}", username);
 
-        // 1. 检查用户名是否已存在
-        if (userService.getUserByUsername(username) != null) {
-            return Result.error(ResultCode.DATA_DUPLICATE, "用户名已存在");
-        }
+        try {
+            // 1. 委托UserService创建用户（包含校验、重名检查、默认值设置、密码加密）
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setPhone(phone);
+            user.setEmail(email);
 
-        // 2. 检查手机号是否已存在
-        if (userService.getUserByPhone(phone) != null) {
-            return Result.error(ResultCode.DATA_DUPLICATE, "手机号已存在");
-        }
-
-        // 3. 检查邮箱是否已存在（如果提供了邮箱）
-        if (email != null && !email.trim().isEmpty()) {
-            if (userService.getUserByEmail(email) != null) {
-                return Result.error(ResultCode.DATA_DUPLICATE, "邮箱已存在");
+            Result<User> regResult = userService.register(user);
+            if (!regResult.isSuccess()) {
+                return Result.error(regResult.getCode(), regResult.getMessage());
             }
+            user = regResult.getData();
+
+            // 2. 生成令牌（自动登录）
+            String accessToken = generateAccessToken(user.getUsername());
+            String refreshToken = generateRefreshToken(user.getUsername());
+
+            LoginVO loginVO = new LoginVO();
+            loginVO.setAccessToken(accessToken);
+            loginVO.setRefreshToken(refreshToken);
+            loginVO.setExpiresIn(7200L);
+            loginVO.setUser(convertToVO(user));
+
+            log.info("用户注册成功: {}, ID: {}", user.getUsername(), user.getId());
+            return Result.success(loginVO, "注册成功");
+        } catch (BusinessException e) {
+            log.warn("用户注册失败: {}", e.getMessage());
+            return Result.error(e.getCode(), e.getMessage());
         }
-
-        // 4. 创建用户实体
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setPhone(phone);
-        user.setEmail(email);
-        user.setStatus(UserStatusEnum.ENABLED.getCode());
-        user.setRole(UserRoleEnum.USER.getCode());
-        user.setCreditScore(100); // 默认信用评分
-        user.setLastLoginTime(null);
-
-        // 5. 保存用户
-        boolean saved = userService.save(user);
-        if (!saved) {
-            return Result.error(ResultCode.SYSTEM_ERROR, "用户注册失败");
-        }
-
-        // 6. 生成令牌（自动登录）
-        String accessToken = generateAccessToken(user.getUsername());
-        String refreshToken = generateRefreshToken(user.getUsername());
-
-        LoginVO loginVO = new LoginVO();
-        loginVO.setAccessToken(accessToken);
-        loginVO.setRefreshToken(refreshToken);
-        loginVO.setExpiresIn(7200L);
-        loginVO.setUser(convertToVO(user));
-
-        log.info("用户注册成功: {}, ID: {}", user.getUsername(), user.getId());
-        return Result.success(loginVO, "注册成功");
     }
 
     @Override
@@ -164,8 +147,8 @@ public class AuthServiceImpl implements AuthService {
         log.info("刷新令牌");
 
         try {
-            // 1. 验证刷新令牌
-            if (!SecurityUtil.validateToken(refreshToken)) {
+            // 1. 验证刷新令牌（检查过期和type=refresh）
+            if (!SecurityUtil.validateRefreshToken(refreshToken)) {
                 return Result.error(ResultCode.TOKEN_INVALID, "刷新令牌无效");
             }
 

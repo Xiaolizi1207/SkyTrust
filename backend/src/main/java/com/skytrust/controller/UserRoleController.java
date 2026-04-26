@@ -7,9 +7,9 @@ import com.skytrust.service.RoleService;
 import com.skytrust.service.UserRoleService;
 import com.skytrust.service.UserService;
 import com.skytrust.vo.RoleVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "用户角色管理", description = "用户与角色关联关系的增删改查等接口")
+@Tag(name = "用户角色管理", description = "用户与角色关联关系的增删改查等接口")
 @Validated
 @RestController
 @RequestMapping("/api/user-roles")
@@ -42,7 +42,7 @@ public class UserRoleController {
     /**
      * 分配角色给用户
      */
-    @ApiOperation(value = "分配角色给用户")
+    @Operation(summary = "分配角色给用户")
     @PostMapping
     public Result<Void> assignRoleToUser(@Valid @RequestBody UserRoleDTO userRoleDTO) {
         log.info("分配角色给用户请求: userId={}, roleId={}", userRoleDTO.getUserId(), userRoleDTO.getRoleId());
@@ -65,11 +65,11 @@ public class UserRoleController {
     /**
      * 批量分配角色给用户
      */
-    @ApiOperation(value = "批量分配角色给用户")
+    @Operation(summary = "批量分配角色给用户")
     @PostMapping("/batch")
     public Result<Void> batchAssignRolesToUser(
-            @ApiParam(value = "用户ID", required = true) @RequestParam Long userId,
-            @ApiParam(value = "角色ID列表", required = true) @RequestBody List<Long> roleIds) {
+            @Parameter(description = "用户ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "角色ID列表", required = true) @RequestBody List<Long> roleIds) {
         log.info("批量分配角色给用户请求: userId={}, roleIds={}", userId, roleIds);
 
         try {
@@ -90,7 +90,7 @@ public class UserRoleController {
     /**
      * 移除用户的角色
      */
-    @ApiOperation(value = "移除用户的角色")
+    @Operation(summary = "移除用户的角色")
     @DeleteMapping
     public Result<Void> removeRoleFromUser(@Valid @RequestBody UserRoleDTO userRoleDTO) {
         log.info("移除用户的角色请求: userId={}, roleId={}", userRoleDTO.getUserId(), userRoleDTO.getRoleId());
@@ -110,9 +110,9 @@ public class UserRoleController {
     /**
      * 移除用户的所有角色
      */
-    @ApiOperation(value = "移除用户的所有角色")
+    @Operation(summary = "移除用户的所有角色")
     @DeleteMapping("/user/{userId}")
-    public Result<Void> removeAllRolesFromUser(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<Void> removeAllRolesFromUser(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("移除用户的所有角色请求: userId={}", userId);
 
         try {
@@ -130,9 +130,9 @@ public class UserRoleController {
     /**
      * 获取用户的角色ID列表
      */
-    @ApiOperation(value = "获取用户的角色ID列表")
+    @Operation(summary = "获取用户的角色ID列表")
     @GetMapping("/user/{userId}/role-ids")
-    public Result<List<Long>> getRoleIdsByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<Long>> getRoleIdsByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户的角色ID列表请求: userId={}", userId);
 
         try {
@@ -147,9 +147,9 @@ public class UserRoleController {
     /**
      * 获取用户的角色代码列表
      */
-    @ApiOperation(value = "获取用户的角色代码列表")
+    @Operation(summary = "获取用户的角色代码列表")
     @GetMapping("/user/{userId}/role-codes")
-    public Result<List<String>> getRoleCodesByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<String>> getRoleCodesByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户的角色代码列表请求: userId={}", userId);
 
         try {
@@ -164,9 +164,9 @@ public class UserRoleController {
     /**
      * 获取用户的角色详情列表
      */
-    @ApiOperation(value = "获取用户的角色详情列表")
+    @Operation(summary = "获取用户的角色详情列表")
     @GetMapping("/user/{userId}/roles")
-    public Result<List<RoleVO>> getRolesByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<RoleVO>> getRolesByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户的角色详情列表请求: userId={}", userId);
 
         try {
@@ -198,11 +198,11 @@ public class UserRoleController {
     /**
      * 检查用户是否拥有指定角色
      */
-    @ApiOperation(value = "检查用户是否拥有指定角色")
+    @Operation(summary = "检查用户是否拥有指定角色")
     @GetMapping("/check-role")
     public Result<Boolean> hasRole(
-            @ApiParam(value = "用户ID", required = true) @RequestParam Long userId,
-            @ApiParam(value = "角色代码", required = true) @RequestParam String roleCode) {
+            @Parameter(description = "用户ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "角色代码", required = true) @RequestParam String roleCode) {
         log.info("检查用户是否拥有指定角色请求: userId={}, roleCode={}", userId, roleCode);
 
         try {
@@ -217,11 +217,11 @@ public class UserRoleController {
     /**
      * 检查用户是否拥有任意指定角色
      */
-    @ApiOperation(value = "检查用户是否拥有任意指定角色")
+    @Operation(summary = "检查用户是否拥有任意指定角色")
     @PostMapping("/check-any-role")
     public Result<Boolean> hasAnyRole(
-            @ApiParam(value = "用户ID", required = true) @RequestParam Long userId,
-            @ApiParam(value = "角色代码列表", required = true) @RequestBody List<String> roleCodes) {
+            @Parameter(description = "用户ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "角色代码列表", required = true) @RequestBody List<String> roleCodes) {
         log.info("检查用户是否拥有任意指定角色请求: userId={}, roleCodes={}", userId, roleCodes);
 
         try {
@@ -236,9 +236,9 @@ public class UserRoleController {
     /**
      * 根据角色ID获取用户ID列表
      */
-    @ApiOperation(value = "根据角色ID获取用户ID列表")
+    @Operation(summary = "根据角色ID获取用户ID列表")
     @GetMapping("/role/{roleId}/user-ids")
-    public Result<List<Long>> getUserIdsByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<Long>> getUserIdsByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("根据角色ID获取用户ID列表请求: roleId={}", roleId);
 
         try {

@@ -7,9 +7,9 @@ import com.skytrust.dto.DictTypeDTO;
 import com.skytrust.entity.DictType;
 import com.skytrust.service.DictTypeService;
 import com.skytrust.vo.DictTypeVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "字典类型管理", description = "字典类型的增删改查等接口")
+@Tag(name = "字典类型管理", description = "字典类型的增删改查等接口")
 @Validated
 @RestController
 @RequestMapping("/api/dict-types")
@@ -38,7 +38,7 @@ public class DictTypeController {
     /**
      * 创建字典类型
      */
-    @ApiOperation(value = "创建字典类型")
+    @Operation(summary = "创建字典类型")
     @PostMapping
     public Result<DictTypeVO> createDictType(@Valid @RequestBody DictTypeDTO dictTypeDTO) {
         log.info("创建字典类型请求: typeCode={}, typeName={}", dictTypeDTO.getTypeCode(), dictTypeDTO.getTypeName());
@@ -69,10 +69,10 @@ public class DictTypeController {
     /**
      * 更新字典类型
      */
-    @ApiOperation(value = "更新字典类型")
+    @Operation(summary = "更新字典类型")
     @PutMapping("/{id}")
     public Result<DictTypeVO> updateDictType(
-            @ApiParam(value = "字典类型ID", required = true) @PathVariable Long id,
+            @Parameter(description = "字典类型ID", required = true) @PathVariable Long id,
             @Valid @RequestBody DictTypeDTO dictTypeDTO) {
         log.info("更新字典类型请求: id={}, typeCode={}", id, dictTypeDTO.getTypeCode());
 
@@ -109,9 +109,9 @@ public class DictTypeController {
     /**
      * 删除字典类型（逻辑删除）
      */
-    @ApiOperation(value = "删除字典类型")
+    @Operation(summary = "删除字典类型")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteDictType(@ApiParam(value = "字典类型ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteDictType(@Parameter(description = "字典类型ID", required = true) @PathVariable Long id) {
         log.info("删除字典类型请求: id={}", id);
 
         try {
@@ -132,9 +132,9 @@ public class DictTypeController {
     /**
      * 批量删除字典类型
      */
-    @ApiOperation(value = "批量删除字典类型")
+    @Operation(summary = "批量删除字典类型")
     @DeleteMapping("/batch")
-    public Result<Void> batchDeleteDictTypes(@ApiParam(value = "字典类型ID列表", required = true) @RequestBody List<Long> ids) {
+    public Result<Void> batchDeleteDictTypes(@Parameter(description = "字典类型ID列表", required = true) @RequestBody List<Long> ids) {
         log.info("批量删除字典类型请求: ids={}", ids);
 
         try {
@@ -152,9 +152,9 @@ public class DictTypeController {
     /**
      * 根据ID获取字典类型详情
      */
-    @ApiOperation(value = "获取字典类型详情")
+    @Operation(summary = "获取字典类型详情")
     @GetMapping("/{id}")
-    public Result<DictTypeVO> getDictTypeById(@ApiParam(value = "字典类型ID", required = true) @PathVariable Long id) {
+    public Result<DictTypeVO> getDictTypeById(@Parameter(description = "字典类型ID", required = true) @PathVariable Long id) {
         log.info("获取字典类型详情请求: id={}", id);
 
         try {
@@ -174,9 +174,9 @@ public class DictTypeController {
     /**
      * 根据类型编码获取字典类型详情
      */
-    @ApiOperation(value = "根据类型编码获取字典类型详情")
+    @Operation(summary = "根据类型编码获取字典类型详情")
     @GetMapping("/code/{typeCode}")
-    public Result<DictTypeVO> getDictTypeByCode(@ApiParam(value = "字典类型编码", required = true) @PathVariable String typeCode) {
+    public Result<DictTypeVO> getDictTypeByCode(@Parameter(description = "字典类型编码", required = true) @PathVariable String typeCode) {
         log.info("根据类型编码获取字典类型详情请求: typeCode={}", typeCode);
 
         try {
@@ -196,15 +196,15 @@ public class DictTypeController {
     /**
      * 获取字典类型列表（分页）
      */
-    @ApiOperation(value = "获取字典类型列表（分页）")
+    @Operation(summary = "获取字典类型列表（分页）")
     @GetMapping
     public Result<IPage<DictTypeVO>> getDictTypeList(
-            @ApiParam(value = "页码", defaultValue = "1") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小", defaultValue = "10") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "类型编码（模糊查询）") @RequestParam(required = false) String typeCode,
-            @ApiParam(value = "类型名称（模糊查询）") @RequestParam(required = false) String typeName,
-            @ApiParam(value = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "排序字段") @RequestParam(required = false) String orderBy) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "类型编码（模糊查询）") @RequestParam(required = false) String typeCode,
+            @Parameter(description = "类型名称（模糊查询）") @RequestParam(required = false) String typeName,
+            @Parameter(description = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
+            @Parameter(description = "排序字段") @RequestParam(required = false) String orderBy) {
         log.info("获取字典类型列表请求: page={}, size={}, typeCode={}, typeName={}, status={}",
                 page, size, typeCode, typeName, status);
 
@@ -221,7 +221,7 @@ public class DictTypeController {
     /**
      * 获取所有启用的字典类型列表
      */
-    @ApiOperation(value = "获取所有启用的字典类型列表")
+    @Operation(summary = "获取所有启用的字典类型列表")
     @GetMapping("/enabled")
     public Result<List<DictTypeVO>> getAllEnabledDictTypes() {
         log.info("获取所有启用的字典类型列表请求");
@@ -241,11 +241,11 @@ public class DictTypeController {
     /**
      * 更新字典类型状态
      */
-    @ApiOperation(value = "更新字典类型状态")
+    @Operation(summary = "更新字典类型状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateDictTypeStatus(
-            @ApiParam(value = "字典类型ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "字典类型ID", required = true) @PathVariable Long id,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("更新字典类型状态请求: id={}, status={}", id, status);
 
         try {
@@ -266,11 +266,11 @@ public class DictTypeController {
     /**
      * 批量更新字典类型状态
      */
-    @ApiOperation(value = "批量更新字典类型状态")
+    @Operation(summary = "批量更新字典类型状态")
     @PutMapping("/batch/status")
     public Result<Void> batchUpdateDictTypeStatus(
-            @ApiParam(value = "字典类型ID列表", required = true) @RequestBody List<Long> ids,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "字典类型ID列表", required = true) @RequestBody List<Long> ids,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("批量更新字典类型状态请求: ids={}, status={}", ids, status);
 
         try {
@@ -288,9 +288,9 @@ public class DictTypeController {
     /**
      * 检查类型编码是否已存在
      */
-    @ApiOperation(value = "检查类型编码是否已存在")
+    @Operation(summary = "检查类型编码是否已存在")
     @GetMapping("/check-type-code")
-    public Result<Boolean> checkTypeCodeExists(@ApiParam(value = "类型编码", required = true) @RequestParam String typeCode) {
+    public Result<Boolean> checkTypeCodeExists(@Parameter(description = "类型编码", required = true) @RequestParam String typeCode) {
         log.info("检查类型编码是否已存在请求: typeCode={}", typeCode);
 
         try {

@@ -7,9 +7,9 @@ import com.skytrust.service.MenuService;
 import com.skytrust.service.RoleMenuService;
 import com.skytrust.service.RoleService;
 import com.skytrust.vo.MenuVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "角色菜单管理", description = "角色与菜单关联关系的增删改查、权限管理等接口")
+@Tag(name = "角色菜单管理", description = "角色与菜单关联关系的增删改查、权限管理等接口")
 @Validated
 @RestController
 @RequestMapping("/api/role-menus")
@@ -40,7 +40,7 @@ public class RoleMenuController {
     /**
      * 分配菜单给角色
      */
-    @ApiOperation(value = "分配菜单给角色")
+    @Operation(summary = "分配菜单给角色")
     @PostMapping
     public Result<Void> assignMenuToRole(@Valid @RequestBody RoleMenuDTO roleMenuDTO) {
         log.info("分配菜单给角色请求: roleId={}, menuId={}", roleMenuDTO.getRoleId(), roleMenuDTO.getMenuId());
@@ -63,11 +63,11 @@ public class RoleMenuController {
     /**
      * 批量分配菜单给角色
      */
-    @ApiOperation(value = "批量分配菜单给角色")
+    @Operation(summary = "批量分配菜单给角色")
     @PostMapping("/batch")
     public Result<Void> batchAssignMenusToRole(
-            @ApiParam(value = "角色ID", required = true) @RequestParam Long roleId,
-            @ApiParam(value = "菜单ID列表", required = true) @RequestBody List<Long> menuIds) {
+            @Parameter(description = "角色ID", required = true) @RequestParam Long roleId,
+            @Parameter(description = "菜单ID列表", required = true) @RequestBody List<Long> menuIds) {
         log.info("批量分配菜单给角色请求: roleId={}, menuIds={}", roleId, menuIds);
 
         try {
@@ -88,7 +88,7 @@ public class RoleMenuController {
     /**
      * 移除角色的菜单
      */
-    @ApiOperation(value = "移除角色的菜单")
+    @Operation(summary = "移除角色的菜单")
     @DeleteMapping
     public Result<Void> removeMenuFromRole(@Valid @RequestBody RoleMenuDTO roleMenuDTO) {
         log.info("移除角色的菜单请求: roleId={}, menuId={}", roleMenuDTO.getRoleId(), roleMenuDTO.getMenuId());
@@ -108,9 +108,9 @@ public class RoleMenuController {
     /**
      * 移除角色的所有菜单
      */
-    @ApiOperation(value = "移除角色的所有菜单")
+    @Operation(summary = "移除角色的所有菜单")
     @DeleteMapping("/role/{roleId}")
-    public Result<Void> removeAllMenusFromRole(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<Void> removeAllMenusFromRole(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("移除角色的所有菜单请求: roleId={}", roleId);
 
         try {
@@ -128,9 +128,9 @@ public class RoleMenuController {
     /**
      * 获取角色的菜单ID列表
      */
-    @ApiOperation(value = "获取角色的菜单ID列表")
+    @Operation(summary = "获取角色的菜单ID列表")
     @GetMapping("/role/{roleId}/menu-ids")
-    public Result<List<Long>> getMenuIdsByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<Long>> getMenuIdsByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("获取角色的菜单ID列表请求: roleId={}", roleId);
 
         try {
@@ -145,9 +145,9 @@ public class RoleMenuController {
     /**
      * 获取角色的菜单详情列表
      */
-    @ApiOperation(value = "获取角色的菜单详情列表")
+    @Operation(summary = "获取角色的菜单详情列表")
     @GetMapping("/role/{roleId}/menus")
-    public Result<List<MenuVO>> getMenusByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<MenuVO>> getMenusByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("获取角色的菜单详情列表请求: roleId={}", roleId);
 
         try {
@@ -179,9 +179,9 @@ public class RoleMenuController {
     /**
      * 获取角色的权限标识列表
      */
-    @ApiOperation(value = "获取角色的权限标识列表")
+    @Operation(summary = "获取角色的权限标识列表")
     @GetMapping("/role/{roleId}/perms")
-    public Result<List<String>> getPermsByRoleId(@ApiParam(value = "角色ID", required = true) @PathVariable Long roleId) {
+    public Result<List<String>> getPermsByRoleId(@Parameter(description = "角色ID", required = true) @PathVariable Long roleId) {
         log.info("获取角色的权限标识列表请求: roleId={}", roleId);
 
         try {
@@ -196,9 +196,9 @@ public class RoleMenuController {
     /**
      * 获取用户有权限的菜单ID列表
      */
-    @ApiOperation(value = "获取用户有权限的菜单ID列表")
+    @Operation(summary = "获取用户有权限的菜单ID列表")
     @GetMapping("/user/{userId}/menu-ids")
-    public Result<List<Long>> getMenuIdsByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<Long>> getMenuIdsByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户有权限的菜单ID列表请求: userId={}", userId);
 
         try {
@@ -213,9 +213,9 @@ public class RoleMenuController {
     /**
      * 获取用户有权限的权限标识列表
      */
-    @ApiOperation(value = "获取用户有权限的权限标识列表")
+    @Operation(summary = "获取用户有权限的权限标识列表")
     @GetMapping("/user/{userId}/perms")
-    public Result<List<String>> getPermsByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<String>> getPermsByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户有权限的权限标识列表请求: userId={}", userId);
 
         try {
@@ -230,11 +230,11 @@ public class RoleMenuController {
     /**
      * 检查角色是否拥有指定权限
      */
-    @ApiOperation(value = "检查角色是否拥有指定权限")
+    @Operation(summary = "检查角色是否拥有指定权限")
     @GetMapping("/check-role-permission")
     public Result<Boolean> hasPermissionByRole(
-            @ApiParam(value = "角色ID", required = true) @RequestParam Long roleId,
-            @ApiParam(value = "权限标识", required = true) @RequestParam String perms) {
+            @Parameter(description = "角色ID", required = true) @RequestParam Long roleId,
+            @Parameter(description = "权限标识", required = true) @RequestParam String perms) {
         log.info("检查角色是否拥有指定权限请求: roleId={}, perms={}", roleId, perms);
 
         try {
@@ -249,11 +249,11 @@ public class RoleMenuController {
     /**
      * 检查用户是否拥有指定权限
      */
-    @ApiOperation(value = "检查用户是否拥有指定权限")
+    @Operation(summary = "检查用户是否拥有指定权限")
     @GetMapping("/check-user-permission")
     public Result<Boolean> hasPermissionByUser(
-            @ApiParam(value = "用户ID", required = true) @RequestParam Long userId,
-            @ApiParam(value = "权限标识", required = true) @RequestParam String perms) {
+            @Parameter(description = "用户ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "权限标识", required = true) @RequestParam String perms) {
         log.info("检查用户是否拥有指定权限请求: userId={}, perms={}", userId, perms);
 
         try {

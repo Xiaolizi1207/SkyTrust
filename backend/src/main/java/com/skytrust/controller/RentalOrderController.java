@@ -6,9 +6,9 @@ import com.skytrust.dto.RentalOrderDTO;
 import com.skytrust.entity.RentalOrder;
 import com.skytrust.service.RentalOrderService;
 import com.skytrust.vo.RentalOrderVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "租赁订单管理", description = "无人机租赁订单管理接口")
+@Tag(name = "租赁订单管理", description = "无人机租赁订单管理接口")
 @Validated
 @RestController
 @RequestMapping("/api/orders")
@@ -37,7 +37,7 @@ public class RentalOrderController {
     /**
      * 创建租赁订单
      */
-    @ApiOperation(value = "创建租赁订单")
+    @Operation(summary = "创建租赁订单")
     @PostMapping
     public Result<RentalOrderVO> createOrder(@Valid @RequestBody RentalOrderDTO orderDTO) {
         // 转换DTO为实体
@@ -57,10 +57,10 @@ public class RentalOrderController {
     /**
      * 更新订单信息
      */
-    @ApiOperation(value = "更新订单信息")
+    @Operation(summary = "更新订单信息")
     @PutMapping("/{id}")
     public Result<RentalOrderVO> updateOrder(
-            @ApiParam(value = "订单ID", required = true) @PathVariable Long id,
+            @Parameter(description = "订单ID", required = true) @PathVariable Long id,
             @Valid @RequestBody RentalOrderDTO orderDTO) {
         RentalOrder order = rentalOrderService.getById(id);
         if (order == null) {
@@ -82,9 +82,9 @@ public class RentalOrderController {
     /**
      * 获取订单详情
      */
-    @ApiOperation(value = "获取订单详情")
+    @Operation(summary = "获取订单详情")
     @GetMapping("/{id}")
-    public Result<RentalOrderVO> getOrderById(@ApiParam(value = "订单ID", required = true) @PathVariable Long id) {
+    public Result<RentalOrderVO> getOrderById(@Parameter(description = "订单ID", required = true) @PathVariable Long id) {
         RentalOrder order = rentalOrderService.getById(id);
         if (order == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "订单不存在");
@@ -95,9 +95,9 @@ public class RentalOrderController {
     /**
      * 删除订单（逻辑删除）
      */
-    @ApiOperation(value = "删除订单")
+    @Operation(summary = "删除订单")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteOrder(@ApiParam(value = "订单ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteOrder(@Parameter(description = "订单ID", required = true) @PathVariable Long id) {
         boolean deleted = rentalOrderService.logicRemoveById(id);
         if (!deleted) {
             return Result.error("订单删除失败");
@@ -108,15 +108,15 @@ public class RentalOrderController {
     /**
      * 分页查询订单列表
      */
-    @ApiOperation(value = "分页查询订单列表")
+    @Operation(summary = "分页查询订单列表")
     @GetMapping
     public Result<List<RentalOrderVO>> getOrderList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "用户ID") @RequestParam(required = false) Long userId,
-            @ApiParam(value = "设备ID") @RequestParam(required = false) Long deviceId,
-            @ApiParam(value = "订单状态") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "订单号") @RequestParam(required = false) String orderNo) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "用户ID") @RequestParam(required = false) Long userId,
+            @Parameter(description = "设备ID") @RequestParam(required = false) Long deviceId,
+            @Parameter(description = "订单状态") @RequestParam(required = false) Integer status,
+            @Parameter(description = "订单号") @RequestParam(required = false) String orderNo) {
 
         // 简化处理：使用Service的分页查询（这里先简单实现）
         List<RentalOrder> orders = rentalOrderService.list();
@@ -141,9 +141,9 @@ public class RentalOrderController {
     /**
      * 根据用户ID查询订单
      */
-    @ApiOperation(value = "根据用户ID查询订单")
+    @Operation(summary = "根据用户ID查询订单")
     @GetMapping("/user/{userId}")
-    public Result<List<RentalOrderVO>> getOrdersByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<RentalOrderVO>> getOrdersByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         List<RentalOrder> orders = rentalOrderService.getByUserId(userId);
         List<RentalOrderVO> orderVOs = orders.stream()
                 .map(this::convertToVO)
@@ -154,9 +154,9 @@ public class RentalOrderController {
     /**
      * 根据设备ID查询订单
      */
-    @ApiOperation(value = "根据设备ID查询订单")
+    @Operation(summary = "根据设备ID查询订单")
     @GetMapping("/device/{deviceId}")
-    public Result<List<RentalOrderVO>> getOrdersByDeviceId(@ApiParam(value = "设备ID", required = true) @PathVariable Long deviceId) {
+    public Result<List<RentalOrderVO>> getOrdersByDeviceId(@Parameter(description = "设备ID", required = true) @PathVariable Long deviceId) {
         List<RentalOrder> orders = rentalOrderService.getByDeviceId(deviceId);
         List<RentalOrderVO> orderVOs = orders.stream()
                 .map(this::convertToVO)
@@ -167,9 +167,9 @@ public class RentalOrderController {
     /**
      * 根据状态查询订单
      */
-    @ApiOperation(value = "根据状态查询订单")
+    @Operation(summary = "根据状态查询订单")
     @GetMapping("/status/{status}")
-    public Result<List<RentalOrderVO>> getOrdersByStatus(@ApiParam(value = "订单状态", required = true) @PathVariable Integer status) {
+    public Result<List<RentalOrderVO>> getOrdersByStatus(@Parameter(description = "订单状态", required = true) @PathVariable Integer status) {
         List<RentalOrder> orders = rentalOrderService.getByStatus(status);
         List<RentalOrderVO> orderVOs = orders.stream()
                 .map(this::convertToVO)
@@ -180,9 +180,9 @@ public class RentalOrderController {
     /**
      * 根据订单号查询订单
      */
-    @ApiOperation(value = "根据订单号查询订单")
+    @Operation(summary = "根据订单号查询订单")
     @GetMapping("/orderNo/{orderNo}")
-    public Result<RentalOrderVO> getOrderByOrderNo(@ApiParam(value = "订单号", required = true) @PathVariable String orderNo) {
+    public Result<RentalOrderVO> getOrderByOrderNo(@Parameter(description = "订单号", required = true) @PathVariable String orderNo) {
         RentalOrder order = rentalOrderService.getByOrderNo(orderNo);
         if (order == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "订单不存在");
@@ -193,11 +193,11 @@ public class RentalOrderController {
     /**
      * 取消订单
      */
-    @ApiOperation(value = "取消订单")
+    @Operation(summary = "取消订单")
     @PostMapping("/{id}/cancel")
     public Result<Void> cancelOrder(
-            @ApiParam(value = "订单ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "取消原因", required = true) @RequestParam String reason) {
+            @Parameter(description = "订单ID", required = true) @PathVariable Long id,
+            @Parameter(description = "取消原因", required = true) @RequestParam String reason) {
 
         boolean canceled = rentalOrderService.cancelOrder(id, reason);
         if (!canceled) {
@@ -209,9 +209,9 @@ public class RentalOrderController {
     /**
      * 完成订单
      */
-    @ApiOperation(value = "完成订单")
+    @Operation(summary = "完成订单")
     @PostMapping("/{id}/complete")
-    public Result<Void> completeOrder(@ApiParam(value = "订单ID", required = true) @PathVariable Long id) {
+    public Result<Void> completeOrder(@Parameter(description = "订单ID", required = true) @PathVariable Long id) {
         boolean completed = rentalOrderService.completeOrder(id);
         if (!completed) {
             return Result.error("订单完成失败");
@@ -222,7 +222,7 @@ public class RentalOrderController {
     /**
      * 生成订单号
      */
-    @ApiOperation(value = "生成订单号")
+    @Operation(summary = "生成订单号")
     @GetMapping("/generate-order-no")
     public Result<String> generateOrderNo() {
         String orderNo = rentalOrderService.generateOrderNo();

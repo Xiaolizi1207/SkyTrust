@@ -9,9 +9,9 @@ import com.skytrust.service.MenuService;
 import com.skytrust.service.RoleMenuService;
 import com.skytrust.vo.MenuVO;
 import com.skytrust.common.utils.SecurityUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @author SkyTrust Team
  */
 @Slf4j
-@Api(tags = "菜单管理", description = "菜单的增删改查、树形结构、权限管理等接口")
+@Tag(name = "菜单管理", description = "菜单的增删改查、树形结构、权限管理等接口")
 @Validated
 @RestController
 @RequestMapping("/api/menus")
@@ -41,7 +41,7 @@ public class MenuController {
     /**
      * 创建菜单
      */
-    @ApiOperation(value = "创建菜单")
+    @Operation(summary = "创建菜单")
     @PostMapping
     public Result<MenuVO> createMenu(@Valid @RequestBody MenuDTO menuDTO) {
         log.info("创建菜单请求: menuCode={}, menuName={}", menuDTO.getMenuCode(), menuDTO.getMenuName());
@@ -72,10 +72,10 @@ public class MenuController {
     /**
      * 更新菜单
      */
-    @ApiOperation(value = "更新菜单")
+    @Operation(summary = "更新菜单")
     @PutMapping("/{id}")
     public Result<MenuVO> updateMenu(
-            @ApiParam(value = "菜单ID", required = true) @PathVariable Long id,
+            @Parameter(description = "菜单ID", required = true) @PathVariable Long id,
             @Valid @RequestBody MenuDTO menuDTO) {
         log.info("更新菜单请求: id={}, menuCode={}", id, menuDTO.getMenuCode());
 
@@ -112,9 +112,9 @@ public class MenuController {
     /**
      * 删除菜单（逻辑删除）
      */
-    @ApiOperation(value = "删除菜单")
+    @Operation(summary = "删除菜单")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteMenu(@ApiParam(value = "菜单ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteMenu(@Parameter(description = "菜单ID", required = true) @PathVariable Long id) {
         log.info("删除菜单请求: id={}", id);
 
         try {
@@ -135,9 +135,9 @@ public class MenuController {
     /**
      * 批量删除菜单
      */
-    @ApiOperation(value = "批量删除菜单")
+    @Operation(summary = "批量删除菜单")
     @DeleteMapping("/batch")
-    public Result<Void> batchDeleteMenus(@ApiParam(value = "菜单ID列表", required = true) @RequestBody List<Long> ids) {
+    public Result<Void> batchDeleteMenus(@Parameter(description = "菜单ID列表", required = true) @RequestBody List<Long> ids) {
         log.info("批量删除菜单请求: ids={}", ids);
 
         try {
@@ -155,9 +155,9 @@ public class MenuController {
     /**
      * 根据ID获取菜单详情
      */
-    @ApiOperation(value = "获取菜单详情")
+    @Operation(summary = "获取菜单详情")
     @GetMapping("/{id}")
-    public Result<MenuVO> getMenuById(@ApiParam(value = "菜单ID", required = true) @PathVariable Long id) {
+    public Result<MenuVO> getMenuById(@Parameter(description = "菜单ID", required = true) @PathVariable Long id) {
         log.info("获取菜单详情请求: id={}", id);
 
         try {
@@ -177,9 +177,9 @@ public class MenuController {
     /**
      * 根据菜单代码获取菜单详情
      */
-    @ApiOperation(value = "根据菜单代码获取菜单详情")
+    @Operation(summary = "根据菜单代码获取菜单详情")
     @GetMapping("/code/{menuCode}")
-    public Result<MenuVO> getMenuByCode(@ApiParam(value = "菜单代码", required = true) @PathVariable String menuCode) {
+    public Result<MenuVO> getMenuByCode(@Parameter(description = "菜单代码", required = true) @PathVariable String menuCode) {
         log.info("根据菜单代码获取菜单详情请求: menuCode={}", menuCode);
 
         try {
@@ -199,17 +199,17 @@ public class MenuController {
     /**
      * 获取菜单列表（分页）
      */
-    @ApiOperation(value = "获取菜单列表（分页）")
+    @Operation(summary = "获取菜单列表（分页）")
     @GetMapping
     public Result<IPage<MenuVO>> getMenuList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "父菜单ID") @RequestParam(required = false) Long parentId,
-            @ApiParam(value = "菜单名称（模糊查询）") @RequestParam(required = false) String menuName,
-            @ApiParam(value = "菜单代码（模糊查询）") @RequestParam(required = false) String menuCode,
-            @ApiParam(value = "菜单类型（1-目录，2-菜单，3-按钮）") @RequestParam(required = false) Integer menuType,
-            @ApiParam(value = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "排序字段") @RequestParam(required = false) String orderBy) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "父菜单ID") @RequestParam(required = false) Long parentId,
+            @Parameter(description = "菜单名称（模糊查询）") @RequestParam(required = false) String menuName,
+            @Parameter(description = "菜单代码（模糊查询）") @RequestParam(required = false) String menuCode,
+            @Parameter(description = "菜单类型（1-目录，2-菜单，3-按钮）") @RequestParam(required = false) Integer menuType,
+            @Parameter(description = "状态（0-禁用，1-启用）") @RequestParam(required = false) Integer status,
+            @Parameter(description = "排序字段") @RequestParam(required = false) String orderBy) {
         log.info("获取菜单列表请求: page={}, size={}, parentId={}, menuName={}, menuCode={}, menuType={}, status={}",
                 page, size, parentId, menuName, menuCode, menuType, status);
 
@@ -226,7 +226,7 @@ public class MenuController {
     /**
      * 获取所有启用的菜单列表
      */
-    @ApiOperation(value = "获取所有启用的菜单列表")
+    @Operation(summary = "获取所有启用的菜单列表")
     @GetMapping("/enabled")
     public Result<List<MenuVO>> getAllEnabledMenus() {
         log.info("获取所有启用的菜单列表请求");
@@ -246,10 +246,10 @@ public class MenuController {
     /**
      * 获取菜单树形列表（根据父ID）
      */
-    @ApiOperation(value = "获取菜单树形列表")
+    @Operation(summary = "获取菜单树形列表")
     @GetMapping("/tree")
     public Result<List<MenuVO>> getMenuTreeByParentId(
-            @ApiParam(value = "父菜单ID（0表示根菜单）") @RequestParam(defaultValue = "0") Long parentId) {
+            @Parameter(description = "父菜单ID（0表示根菜单）") @RequestParam(defaultValue = "0") Long parentId) {
         log.info("获取菜单树形列表请求: parentId={}", parentId);
 
         try {
@@ -267,9 +267,9 @@ public class MenuController {
     /**
      * 获取用户有权限的菜单树形列表
      */
-    @ApiOperation(value = "获取用户有权限的菜单树形列表")
+    @Operation(summary = "获取用户有权限的菜单树形列表")
     @GetMapping("/user/{userId}/tree")
-    public Result<List<MenuVO>> getMenuTreeByUserId(@ApiParam(value = "用户ID", required = true) @PathVariable Long userId) {
+    public Result<List<MenuVO>> getMenuTreeByUserId(@Parameter(description = "用户ID", required = true) @PathVariable Long userId) {
         log.info("获取用户有权限的菜单树形列表请求: userId={}", userId);
 
         try {
@@ -287,11 +287,11 @@ public class MenuController {
     /**
      * 更新菜单状态
      */
-    @ApiOperation(value = "更新菜单状态")
+    @Operation(summary = "更新菜单状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateMenuStatus(
-            @ApiParam(value = "菜单ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "菜单ID", required = true) @PathVariable Long id,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("更新菜单状态请求: id={}, status={}", id, status);
 
         try {
@@ -312,11 +312,11 @@ public class MenuController {
     /**
      * 批量更新菜单状态
      */
-    @ApiOperation(value = "批量更新菜单状态")
+    @Operation(summary = "批量更新菜单状态")
     @PutMapping("/batch/status")
     public Result<Void> batchUpdateMenuStatus(
-            @ApiParam(value = "菜单ID列表", required = true) @RequestBody List<Long> ids,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "菜单ID列表", required = true) @RequestBody List<Long> ids,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         log.info("批量更新菜单状态请求: ids={}, status={}", ids, status);
 
         try {
@@ -334,10 +334,10 @@ public class MenuController {
     /**
      * 检查菜单代码是否已存在
      */
-    @ApiOperation(value = "检查菜单代码是否已存在")
+    @Operation(summary = "检查菜单代码是否已存在")
     @GetMapping("/check-menu-code")
     public Result<Boolean> checkMenuCodeExists(
-            @ApiParam(value = "菜单代码", required = true) @RequestParam String menuCode) {
+            @Parameter(description = "菜单代码", required = true) @RequestParam String menuCode) {
         log.info("检查菜单代码是否已存在请求: menuCode={}", menuCode);
 
         try {
@@ -352,10 +352,10 @@ public class MenuController {
     /**
      * 检查权限标识是否已存在
      */
-    @ApiOperation(value = "检查权限标识是否已存在")
+    @Operation(summary = "检查权限标识是否已存在")
     @GetMapping("/check-perms")
     public Result<Boolean> checkPermsExists(
-            @ApiParam(value = "权限标识", required = true) @RequestParam String perms) {
+            @Parameter(description = "权限标识", required = true) @RequestParam String perms) {
         log.info("检查权限标识是否已存在请求: perms={}", perms);
 
         try {
@@ -370,7 +370,7 @@ public class MenuController {
     /**
      * 获取当前登录用户有权限的菜单树形列表
      */
-    @ApiOperation(value = "获取当前用户有权限的菜单树形列表")
+    @Operation(summary = "获取当前用户有权限的菜单树形列表")
     @GetMapping("/current/tree")
     public Result<List<MenuVO>> getCurrentUserMenuTree() {
         log.info("获取当前用户有权限的菜单树形列表请求");
@@ -395,7 +395,7 @@ public class MenuController {
     /**
      * 获取当前登录用户的权限标识列表
      */
-    @ApiOperation(value = "获取当前用户的权限标识列表")
+    @Operation(summary = "获取当前用户的权限标识列表")
     @GetMapping("/current/permissions")
     public Result<List<String>> getCurrentUserPermissions() {
         log.info("获取当前用户的权限标识列表请求");
@@ -429,10 +429,10 @@ public class MenuController {
     /**
      * 检查当前用户是否拥有指定权限
      */
-    @ApiOperation(value = "检查当前用户是否拥有指定权限")
+    @Operation(summary = "检查当前用户是否拥有指定权限")
     @GetMapping("/current/check-permission")
     public Result<Boolean> checkCurrentUserPermission(
-            @ApiParam(value = "权限标识", required = true) @RequestParam String permission) {
+            @Parameter(description = "权限标识", required = true) @RequestParam String permission) {
         log.info("检查当前用户是否拥有指定权限请求: permission={}", permission);
 
         try {
@@ -447,10 +447,10 @@ public class MenuController {
     /**
      * 检查当前用户是否拥有任意指定权限
      */
-    @ApiOperation(value = "检查当前用户是否拥有任意指定权限")
+    @Operation(summary = "检查当前用户是否拥有任意指定权限")
     @PostMapping("/current/check-any-permission")
     public Result<Boolean> checkCurrentUserAnyPermission(
-            @ApiParam(value = "权限标识列表", required = true) @RequestBody List<String> permissions) {
+            @Parameter(description = "权限标识列表", required = true) @RequestBody List<String> permissions) {
         log.info("检查当前用户是否拥有任意指定权限请求: permissions={}", permissions);
 
         try {

@@ -12,9 +12,9 @@ import com.skytrust.enums.UserStatusEnum;
 import com.skytrust.service.UserService;
 import com.skytrust.vo.LoginVO;
 import com.skytrust.vo.UserVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +32,7 @@ import com.skytrust.service.TokenBlacklistService;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "用户管理", description = "用户注册、登录、信息管理等接口")
+@Tag(name = "用户管理", description = "用户注册、登录、信息管理等接口")
 @Validated
 @RestController
 @RequestMapping("/api/users")
@@ -49,7 +49,7 @@ public class UserController {
     /**
      * 获取当前用户信息
      */
-    @ApiOperation(value = "获取当前用户信息")
+    @Operation(summary = "获取当前用户信息")
     @GetMapping("/me")
     public Result<UserVO> getCurrentUser() {
         // 从Security上下文获取当前用户名
@@ -70,10 +70,10 @@ public class UserController {
     /**
      * 更新用户信息
      */
-    @ApiOperation(value = "更新用户信息")
+    @Operation(summary = "更新用户信息")
     @PutMapping("/{id}")
     public Result<UserVO> updateUser(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
             @Valid @RequestBody UserDTO userDTO) {
         // 权限检查：用户只能更新自己的信息，管理员可以更新任何用户
         String currentUsername = SecurityUtil.getCurrentUsername();
@@ -109,17 +109,17 @@ public class UserController {
     /**
      * 获取用户列表（分页）
      */
-    @ApiOperation(value = "获取用户列表（分页）")
+    @Operation(summary = "获取用户列表（分页）")
     @GetMapping
     public Result<IPage<UserVO>> getUserList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "用户名（模糊查询）") @RequestParam(required = false) String username,
-            @ApiParam(value = "手机号（模糊查询）") @RequestParam(required = false) String phone,
-            @ApiParam(value = "真实姓名（模糊查询）") @RequestParam(required = false) String realName,
-            @ApiParam(value = "角色") @RequestParam(required = false) String role,
-            @ApiParam(value = "状态") @RequestParam(required = false) Integer status,
-            @ApiParam(value = "排序字段") @RequestParam(required = false) String orderBy) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "用户名（模糊查询）") @RequestParam(required = false) String username,
+            @Parameter(description = "手机号（模糊查询）") @RequestParam(required = false) String phone,
+            @Parameter(description = "真实姓名（模糊查询）") @RequestParam(required = false) String realName,
+            @Parameter(description = "角色") @RequestParam(required = false) String role,
+            @Parameter(description = "状态") @RequestParam(required = false) Integer status,
+            @Parameter(description = "排序字段") @RequestParam(required = false) String orderBy) {
         // 权限检查：只允许管理员访问用户列表
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -137,9 +137,9 @@ public class UserController {
     /**
      * 根据ID获取用户信息
      */
-    @ApiOperation(value = "根据ID获取用户信息")
+    @Operation(summary = "根据ID获取用户信息")
     @GetMapping("/{id}")
-    public Result<UserVO> getUserById(@ApiParam(value = "用户ID", required = true) @PathVariable Long id) {
+    public Result<UserVO> getUserById(@Parameter(description = "用户ID", required = true) @PathVariable Long id) {
         // 权限检查：用户只能查看自己的信息，管理员可以查看任何用户
         String currentUsername = SecurityUtil.getCurrentUsername();
         User currentUser = userService.getUserByUsername(currentUsername);
@@ -160,9 +160,9 @@ public class UserController {
     /**
      * 删除用户（逻辑删除）
      */
-    @ApiOperation(value = "删除用户")
+    @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteUser(@ApiParam(value = "用户ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteUser(@Parameter(description = "用户ID", required = true) @PathVariable Long id) {
         // 权限检查：只允许管理员删除用户
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -178,10 +178,10 @@ public class UserController {
     /**
      * 修改密码（用户自己）
      */
-    @ApiOperation(value = "修改密码")
+    @Operation(summary = "修改密码")
     @PutMapping("/{id}/password")
     public Result<Void> updatePassword(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
             @Valid @RequestBody PasswordUpdateDTO passwordUpdateDTO) {
         // 权限检查：用户只能修改自己的密码，管理员可以修改任何用户的密码
         String currentUsername = SecurityUtil.getCurrentUsername();
@@ -204,11 +204,11 @@ public class UserController {
     /**
      * 重置密码（管理员操作）
      */
-    @ApiOperation(value = "重置密码（管理员操作）")
+    @Operation(summary = "重置密码（管理员操作）")
     @PutMapping("/{id}/password/reset")
     public Result<Void> resetPassword(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "新密码", required = true) @RequestParam String newPassword) {
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "新密码", required = true) @RequestParam String newPassword) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -224,11 +224,11 @@ public class UserController {
     /**
      * 更新用户状态（管理员操作）
      */
-    @ApiOperation(value = "更新用户状态")
+    @Operation(summary = "更新用户状态")
     @PutMapping("/{id}/status")
     public Result<Void> updateStatus(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -244,11 +244,11 @@ public class UserController {
     /**
      * 更新用户角色（管理员操作）
      */
-    @ApiOperation(value = "更新用户角色")
+    @Operation(summary = "更新用户角色")
     @PutMapping("/{id}/role")
     public Result<Void> updateRole(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "角色（admin-管理员，user-普通用户，pilot-飞行员）", required = true) @RequestParam String role) {
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "角色（admin-管理员，user-普通用户，pilot-飞行员）", required = true) @RequestParam String role) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -264,11 +264,11 @@ public class UserController {
     /**
      * 更新用户信用评分（管理员操作）
      */
-    @ApiOperation(value = "更新用户信用评分")
+    @Operation(summary = "更新用户信用评分")
     @PutMapping("/{id}/credit-score")
     public Result<Void> updateCreditScore(
-            @ApiParam(value = "用户ID", required = true) @PathVariable Long id,
-            @ApiParam(value = "信用评分（0-100）", required = true) @RequestParam Integer creditScore) {
+            @Parameter(description = "用户ID", required = true) @PathVariable Long id,
+            @Parameter(description = "信用评分（0-100）", required = true) @RequestParam Integer creditScore) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -284,9 +284,9 @@ public class UserController {
     /**
      * 强制下线用户（管理员操作）
      */
-    @ApiOperation(value = "强制下线用户")
+    @Operation(summary = "强制下线用户")
     @PostMapping("/{id}/force-logout")
-    public Result<Void> forceLogout(@ApiParam(value = "用户ID", required = true) @PathVariable Long id) {
+    public Result<Void> forceLogout(@Parameter(description = "用户ID", required = true) @PathVariable Long id) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -304,11 +304,11 @@ public class UserController {
     /**
      * 批量更新用户状态（管理员操作）
      */
-    @ApiOperation(value = "批量更新用户状态")
+    @Operation(summary = "批量更新用户状态")
     @PutMapping("/batch/status")
     public Result<Void> batchUpdateStatus(
-            @ApiParam(value = "用户ID列表", required = true) @RequestBody List<Long> userIds,
-            @ApiParam(value = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
+            @Parameter(description = "用户ID列表", required = true) @RequestBody List<Long> userIds,
+            @Parameter(description = "状态（0-禁用，1-启用）", required = true) @RequestParam Integer status) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");
@@ -324,11 +324,11 @@ public class UserController {
     /**
      * 批量更新用户角色（管理员操作）
      */
-    @ApiOperation(value = "批量更新用户角色")
+    @Operation(summary = "批量更新用户角色")
     @PutMapping("/batch/role")
     public Result<Void> batchUpdateRole(
-            @ApiParam(value = "用户ID列表", required = true) @RequestBody List<Long> userIds,
-            @ApiParam(value = "角色（admin-管理员，user-普通用户，pilot-飞行员）", required = true) @RequestParam String role) {
+            @Parameter(description = "用户ID列表", required = true) @RequestBody List<Long> userIds,
+            @Parameter(description = "角色（admin-管理员，user-普通用户，pilot-飞行员）", required = true) @RequestParam String role) {
         // 权限检查：只允许管理员操作
         if (!SecurityUtil.isAdmin()) {
             return Result.error(ResultCode.FORBIDDEN, "权限不足");

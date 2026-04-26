@@ -23,14 +23,24 @@ import java.util.function.Function;
  */
 public class SecurityUtil {
 
-    private static final String JWT_SECRET = "skytrust-secret-key-2026-blockchain-drone-rental-platform";
-    private static final long JWT_EXPIRATION = 2 * 60 * 60 * 1000L; // 2小时
-    private static final long JWT_REFRESH_EXPIRATION = 7 * 24 * 60 * 60 * 1000L; // 7天
+    private static String jwtSecret = "skytrust-secret-key-2026-blockchain-drone-rental-platform";
+    private static long jwtExpiration = 2 * 60 * 60 * 1000L; // 2小时
+    private static long jwtRefreshExpiration = 7 * 24 * 60 * 60 * 1000L; // 7天
 
-    private static final SecretKey JWT_KEY = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
+    private static SecretKey jwtKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
 
     private SecurityUtil() {
         // 工具类，防止实例化
+    }
+
+    /**
+     * 初始化JWT配置（启动时由JwtConfig调用，从application.yml加载）
+     */
+    public static void init(String secret, long expirationMs, long refreshExpirationMs) {
+        jwtSecret = secret;
+        jwtExpiration = expirationMs;
+        jwtRefreshExpiration = refreshExpirationMs;
+        jwtKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
     // ==================== JWT相关方法 ====================
@@ -44,7 +54,7 @@ public class SecurityUtil {
     public static String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
-        return createToken(claims, username, JWT_EXPIRATION);
+        return createToken(claims, username, jwtExpiration);
     }
 
     /**
@@ -59,7 +69,7 @@ public class SecurityUtil {
             claims = new HashMap<>();
         }
         claims.put("username", username);
-        return createToken(claims, username, JWT_EXPIRATION);
+        return createToken(claims, username, jwtExpiration);
     }
 
     /**
@@ -72,7 +82,7 @@ public class SecurityUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("type", "refresh");
-        return createToken(claims, username, JWT_REFRESH_EXPIRATION);
+        return createToken(claims, username, jwtRefreshExpiration);
     }
 
     /**
@@ -84,7 +94,7 @@ public class SecurityUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(JWT_KEY)
+                .signWith(jwtKey)
                 .compact();
     }
 
@@ -139,7 +149,7 @@ public class SecurityUtil {
      */
     public static Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(JWT_KEY)
+                .setSigningKey(jwtKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();

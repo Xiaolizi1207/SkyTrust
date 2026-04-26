@@ -6,9 +6,9 @@ import com.skytrust.dto.InsuranceDTO;
 import com.skytrust.entity.Insurance;
 import com.skytrust.service.InsuranceService;
 import com.skytrust.vo.InsuranceVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  *
  * @author SkyTrust Team
  */
-@Api(tags = "保险管理", description = "保险记录管理接口")
+@Tag(name = "保险管理", description = "保险记录管理接口")
 @Validated
 @RestController
 @RequestMapping("/api/insurances")
@@ -37,7 +37,7 @@ public class InsuranceController {
     /**
      * 创建保险记录
      */
-    @ApiOperation(value = "创建保险记录")
+    @Operation(summary = "创建保险记录")
     @PostMapping
     public Result<InsuranceVO> createInsurance(@Valid @RequestBody InsuranceDTO insuranceDTO) {
         // 转换DTO为实体
@@ -57,10 +57,10 @@ public class InsuranceController {
     /**
      * 更新保险记录信息
      */
-    @ApiOperation(value = "更新保险记录信息")
+    @Operation(summary = "更新保险记录信息")
     @PutMapping("/{id}")
     public Result<InsuranceVO> updateInsurance(
-            @ApiParam(value = "保险记录ID", required = true) @PathVariable Long id,
+            @Parameter(description = "保险记录ID", required = true) @PathVariable Long id,
             @Valid @RequestBody InsuranceDTO insuranceDTO) {
         Insurance insurance = insuranceService.getById(id);
         if (insurance == null) {
@@ -82,9 +82,9 @@ public class InsuranceController {
     /**
      * 获取保险记录详情
      */
-    @ApiOperation(value = "获取保险记录详情")
+    @Operation(summary = "获取保险记录详情")
     @GetMapping("/{id}")
-    public Result<InsuranceVO> getInsuranceById(@ApiParam(value = "保险记录ID", required = true) @PathVariable Long id) {
+    public Result<InsuranceVO> getInsuranceById(@Parameter(description = "保险记录ID", required = true) @PathVariable Long id) {
         Insurance insurance = insuranceService.getById(id);
         if (insurance == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "保险记录不存在");
@@ -95,9 +95,9 @@ public class InsuranceController {
     /**
      * 删除保险记录（逻辑删除）
      */
-    @ApiOperation(value = "删除保险记录")
+    @Operation(summary = "删除保险记录")
     @DeleteMapping("/{id}")
-    public Result<Void> deleteInsurance(@ApiParam(value = "保险记录ID", required = true) @PathVariable Long id) {
+    public Result<Void> deleteInsurance(@Parameter(description = "保险记录ID", required = true) @PathVariable Long id) {
         boolean deleted = insuranceService.logicRemoveById(id);
         if (!deleted) {
             return Result.error("保险记录删除失败");
@@ -108,16 +108,16 @@ public class InsuranceController {
     /**
      * 分页查询保险记录列表
      */
-    @ApiOperation(value = "分页查询保险记录列表")
+    @Operation(summary = "分页查询保险记录列表")
     @GetMapping
     public Result<List<InsuranceVO>> getInsuranceList(
-            @ApiParam(value = "页码") @RequestParam(defaultValue = "1") Integer page,
-            @ApiParam(value = "每页大小") @RequestParam(defaultValue = "10") Integer size,
-            @ApiParam(value = "用户ID") @RequestParam(required = false) Long userId,
-            @ApiParam(value = "订单ID") @RequestParam(required = false) Long orderId,
-            @ApiParam(value = "设备ID") @RequestParam(required = false) Long deviceId,
-            @ApiParam(value = "保险类型") @RequestParam(required = false) Integer insuranceType,
-            @ApiParam(value = "保险状态") @RequestParam(required = false) Integer insuranceStatus) {
+            @Parameter(description = "页码") @RequestParam(defaultValue = "1") Integer page,
+            @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
+            @Parameter(description = "用户ID") @RequestParam(required = false) Long userId,
+            @Parameter(description = "订单ID") @RequestParam(required = false) Long orderId,
+            @Parameter(description = "设备ID") @RequestParam(required = false) Long deviceId,
+            @Parameter(description = "保险类型") @RequestParam(required = false) Integer insuranceType,
+            @Parameter(description = "保险状态") @RequestParam(required = false) Integer insuranceStatus) {
 
         // 简化处理：使用Service的list方法
         List<Insurance> insurances = insuranceService.list();
@@ -143,9 +143,9 @@ public class InsuranceController {
     /**
      * 根据订单ID查询保险记录
      */
-    @ApiOperation(value = "根据订单ID查询保险记录")
+    @Operation(summary = "根据订单ID查询保险记录")
     @GetMapping("/order/{orderId}")
-    public Result<InsuranceVO> getInsuranceByOrderId(@ApiParam(value = "订单ID", required = true) @PathVariable Long orderId) {
+    public Result<InsuranceVO> getInsuranceByOrderId(@Parameter(description = "订单ID", required = true) @PathVariable Long orderId) {
         Insurance insurance = insuranceService.getByOrderId(orderId);
         if (insurance == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "保险记录不存在");
@@ -156,9 +156,9 @@ public class InsuranceController {
     /**
      * 根据保单号查询保险记录
      */
-    @ApiOperation(value = "根据保单号查询保险记录")
+    @Operation(summary = "根据保单号查询保险记录")
     @GetMapping("/policy/{policyNo}")
-    public Result<InsuranceVO> getInsuranceByPolicyNo(@ApiParam(value = "保单号", required = true) @PathVariable String policyNo) {
+    public Result<InsuranceVO> getInsuranceByPolicyNo(@Parameter(description = "保单号", required = true) @PathVariable String policyNo) {
         Insurance insurance = insuranceService.getByPolicyNo(policyNo);
         if (insurance == null) {
             return Result.error(ResultCode.DATA_NOT_EXIST.getCode(), "保险记录不存在");

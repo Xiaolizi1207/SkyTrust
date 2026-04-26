@@ -55,6 +55,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 // 验证令牌是否有效
                 if (SecurityUtil.validateToken(token)) {
+                    // 检查令牌类型是否为access（防止refresh token被滥用）
+                    String tokenType = SecurityUtil.extractType(token);
+                    if (!"access".equals(tokenType)) {
+                        log.debug("JWT令牌类型不是access，拒绝认证: {}", tokenType);
+                        filterChain.doFilter(request, response);
+                        return;
+                    }
+
                     // 检查令牌是否在黑名单中
                     if (tokenBlacklistService.isBlacklisted(token)) {
                         log.debug("JWT令牌已被加入黑名单: {}", token.substring(0, Math.min(token.length(), 20)) + "...");
@@ -91,14 +99,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        // 不需要JWT认证的路径（适配Swagger2/Knife4j）
+        // 不需要JWT认证的路径（适配SpringDoc/Knife4j）
         return path.startsWith("/api/auth/login") ||
                 path.startsWith("/api/auth/register") ||
                 path.startsWith("/api/auth/refresh") ||
                 path.startsWith("/swagger-ui") ||
-                path.startsWith("/v2/api-docs") ||
+                path.startsWith("/v3/api-docs") ||
                 path.startsWith("/doc.html") ||
-                path.startsWith("/webjars") ||
                 path.startsWith("/favicon.ico");
     }
 }

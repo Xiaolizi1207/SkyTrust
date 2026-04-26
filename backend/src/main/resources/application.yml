@@ -1,8 +1,6 @@
 # SkyTrust无人机共享租赁区块链平台 - 主配置文件
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+# SpringDoc OpenAPI 3（无需手动配置路径匹配策略）
 
   application:
     name: skytrust-platform
@@ -81,10 +79,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 
-# 关闭 Swagger 启动，彻底解决空指针
-springfox:
-  documentation:
-    auto-startup: false
+# SpringDoc OpenAPI 3 文档配置（自动集成，无需额外设置）
 
 # 服务器配置
 server:
@@ -143,6 +138,7 @@ skytrust:
   jwt:
     secret: skytrust-secret-key-change-in-production
     expiration: 7200
+    refresh-expiration: 604800
     header: Authorization
     prefix: Bearer
 
