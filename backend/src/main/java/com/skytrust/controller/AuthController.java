@@ -1,7 +1,6 @@
 package com.skytrust.controller;
 
 import com.skytrust.common.Result;
-import com.skytrust.common.utils.CaptchaUtil;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.RefreshTokenDTO;
 import com.skytrust.dto.RegisterDTO;
@@ -12,13 +11,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 认证控制器
@@ -34,7 +30,6 @@ import java.util.concurrent.TimeUnit;
 public class AuthController {
 
     private final AuthService authService;
-    private final StringRedisTemplate stringRedisTemplate;
 
     /**
      * 获取图形验证码
@@ -42,20 +37,7 @@ public class AuthController {
     @Operation(summary = "获取图形验证码")
     @GetMapping("/captcha")
     public Result<CaptchaVO> getCaptcha() {
-        // 生成验证码文本（4位字符，排除易混淆的0/O/1/I等）
-        String captchaText = CaptchaUtil.generateText(4);
-        // 生成唯一标识
-        String captchaKey = UUID.randomUUID().toString().replace("-", "");
-        // 生成Base64图片
-        CaptchaUtil.CaptchaResult captchaResult = CaptchaUtil.generate(captchaText, 130, 40);
-        // 存入Redis，5分钟有效
-        stringRedisTemplate.opsForValue().set(
-                "captcha:" + captchaKey,
-                captchaText,
-                5,
-                TimeUnit.MINUTES
-        );
-        return Result.success(new CaptchaVO(captchaKey, captchaResult.getImage()));
+        return authService.getCaptcha();
     }
 
     /**
@@ -63,8 +45,8 @@ public class AuthController {
      */
     @Operation(summary = "用户登录")
     @PostMapping("/login")
-    public Result<LoginVO> login(@Valid @RequestBody LoginDTO loginDTO) {
-        return authService.login(loginDTO);
+    public Result<LoginVO> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+        return authService.login(loginDTO, request);
     }
 
     /**

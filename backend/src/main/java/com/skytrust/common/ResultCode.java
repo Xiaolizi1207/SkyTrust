@@ -109,6 +109,11 @@ public enum ResultCode {
     PASSWORD_ERROR(1007, "密码错误"),
 
     /**
+     * 账户已被锁定
+     */
+    USER_LOCKED(1013, "账户已被锁定，请15分钟后再试"),
+
+    /**
      * 设备不存在
      */
     DEVICE_NOT_EXIST(1008, "设备不存在"),
