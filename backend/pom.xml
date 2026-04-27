@@ -32,8 +32,7 @@
         <jjwt.version>0.12.5</jjwt.version>
         <swagger.version>4.5.0</swagger.version>
         <lombok.version>1.18.36</lombok.version>
-        <redisson.version>3.23.5</redisson.version>
-        <minio.version>8.5.9</minio.version>
+<minio.version>8.5.9</minio.version>
         <web3j.version>4.10.2</web3j.version>
         <mqtt.version>1.2.5</mqtt.version>
     </properties>
@@ -87,14 +86,7 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
 
-        <!-- 缓存 -->
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>${redisson.version}</version>
-        </dependency>
-
-        <!-- 工具类 -->
+<!-- 工具类 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

@@ -38,6 +38,15 @@ export interface UserInfo {
   updateTime?: string
 }
 
+/** 注册请求参数 */
+export interface RegisterParams {
+  username: string
+  password: string
+  confirmPassword: string
+  phone: string
+  email?: string
+}
+
 /** 验证码响应 */
 export interface CaptchaResult {
   captchaKey: string

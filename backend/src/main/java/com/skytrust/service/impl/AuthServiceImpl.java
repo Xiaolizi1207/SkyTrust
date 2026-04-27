@@ -63,20 +63,25 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Result<CaptchaVO> getCaptcha() {
-        // 生成验证码文本（4位字符，排除易混淆的0/O/1/I等）
-        String captchaText = CaptchaUtil.generateText(4);
-        // 生成唯一标识
-        String captchaKey = UUID.randomUUID().toString().replace("-", "");
-        // 生成Base64图片
-        CaptchaUtil.CaptchaResult captchaResult = CaptchaUtil.generate(captchaText, 130, 40);
-        // 存入Redis，5分钟有效
-        stringRedisTemplate.opsForValue().set(
-                "captcha:" + captchaKey,
-                captchaText,
-                5,
-                TimeUnit.MINUTES
-        );
-        return Result.success(new CaptchaVO(captchaKey, captchaResult.getImage()));
+        try {
+            // 生成验证码文本（4位字符，排除易混淆的0/O/1/I等）
+            String captchaText = CaptchaUtil.generateText(4);
+            // 生成唯一标识
+            String captchaKey = UUID.randomUUID().toString().replace("-", "");
+            // 生成Base64图片
+            CaptchaUtil.CaptchaResult captchaResult = CaptchaUtil.generate(captchaText, 130, 40);
+            // 存入Redis，5分钟有效
+            stringRedisTemplate.opsForValue().set(
+                    "captcha:" + captchaKey,
+                    captchaText,
+                    5,
+                    TimeUnit.MINUTES
+            );
+            return Result.success(new CaptchaVO(captchaKey, captchaResult.getImage()));
+        } catch (Exception e) {
+            log.error("获取验证码失败: {}", e.getMessage(), e);
+            return Result.error("获取验证码失败，请稍后重试");
+        }
     }
 
     /** 最大登录失败次数 */

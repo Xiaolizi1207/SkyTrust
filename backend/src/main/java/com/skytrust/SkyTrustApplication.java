@@ -22,7 +22,7 @@ public class SkyTrustApplication {
 
         log.info("==============================================");
         log.info("    SkyTrust 无人机平台 启动成功！");
-        log.info("    访问地址：http://localhost:9090/api");
+        log.info("    前端开发地址：http://localhost:3000 ");
         log.info("==============================================");
     }
 }

@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { ApiResult, LoginParams, LoginResult, CaptchaResult } from '@/types/api'
+import type { ApiResult, LoginParams, LoginResult, CaptchaResult, RegisterParams } from '@/types/api'
 
 /** 登录 */
 export function loginApi(data: LoginParams) {
@@ -24,4 +24,9 @@ export function logoutApi() {
 /** 获取当前用户信息 */
 export function getUserInfoApi() {
   return request.get<ApiResult<any>>('/users/me')
+}
+
+/** 注册 */
+export function registerApi(data: RegisterParams) {
+  return request.post<ApiResult<LoginResult>>('/auth/register', data)
 }
