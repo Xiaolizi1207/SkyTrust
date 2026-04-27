@@ -6,12 +6,27 @@
       <!-- 错误提示 -->
       <div v-if="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-      <form @submit.prevent="handleLogin">
+      <!-- 登录方式 Tab -->
+      <div class="tab-bar">
+        <span
+          class="tab-item"
+          :class="{ active: loginMode === 'password' }"
+          @click="loginMode = 'password'"
+        >密码登录</span>
+        <span
+          class="tab-item"
+          :class="{ active: loginMode === 'code' }"
+          @click="loginMode = 'code'"
+        >验证码登录</span>
+      </div>
+
+      <!-- ========== 密码登录 ========== -->
+      <form v-if="loginMode === 'password'" @submit.prevent="handlePasswordLogin">
         <!-- 用户名 -->
         <div class="form-group">
           <label>用户名 / 手机号 / 邮箱</label>
           <input
-            v-model="form.username"
+            v-model="passwordForm.username"
             type="text"
             placeholder="请输入用户名、手机号或邮箱"
             :disabled="loading"
@@ -23,7 +38,7 @@
         <div class="form-group">
           <label>密码</label>
           <input
-            v-model="form.password"
+            v-model="passwordForm.password"
             type="password"
             placeholder="请输入密码"
             :disabled="loading"
@@ -31,12 +46,12 @@
           />
         </div>
 
-        <!-- 验证码：captchaKey 存在时显示 -->
+        <!-- 验证码 -->
         <div v-if="captchaData.captchaKey" class="form-group captcha-row">
           <label>验证码</label>
           <div class="captcha-input-row">
             <input
-              v-model="form.captchaCode"
+              v-model="passwordForm.captchaCode"
               type="text"
               placeholder="验证码"
               maxlength="4"
@@ -68,12 +83,54 @@
 
         <!-- 注册入口 -->
         <p class="register-link">
-          还没有账号？<a href="#" @click.prevent="router.push('/register')">立即注册</a>
+          还没有账号？<router-link to="/register">立即注册</router-link>
         </p>
+      </form>
 
-        <!-- 获取验证码入口 -->
-        <p class="captcha-trigger">
-          <a href="#" @click.prevent="getCaptcha">获取验证码</a>
+      <!-- ========== 验证码登录 ========== -->
+      <form v-else @submit.prevent="handleCodeLogin">
+        <!-- 手机号 / 邮箱 -->
+        <div class="form-group">
+          <label>手机号 / 邮箱</label>
+          <input
+            v-model="codeForm.account"
+            type="text"
+            placeholder="请输入手机号或邮箱"
+            :disabled="loading"
+            autocomplete="username"
+          />
+        </div>
+
+        <!-- 验证码 -->
+        <div class="form-group">
+          <label>验证码</label>
+          <div class="code-input-row">
+            <input
+              v-model="codeForm.code"
+              type="text"
+              placeholder="请输入验证码"
+              maxlength="6"
+              :disabled="loading"
+            />
+            <button
+              type="button"
+              class="btn-send-code"
+              :disabled="codeSending || codeCountdown > 0 || !codeForm.account.trim()"
+              @click="handleSendCode"
+            >
+              {{ codeCountdown > 0 ? `${codeCountdown}s` : (codeSending ? '发送中...' : '获取验证码') }}
+            </button>
+          </div>
+        </div>
+
+        <!-- 提交按钮 -->
+        <button type="submit" class="btn-login" :disabled="loading || !codeForm.code">
+          {{ loading ? '登录中...' : '登 录' }}
+        </button>
+
+        <!-- 注册入口 -->
+        <p class="register-link">
+          还没有账号？<router-link to="/register">立即注册</router-link>
         </p>
       </form>
     </div>
@@ -81,33 +138,57 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-import { getCaptchaApi } from '@/api/auth'
+import { getCaptchaApi, sendCodeApi, codeLoginApi } from '@/api/auth'
 import type { CaptchaResult } from '@/types/api'
 
 const router = useRouter()
 const route = useRoute()
 const authStore = useAuthStore()
 
-// ========== 状态 ==========
-const form = reactive({
+// ========== 登录方式切换 ==========
+const loginMode = ref<'password' | 'code'>('password')
+
+// ========== 密码登录表单 ==========
+const passwordForm = reactive({
   username: '',
   password: '',
   captchaCode: '',
 })
 const rememberMe = ref(localStorage.getItem('rememberMe') === 'true')
+
+// ========== 验证码登录表单 ==========
+const codeForm = reactive({
+  account: '',
+  code: '',
+})
+
+// ========== 公共状态 ==========
 const loading = ref(false)
 const errorMsg = ref('')
+const codeSending = ref(false)
+const codeCountdown = ref(0)
+let countdownTimer: ReturnType<typeof setInterval> | null = null
+
 const captchaData = reactive<CaptchaResult>({
   captchaKey: '',
   captchaImage: '',
 })
 
+// ========== 切换 tab 时重置 ==========
+watch(loginMode, () => {
+  errorMsg.value = ''
+  // 切换到密码登录时，自动获取图形验证码
+  if (loginMode.value === 'password' && !captchaData.captchaKey) {
+    getCaptcha()
+  }
+})
+
 // ========== 方法 ==========
 
-/** 获取验证码 */
+/** 获取图形验证码 */
 async function getCaptcha() {
   try {
     errorMsg.value = ''
@@ -115,7 +196,7 @@ async function getCaptcha() {
     const data = res.data.data
     captchaData.captchaKey = data.captchaKey
     captchaData.captchaImage = data.captchaImage
-    form.captchaCode = ''
+    passwordForm.captchaCode = ''
   } catch (err: any) {
     captchaData.captchaKey = ''
     captchaData.captchaImage = ''
@@ -123,16 +204,16 @@ async function getCaptcha() {
   }
 }
 
-/** 登录 */
-async function handleLogin() {
+/** 密码登录 */
+async function handlePasswordLogin() {
   errorMsg.value = ''
 
   // 前端校验
-  if (!form.username.trim()) {
+  if (!passwordForm.username.trim()) {
     errorMsg.value = '请输入用户名、手机号或邮箱'
     return
   }
-  if (!form.password) {
+  if (!passwordForm.password) {
     errorMsg.value = '请输入密码'
     return
   }
@@ -140,45 +221,128 @@ async function handleLogin() {
   loading.value = true
   try {
     const params: any = {
-      username: form.username.trim(),
-      password: form.password,
+      username: passwordForm.username.trim(),
+      password: passwordForm.password,
     }
-    // 如果已有验证码，一起提交
     if (captchaData.captchaKey) {
       params.captchaKey = captchaData.captchaKey
-      params.captchaCode = form.captchaCode
+      params.captchaCode = passwordForm.captchaCode
     }
 
     await authStore.login(params)
 
-    // 记住我：保存用户名到 localStorage
+    // 记住我
     if (rememberMe.value) {
       localStorage.setItem('rememberMe', 'true')
-      localStorage.setItem('savedUsername', form.username.trim())
+      localStorage.setItem('savedUsername', passwordForm.username.trim())
     } else {
       localStorage.removeItem('rememberMe')
       localStorage.removeItem('savedUsername')
     }
 
-    // 跳转
     const redirect = (route.query.redirect as string) || '/dashboard'
     router.replace(redirect)
   } catch (err: any) {
-    errorMsg.value = err?.response?.data?.message || err.message || '登录失败'
-
-    // 登录失败后自动获取验证码
     getCaptcha()
+    errorMsg.value = err?.response?.data?.message || err.message || '登录失败'
   } finally {
     loading.value = false
   }
 }
 
+/** 发送验证码 */
+async function handleSendCode() {
+  const account = codeForm.account.trim()
+  if (!account) {
+    errorMsg.value = '请输入手机号或邮箱'
+    return
+  }
+
+  errorMsg.value = ''
+  codeSending.value = true
+
+  try {
+    // 判断是手机号还是邮箱
+    const isPhone = /^1[3-9]\d{9}$/.test(account)
+    const params = isPhone ? { phone: account } : { email: account }
+
+    await sendCodeApi(params)
+    errorMsg.value = '' // 清空可能的上次错误
+    startCountdown()
+  } catch (err: any) {
+    errorMsg.value = err?.response?.data?.message || err.message || '验证码发送失败'
+  } finally {
+    codeSending.value = false
+  }
+}
+
+/** 验证码登录 */
+async function handleCodeLogin() {
+  const account = codeForm.account.trim()
+  if (!account) {
+    errorMsg.value = '请输入手机号或邮箱'
+    return
+  }
+  if (!codeForm.code) {
+    errorMsg.value = '请输入验证码'
+    return
+  }
+
+  errorMsg.value = ''
+  loading.value = true
+
+  try {
+    const isPhone = /^1[3-9]\d{9}$/.test(account)
+    const params: any = { code: codeForm.code }
+    if (isPhone) {
+      params.phone = account
+    } else {
+      params.email = account
+    }
+
+    const res = await codeLoginApi(params)
+    const { accessToken, refreshToken, user } = res.data.data
+
+    // 通过 authStore 保存令牌和用户信息（同时更新state和localStorage）
+    authStore.setRefreshedTokens(accessToken, refreshToken)
+    authStore.saveUser(user)
+
+    const redirect = (route.query.redirect as string) || '/dashboard'
+    router.replace(redirect)
+  } catch (err: any) {
+    errorMsg.value = err?.response?.data?.message || err.message || '登录失败'
+  } finally {
+    loading.value = false
+  }
+}
+
+/** 验证码发送倒计时 */
+function startCountdown() {
+  codeCountdown.value = 60
+  if (countdownTimer) {
+    clearInterval(countdownTimer)
+  }
+  countdownTimer = setInterval(() => {
+    codeCountdown.value--
+    if (codeCountdown.value <= 0) {
+      codeCountdown.value = 0
+      if (countdownTimer) {
+        clearInterval(countdownTimer)
+        countdownTimer = null
+      }
+    }
+  }, 1000)
+}
+
 // ========== 初始化 ==========
 onMounted(() => {
-  // 记住用户名
+  // 密码登录：记住用户名
   if (rememberMe.value) {
-    form.username = localStorage.getItem('savedUsername') || ''
+    passwordForm.username = localStorage.getItem('savedUsername') || ''
   }
+
+  // 获取图形验证码
+  getCaptcha()
 })
 </script>
 
@@ -200,9 +364,38 @@ onMounted(() => {
 .title {
   text-align: center;
   color: #1a73e8;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   font-size: 20px;
 }
+
+/* Tab 栏 */
+.tab-bar {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 15px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  user-select: none;
+}
+.tab-item:hover {
+  color: #1a73e8;
+}
+.tab-item.active {
+  color: #1a73e8;
+  border-bottom-color: #1a73e8;
+  font-weight: 600;
+}
+
+/* 错误提示 */
 .error-msg {
   background: #fef2f2;
   color: #dc2626;
@@ -235,6 +428,8 @@ onMounted(() => {
   border-color: #1a73e8;
   box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.15);
 }
+
+/* 图形验证码 */
 .captcha-input-row {
   display: flex;
   gap: 10px;
@@ -249,6 +444,36 @@ onMounted(() => {
   cursor: pointer;
   border: 1px solid #d1d5db;
 }
+
+/* 验证码输入行（短信验证码） */
+.code-input-row {
+  display: flex;
+  gap: 10px;
+}
+.code-input-row input {
+  flex: 1;
+}
+.btn-send-code {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.btn-send-code:hover:not(:disabled) {
+  background: #1557b0;
+}
+.btn-send-code:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* 选项行 */
 .options {
   display: flex;
   justify-content: space-between;
@@ -270,6 +495,8 @@ onMounted(() => {
 .forgot:hover {
   text-decoration: underline;
 }
+
+/* 登录按钮 */
 .btn-login {
   width: 100%;
   padding: 12px;
@@ -288,23 +515,19 @@ onMounted(() => {
   background: #93c5fd;
   cursor: not-allowed;
 }
-.register-link,
-.captcha-trigger {
+
+/* 注册/入口链接 */
+.register-link {
   text-align: center;
   margin-top: 16px;
   font-size: 14px;
   color: #666;
 }
-.register-link a,
-.captcha-trigger a {
+.register-link a {
   color: #1a73e8;
   text-decoration: none;
 }
-.register-link a:hover,
-.captcha-trigger a:hover {
+.register-link a:hover {
   text-decoration: underline;
-}
-.captcha-trigger {
-  margin-top: 8px;
 }
 </style>

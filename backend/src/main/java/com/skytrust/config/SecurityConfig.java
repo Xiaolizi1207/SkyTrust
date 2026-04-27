@@ -40,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/auth/register",
                         "/api/auth/refresh",
                         "/api/auth/captcha",
+                        "/api/auth/send-code",
+                        "/api/auth/code-login",
                         "/api/users/register",
                         "/api/users/login",
                         "/api/users/refresh-token",

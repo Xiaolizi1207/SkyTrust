@@ -1,7 +1,9 @@
 package com.skytrust.service;
 
 import com.skytrust.common.Result;
+import com.skytrust.dto.CodeLoginDTO;
 import com.skytrust.dto.LoginDTO;
+import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.vo.CaptchaVO;
 import com.skytrust.vo.LoginVO;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,13 +25,30 @@ public interface AuthService extends UserDetailsService {
     Result<CaptchaVO> getCaptcha();
 
     /**
-     * 用户登录认证
+     * 用户登录认证（密码登录）
      *
      * @param loginDTO 登录参数
      * @param request  HTTP请求（用于获取IP和User-Agent）
      * @return 登录结果（包含Token和用户信息）
      */
     Result<LoginVO> login(LoginDTO loginDTO, HttpServletRequest request);
+
+    /**
+     * 发送验证码（到手机或邮箱）
+     *
+     * @param dto 手机号或邮箱
+     * @return 发送结果
+     */
+    Result<Void> sendVerificationCode(SendCodeDTO dto);
+
+    /**
+     * 验证码登录
+     *
+     * @param dto     手机号/邮箱 + 验证码
+     * @param request HTTP请求
+     * @return 登录结果
+     */
+    Result<LoginVO> codeLogin(CodeLoginDTO dto, HttpServletRequest request);
 
     /**
      * 用户注册

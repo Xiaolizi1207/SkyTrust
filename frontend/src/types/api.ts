@@ -52,3 +52,16 @@ export interface CaptchaResult {
   captchaKey: string
   captchaImage: string
 }
+
+/** 发送验证码请求参数 */
+export interface SendCodeParams {
+  phone?: string
+  email?: string
+}
+
+/** 验证码登录请求参数 */
+export interface CodeLoginParams {
+  phone?: string
+  email?: string
+  code: string
+}

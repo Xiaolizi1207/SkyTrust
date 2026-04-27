@@ -1,9 +1,11 @@
 package com.skytrust.controller;
 
 import com.skytrust.common.Result;
+import com.skytrust.dto.CodeLoginDTO;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.RefreshTokenDTO;
 import com.skytrust.dto.RegisterDTO;
+import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.service.AuthService;
 import com.skytrust.vo.CaptchaVO;
 import com.skytrust.vo.LoginVO;
@@ -47,6 +49,24 @@ public class AuthController {
     @PostMapping("/login")
     public Result<LoginVO> login(@Valid @RequestBody LoginDTO loginDTO, HttpServletRequest request) {
         return authService.login(loginDTO, request);
+    }
+
+    /**
+     * 发送验证码（短信/邮箱）
+     */
+    @Operation(summary = "发送验证码")
+    @PostMapping("/send-code")
+    public Result<Void> sendCode(@Valid @RequestBody SendCodeDTO sendCodeDTO) {
+        return authService.sendVerificationCode(sendCodeDTO);
+    }
+
+    /**
+     * 验证码登录
+     */
+    @Operation(summary = "验证码登录")
+    @PostMapping("/code-login")
+    public Result<LoginVO> codeLogin(@Valid @RequestBody CodeLoginDTO codeLoginDTO, HttpServletRequest request) {
+        return authService.codeLogin(codeLoginDTO, request);
     }
 
     /**

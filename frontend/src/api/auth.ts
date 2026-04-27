@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { ApiResult, LoginParams, LoginResult, CaptchaResult, RegisterParams } from '@/types/api'
+import type { ApiResult, LoginParams, LoginResult, CaptchaResult, RegisterParams, SendCodeParams, CodeLoginParams } from '@/types/api'
 
 /** 登录 */
 export function loginApi(data: LoginParams) {
@@ -29,4 +29,14 @@ export function getUserInfoApi() {
 /** 注册 */
 export function registerApi(data: RegisterParams) {
   return request.post<ApiResult<LoginResult>>('/auth/register', data)
+}
+
+/** 发送验证码 */
+export function sendCodeApi(data: SendCodeParams) {
+  return request.post<ApiResult<null>>('/auth/send-code', data)
+}
+
+/** 验证码登录 */
+export function codeLoginApi(data: CodeLoginParams) {
+  return request.post<ApiResult<LoginResult>>('/auth/code-login', data)
 }

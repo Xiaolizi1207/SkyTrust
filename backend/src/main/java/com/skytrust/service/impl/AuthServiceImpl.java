@@ -5,7 +5,9 @@ import com.skytrust.common.Result;
 import com.skytrust.common.ResultCode;
 import com.skytrust.common.utils.CaptchaUtil;
 import com.skytrust.common.utils.SecurityUtil;
+import com.skytrust.dto.CodeLoginDTO;
 import com.skytrust.dto.LoginDTO;
+import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.entity.User;
 import com.skytrust.enums.LoginLogTypeEnum;
 import com.skytrust.enums.UserStatusEnum;
@@ -82,6 +84,105 @@ public class AuthServiceImpl implements AuthService {
             log.error("获取验证码失败: {}", e.getMessage(), e);
             return Result.error("获取验证码失败，请稍后重试");
         }
+    }
+
+    @Override
+    public Result<Void> sendVerificationCode(SendCodeDTO dto) {
+        String target = dto.getPhone() != null ? dto.getPhone() : dto.getEmail();
+        log.info("发送验证码: target=[{}]", target);
+
+        try {
+            // 生成6位数字验证码
+            String code = String.format("%06d", (int) (Math.random() * 1000000));
+
+            // 存入Redis，5分钟有效
+            String redisKey = "verify:code:" + target;
+            stringRedisTemplate.opsForValue().set(redisKey, code, 5, TimeUnit.MINUTES);
+
+            log.info("验证码已存入Redis: key=[{}], code=[{}], ttl=5min", redisKey, code);
+            System.out.println("========== 验证码 [" + code + "] 已发送至: " + target + " ==========");
+
+            return Result.success("验证码已发送");
+        } catch (Exception e) {
+            log.error("发送验证码失败: {}", e.getMessage(), e);
+            return Result.error("验证码发送失败，请稍后重试");
+        }
+    }
+
+    @Override
+    public Result<LoginVO> codeLogin(CodeLoginDTO dto, HttpServletRequest request) {
+        String target = dto.getPhone() != null ? dto.getPhone() : dto.getEmail();
+        log.info("验证码登录: target=[{}], code=[{}]", target, dto.getCode());
+
+        String ipAddress = getIpAddress(request);
+        String userAgent = request.getHeader("User-Agent");
+
+        // 1. 验证手机号或邮箱不能为空
+        if (target == null || target.trim().isEmpty()) {
+            return Result.error(ResultCode.PARAM_ERROR, "手机号或邮箱不能为空");
+        }
+
+        // 2. 验证验证码
+        try {
+            String redisKey = "verify:code:" + target;
+            log.info("从Redis读取验证码: key=[{}]", redisKey);
+            String storedCode = stringRedisTemplate.opsForValue().get(redisKey);
+            log.info("Redis查询结果: storedCode=[{}]", storedCode);
+            if (storedCode == null) {
+                return Result.error("验证码已过期，请重新获取");
+            }
+            if (!storedCode.equals(dto.getCode())) {
+                return Result.error("验证码错误");
+            }
+            // 验证成功后删除验证码
+            stringRedisTemplate.delete(redisKey);
+        } catch (Exception e) {
+            log.warn("Redis连接异常，验证码校验失败: {}", e.getMessage());
+            return Result.error("验证码校验失败，请稍后重试");
+        }
+
+        // 3. 查询用户（先按手机号查，再按邮箱查）
+        User user = null;
+        if (dto.getPhone() != null) {
+            user = userService.getUserByPhone(dto.getPhone());
+        }
+        if (user == null && dto.getEmail() != null) {
+            user = userService.getUserByEmail(dto.getEmail());
+        }
+        if (user == null) {
+            loginLogService.recordLogin(null, target, LoginLogTypeEnum.LOGIN_FAIL.getCode(),
+                    ipAddress, userAgent, "用户不存在");
+            return Result.error(ResultCode.USER_NOT_EXIST, "该账号未注册");
+        }
+
+        // 4. 检查用户状态
+        if (UserStatusEnum.DISABLED.getCode().equals(user.getStatus())) {
+            loginLogService.recordLogin(user.getId(), target, LoginLogTypeEnum.LOGIN_FAIL.getCode(),
+                    ipAddress, userAgent, "用户已被禁用");
+            return Result.error(ResultCode.USER_DISABLED, "用户已被禁用");
+        }
+
+        // 5. 更新最后登录时间
+        user.setLastLoginTime(LocalDateTime.now());
+        userService.updateById(user);
+
+        // 6. 生成令牌
+        String accessToken = generateAccessToken(user.getUsername());
+        String refreshToken = generateRefreshToken(user.getUsername());
+
+        // 7. 记录登录成功日志
+        loginLogService.recordLogin(user.getId(), target, LoginLogTypeEnum.LOGIN_SUCCESS.getCode(),
+                ipAddress, userAgent, "验证码登录成功");
+
+        // 8. 构建响应
+        LoginVO loginVO = new LoginVO();
+        loginVO.setAccessToken(accessToken);
+        loginVO.setRefreshToken(refreshToken);
+        loginVO.setExpiresIn(7200L);
+        loginVO.setUser(convertToVO(user));
+
+        log.info("验证码登录成功: {}", user.getUsername());
+        return Result.success(loginVO, "登录成功");
     }
 
     /** 最大登录失败次数 */

@@ -20,6 +20,8 @@ const PUBLIC_PATHS = [
   '/auth/register',
   '/auth/refresh',
   '/auth/captcha',
+  '/auth/send-code',
+  '/auth/code-login',
   '/users/register',
   '/users/login',
 ]
