@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.skytrust.common.Result;
 import com.skytrust.common.ResultCode;
 import com.skytrust.common.utils.CaptchaUtil;
+import com.skytrust.common.utils.PasswordPolicyUtil;
 import com.skytrust.common.utils.SecurityUtil;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
+import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.entity.User;
 import com.skytrust.enums.LoginLogTypeEnum;
@@ -62,6 +65,7 @@ public class AuthServiceImpl implements AuthService {
     private final RoleMenuService roleMenuService;
     private final StringRedisTemplate stringRedisTemplate;
     private final LoginLogService loginLogService;
+    private final PasswordPolicyUtil passwordPolicyUtil;
 
     @Override
     public Result<CaptchaVO> getCaptcha() {
@@ -72,11 +76,11 @@ public class AuthServiceImpl implements AuthService {
             String captchaKey = UUID.randomUUID().toString().replace("-", "");
             // 生成Base64图片
             CaptchaUtil.CaptchaResult captchaResult = CaptchaUtil.generate(captchaText, 130, 40);
-            // 存入Redis，5分钟有效
+            // 存入Redis，3分钟有效
             stringRedisTemplate.opsForValue().set(
                     "captcha:" + captchaKey,
                     captchaText,
-                    5,
+                    3,
                     TimeUnit.MINUTES
             );
             return Result.success(new CaptchaVO(captchaKey, captchaResult.getImage()));
@@ -95,11 +99,11 @@ public class AuthServiceImpl implements AuthService {
             // 生成6位数字验证码
             String code = String.format("%06d", (int) (Math.random() * 1000000));
 
-            // 存入Redis，5分钟有效
+            // 存入Redis，3分钟有效
             String redisKey = "verify:code:" + target;
-            stringRedisTemplate.opsForValue().set(redisKey, code, 5, TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(redisKey, code, 3, TimeUnit.MINUTES);
 
-            log.info("验证码已存入Redis: key=[{}], code=[{}], ttl=5min", redisKey, code);
+            log.info("验证码已存入Redis: key=[{}], code=[{}], ttl=3min", redisKey, code);
             System.out.println("========== 验证码 [" + code + "] 已发送至: " + target + " ==========");
 
             return Result.success("验证码已发送");
@@ -415,6 +419,98 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public String generateRefreshToken(String username) {
         return SecurityUtil.generateRefreshToken(username);
+    }
+
+    @Override
+    public Result<Void> forgotPassword(ForgotPasswordDTO dto) {
+        String email = dto.getEmail();
+        log.info("发送密码重置验证码: email=[{}]", email);
+
+        // 1. 校验邮箱是否存在
+        User user = userService.getUserByEmail(email);
+        if (user == null) {
+            return Result.error(ResultCode.USER_NOT_EXIST, "该邮箱未注册");
+        }
+
+        // 2. 检查用户状态
+        if (UserStatusEnum.DISABLED.getCode().equals(user.getStatus())) {
+            return Result.error(ResultCode.USER_DISABLED, "用户已被禁用");
+        }
+
+        try {
+            // 3. 生成6位数字验证码
+            String code = String.format("%06d", (int) (Math.random() * 1000000));
+
+            // 4. 存入Redis，3分钟有效（使用不同key前缀）
+            String redisKey = "reset:code:" + email;
+            stringRedisTemplate.opsForValue().set(redisKey, code, 3, TimeUnit.MINUTES);
+
+            log.info("密码重置验证码已存入Redis: key=[{}], code=[{}], ttl=3min", redisKey, code);
+            System.out.println("========== 密码重置验证码 [" + code + "] 已发送至: " + email + " ==========");
+
+            return Result.success("验证码已发送到邮箱");
+        } catch (Exception e) {
+            log.error("发送密码重置验证码失败: {}", e.getMessage(), e);
+            return Result.error("验证码发送失败，请稍后重试");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<Void> resetPassword(ResetPasswordDTO dto) {
+        log.info("重置密码: email=[{}]", dto.getEmail());
+
+        // 1. 验证两次密码一致
+        if (!dto.getNewPassword().equals(dto.getConfirmPassword())) {
+            return Result.error("新密码和确认密码不一致");
+        }
+
+        // 2. 验证验证码
+        try {
+            String redisKey = "reset:code:" + dto.getEmail();
+            String storedCode = stringRedisTemplate.opsForValue().get(redisKey);
+            if (storedCode == null) {
+                return Result.error("验证码已过期，请重新获取");
+            }
+            if (!storedCode.equals(dto.getCode())) {
+                return Result.error("验证码错误");
+            }
+            // 验证成功后删除验证码
+            stringRedisTemplate.delete(redisKey);
+        } catch (Exception e) {
+            log.warn("Redis连接异常，验证码校验失败: {}", e.getMessage());
+            return Result.error("验证码校验失败，请稍后重试");
+        }
+
+        // 3. 查询用户
+        User user = userService.getUserByEmail(dto.getEmail());
+        if (user == null) {
+            return Result.error(ResultCode.USER_NOT_EXIST, "用户不存在");
+        }
+
+        // 4. 检查用户状态
+        if (UserStatusEnum.DISABLED.getCode().equals(user.getStatus())) {
+            return Result.error(ResultCode.USER_DISABLED, "用户已被禁用");
+        }
+
+        // 5. 密码强度校验
+        String passwordMsg = passwordPolicyUtil.validateAndGetMessage(dto.getNewPassword(), user.getUsername());
+        if (passwordMsg != null) {
+            return Result.error(ResultCode.PARAM_ERROR, passwordMsg);
+        }
+
+        // 6. 用BCrypt加密新密码
+        String encodedPassword = passwordEncoder.encode(dto.getNewPassword());
+        user.setPassword(encodedPassword);
+        userService.updateById(user);
+
+        // 7. 记录密码重置日志
+        loginLogService.recordLogin(user.getId(), user.getUsername(),
+                LoginLogTypeEnum.PASSWORD_RESET.getCode(),
+                null, null, "密码重置成功");
+
+        log.info("密码重置成功: {}", user.getUsername());
+        return Result.success("密码重置成功");
     }
 
     @Override

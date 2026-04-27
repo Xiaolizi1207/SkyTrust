@@ -10,7 +10,8 @@
       "Bash(curl:*)",
       "Bash(jps -l)",
       "Bash(wmic process:*)",
-      "Bash(tasklist /v /fi 'PID eq 34040')"
+      "Bash(tasklist /v /fi 'PID eq 34040')",
+      "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.4.11\\\\SkyTrust2026.4.11\\\\backend' -name *.sql -o -name *.sql)"
     ]
   }
 }

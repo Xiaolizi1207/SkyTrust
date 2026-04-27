@@ -40,3 +40,18 @@ export function sendCodeApi(data: SendCodeParams) {
 export function codeLoginApi(data: CodeLoginParams) {
   return request.post<ApiResult<LoginResult>>('/auth/code-login', data)
 }
+
+/** 忘记密码（发送重置验证码） */
+export function forgotPasswordApi(email: string) {
+  return request.post<ApiResult<null>>('/auth/forgot-password', { email })
+}
+
+/** 重置密码 */
+export function resetPasswordApi(data: {
+  email: string
+  code: string
+  newPassword: string
+  confirmPassword: string
+}) {
+  return request.post<ApiResult<null>>('/auth/reset-password', data)
+}

@@ -24961,3 +24961,731 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-04-27 23:32:16.024 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
 2026-04-27 23:32:16.024 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=1eac7a9faf2443b1aa2fa0dcfc8cf68c, captchaIm (truncated)...]
 2026-04-27 23:32:16.025 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:32:58.959 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/login", parameters={}
+2026-04-27 23:32:58.959 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#login(LoginDTO, HttpServletRequest)
+2026-04-27 23:32:58.961 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginDTO(username=ljh, password=lijianhong520LJH, captchaKey=1eac7a9faf2443b1aa2fa0dcfc8cf68c, captc (truncated)...]
+2026-04-27 23:32:58.963 [http-nio-9090-exec-6] INFO  c.s.service.impl.AuthServiceImpl - 用户登录: ljh
+2026-04-27 23:32:59.044 [http-nio-9090-exec-6] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type, ip_address,  user_agent, device_info, login_time,  create_time, update_time )  VALUES (  ?, ?, ?, ?, ?,  ?, ?, ?,  ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-27 23:32:59.045 [http-nio-9090-exec-6] INFO  c.s.service.impl.AuthServiceImpl - 用户登录成功: ljh
+2026-04-27 23:32:59.047 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:32:59.047 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=登录成功, data=LoginVO(accessToken=eyJhbGciOiJIUzM4NCJ9.eyJ0eXBlIjoiYWNjZXNzIiw (truncated)...]
+2026-04-27 23:32:59.048 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:33:00.190 [http-nio-9090-exec-4] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-27 23:33:00.192 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-27 23:33:00.192 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:33:00.194 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-27 23:33:00.194 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-27 23:33:00.195 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-27 23:33:00.195 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:33:00.197 [http-nio-9090-exec-4] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-27 23:33:00.197 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/logout", parameters={}
+2026-04-27 23:33:00.198 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#logout(HttpServletRequest)
+2026-04-27 23:33:00.198 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 用户注销，令牌: eyJhbGciOiJIUzM4NCJ9...
+2026-04-27 23:33:00.202 [http-nio-9090-exec-4] DEBUG c.s.s.impl.TokenBlacklistServiceImpl - 令牌已加入黑名单并关联用户: ljh, 剩余TTL: 7198秒
+2026-04-27 23:33:00.202 [http-nio-9090-exec-4] DEBUG c.s.s.impl.TokenBlacklistServiceImpl - 令牌已加入黑名单，剩余TTL: 7198秒
+2026-04-27 23:33:00.202 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 令牌已加入黑名单，过期时间: Tue Apr 28 01:32:59 GMT+08:00 2026
+2026-04-27 23:33:00.202 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:33:00.203 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=注销成功, data=null, timestamp=2026-04-27T23:33:00.202606700)]
+2026-04-27 23:33:00.203 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:33:00.214 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:33:00.215 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:33:00.224 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:33:00.224 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=40479ee7266f41d9a65e9038bc34bd99, captchaIm (truncated)...]
+2026-04-27 23:33:00.225 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:47:31.366 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:47:31.370 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:47:31.397 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:47:31.398 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=43eb9a4e10cd4b55bd8eadbd81498dce, captchaIm (truncated)...]
+2026-04-27 23:47:31.401 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:47:31.422 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:47:31.422 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:47:31.429 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:47:31.429 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=29f6d286e6d34128b7ed3e6bb2ddc8f6, captchaIm (truncated)...]
+2026-04-27 23:47:31.430 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:47:35.283 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:47:35.283 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:47:35.290 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:47:35.290 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=796a84c392a0433899c46f995b2bd534, captchaIm (truncated)...]
+2026-04-27 23:47:35.292 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:47:35.336 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:47:35.336 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:47:35.343 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:47:35.343 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=780bcb0a2c624c8d95e6ad4518ee6c5a, captchaIm (truncated)...]
+2026-04-27 23:47:35.343 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:48:24.280 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:48:24.281 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:48:24.289 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:48:24.289 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=a635f49fc20348bcba86b90ef66b4744, captchaIm (truncated)...]
+2026-04-27 23:48:24.290 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:48:24.350 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:48:24.350 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:48:24.357 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:48:24.357 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=f8f39332768f46a8b4cd87ac6b4960a5, captchaIm (truncated)...]
+2026-04-27 23:48:24.359 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:49:54.807 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:49:54.807 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:49:54.810 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:49:54.810 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:49:54.814 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:49:54.814 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=84dbd3a306df48aabeaa0b606fa4be6c, captchaIm (truncated)...]
+2026-04-27 23:49:54.815 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:49:54.815 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:49:54.815 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=a0886889e1bd452da017fa6dd03125d9, captchaIm (truncated)...]
+2026-04-27 23:49:54.817 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:51:10.477 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:51:10.477 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:51:10.485 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:51:10.485 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=9b852fe98c78460f8400b0eab08c3821, captchaIm (truncated)...]
+2026-04-27 23:51:10.485 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:51:14.384 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-27 23:51:14.391 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-27 23:51:18.730 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 45996 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-27 23:51:18.732 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-27 23:51:18.732 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-27 23:51:18.765 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-27 23:51:18.765 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-27 23:51:19.384 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-27 23:51:19.385 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-27 23:51:19.405 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2026-04-27 23:51:19.946 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$b4d01cf2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-27 23:51:20.242 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-27 23:51:20.248 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-27 23:51:20.249 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-27 23:51:20.321 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-27 23:51:20.322 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1557 ms
+2026-04-27 23:51:20.565 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-27 23:51:20.651 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-27 23:51:21.062 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-27 23:51:21.500 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.amqp.rabbit.connection.CachingConnectionFactory.destroy()] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:51:21.500 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final org.springframework.amqp.rabbit.connection.Connection org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection() throws org.springframework.amqp.AmqpException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:51:21.534 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-27 23:51:21.539 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-27 23:51:21.562 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 3.086 seconds (JVM running for 3.518)
+2026-04-27 23:51:21.578 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-27 23:51:21.578 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-27 23:51:21.652 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-27 23:51:21.654 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-27 23:51:21.655 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-27 23:51:21.655 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-27 23:51:21.660 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-27 23:51:21.660 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-27 23:51:21.666 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-27 23:51:21.675 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:51:21.678 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-27 23:51:21.678 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-27 23:51:21.678 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-27 23:51:21.681 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:51:21.681 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-27 23:51:21.681 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-27 23:51:21.682 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:51:22.180 [RMI TCP Connection(1)-10.150.51.3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-04-27 23:51:22.183 [RMI TCP Connection(2)-10.150.51.3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-27 23:51:22.183 [RMI TCP Connection(2)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-27 23:51:22.184 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-27 23:51:22.185 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-27 23:51:22.186 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-27 23:51:22.206 [RMI TCP Connection(1)-10.150.51.3] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:94)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:88)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor16.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:62)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1234)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1184)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:641)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:616)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 50 common frames omitted
+2026-04-27 23:51:22.244 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 232 mappings in 'requestMappingHandlerMapping'
+2026-04-27 23:51:22.270 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-27 23:51:22.294 [RMI TCP Connection(2)-10.150.51.3] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-27 23:51:22.340 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-27 23:51:22.361 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-27 23:51:22.363 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@66feb0b3
+2026-04-27 23:51:22.372 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@45ba592d
+2026-04-27 23:51:22.372 [RMI TCP Connection(2)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-27 23:51:22.372 [RMI TCP Connection(2)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 189 ms
+2026-04-27 23:51:29.671 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(javax.servlet.ServletRequest,javax.servlet.ServletResponse,javax.servlet.FilterChain) throws javax.servlet.ServletException,java.io.IOException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:51:29.672 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(javax.servlet.FilterConfig) throws javax.servlet.ServletException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:51:29.792 [http-nio-9090-exec-1] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4b853719, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2178a904, org.springframework.security.web.context.SecurityContextPersistenceFilter@17e09cd7, org.springframework.security.web.header.HeaderWriterFilter@12a1c0cb, org.springframework.web.filter.CorsFilter@befffbb, org.springframework.security.web.authentication.logout.LogoutFilter@69979fc1, com.skytrust.config.filter.JwtAuthenticationFilter@71d68dcd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39b7862, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@aac15ab, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5e0fcf08, org.springframework.security.web.session.SessionManagementFilter@5397fef1, org.springframework.security.web.access.ExceptionTranslationFilter@4ec39dd4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2b5ad968]
+2026-04-27 23:51:29.815 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:51:29.823 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:51:29.970 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:51:29.973 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=c9491561d7754f4cb2bfc6b2d7806a3e, captchaIm (truncated)...]
+2026-04-27 23:51:29.982 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:51:35.509 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/forgot-password", parameters={}
+2026-04-27 23:51:35.509 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#forgotPassword(ForgotPasswordDTO)
+2026-04-27 23:51:35.528 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ForgotPasswordDTO(email=1463912959@qq.com)]
+2026-04-27 23:51:35.561 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 发送密码重置验证码: email=[1463912959@qq.com]
+2026-04-27 23:51:35.567 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 密码重置验证码已存入Redis: key=[reset:code:1463912959@qq.com], code=[895840], ttl=5min
+2026-04-27 23:51:35.568 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:51:35.568 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送到邮箱, data=null, timestamp=2026-04-27T23:51:35.568705600)]
+2026-04-27 23:51:35.569 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:52:09.759 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:52:09.759 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:52:09.762 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=895840, newPassword=lijianhong520LJH, confirmPassword (truncated)...]
+2026-04-27 23:52:09.765 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:52:09.774 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:52:09.775 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=5001, message=密码必须包含至少1个特殊字符, data=null, timestamp=2026-04-27T23:52:09.774273400)]
+2026-04-27 23:52:09.775 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:52:22.534 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:52:22.534 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:52:22.535 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=895840, newPassword=lijianhong520LJH@, confirmPasswor (truncated)...]
+2026-04-27 23:52:22.536 [http-nio-9090-exec-2] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:52:22.537 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:52:22.539 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:52:22.537707)]
+2026-04-27 23:52:22.539 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:53:28.036 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:53:28.037 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:53:28.038 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=895840, newPassword=lijianhong520LJH@, confirmPasswor (truncated)...]
+2026-04-27 23:53:28.039 [http-nio-9090-exec-7] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:53:28.041 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:53:28.041 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:53:28.040929)]
+2026-04-27 23:53:28.042 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:54:30.916 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/forgot-password", parameters={}
+2026-04-27 23:54:30.918 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#forgotPassword(ForgotPasswordDTO)
+2026-04-27 23:54:30.919 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ForgotPasswordDTO(email=1463912959@qq.com)]
+2026-04-27 23:54:30.919 [http-nio-9090-exec-5] INFO  c.s.service.impl.AuthServiceImpl - 发送密码重置验证码: email=[1463912959@qq.com]
+2026-04-27 23:54:30.923 [http-nio-9090-exec-5] INFO  c.s.service.impl.AuthServiceImpl - 密码重置验证码已存入Redis: key=[reset:code:1463912959@qq.com], code=[491914], ttl=5min
+2026-04-27 23:54:30.923 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:54:30.924 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送到邮箱, data=null, timestamp=2026-04-27T23:54:30.923135200)]
+2026-04-27 23:54:30.924 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:54:46.111 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2026-04-27 23:54:46.126 [Thread-5] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-27 23:54:46.127 [Thread-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2026-04-27 23:54:46.129 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1679)
+ java.base@17.0.17/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.17/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.129 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-timer-3-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/java.lang.Thread.sleep(Native Method)
+ app//io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:600)
+ app//io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:496)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.130 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-nioEventLoop-4-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/sun.nio.ch.WEPoll.wait(Native Method)
+ java.base@17.0.17/sun.nio.ch.WEPollSelectorImpl.doSelect(WEPollSelectorImpl.java:111)
+ java.base@17.0.17/sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:129)
+ java.base@17.0.17/sun.nio.ch.SelectorImpl.select(SelectorImpl.java:146)
+ app//io.netty.channel.nio.SelectedSelectionKeySetSelector.select(SelectedSelectionKeySetSelector.java:68)
+ app//io.netty.channel.nio.NioEventLoop.select(NioEventLoop.java:879)
+ app//io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:526)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.130 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.130 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.130 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.131 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-5] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.131 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.131 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.131 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-eventExecutorLoop-1-8] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.17/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1630)
+ java.base@17.0.17/java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:435)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor.takeTask(SingleThreadEventExecutor.java:244)
+ app//io.netty.util.concurrent.DefaultEventExecutor.run(DefaultEventExecutor.java:64)
+ app//io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+ app//io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:46.270 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-27 23:54:46.274 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-27 23:54:46.372 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 45996 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-27 23:54:46.373 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-27 23:54:46.373 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-27 23:54:46.753 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-27 23:54:46.753 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-27 23:54:46.770 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-04-27 23:54:47.047 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$b4d01cf2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-27 23:54:47.134 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-27 23:54:47.134 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-27 23:54:47.134 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-27 23:54:47.173 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-27 23:54:47.173 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 797 ms
+2026-04-27 23:54:47.276 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 6a8e9c39-dd00-4709-8921-f9c54f309888
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-04-27 23:54:47.328 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-27 23:54:47.672 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-04-27 23:54:47.679 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-04-27 23:54:47.965 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-27 23:54:47.968 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-27 23:54:47.979 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 1.644 seconds (JVM running for 209.935)
+2026-04-27 23:54:47.988 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-27 23:54:47.988 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-27 23:54:47.998 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-27 23:54:48.000 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-27 23:54:48.001 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-27 23:54:48.001 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-27 23:54:48.010 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-27 23:54:48.010 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-27 23:54:48.016 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-27 23:54:48.024 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:54:48.026 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-27 23:54:48.026 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-27 23:54:48.026 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-27 23:54:48.031 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.security.config.annotation.ObjectPostProcessor; SearchStrategy: all) found bean 'objectPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector,org.springframework.security.oauth2.client.registration.ClientRegistrationRepository,org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-04-27 23:54:48.031 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:54:48.031 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-27 23:54:48.031 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-27 23:54:48.032 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:54:48.985 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-04-27 23:54:48.993 [Thread-7] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-27 23:54:48.994 [Thread-7] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-timer-6-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/java.lang.Thread.sleep(Native Method)
+ app//io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:600)
+ app//io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:496)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-27 23:54:48.998 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-04-27 23:54:48.999 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-04-27 23:54:49.051 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 45996 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-27 23:54:49.051 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-27 23:54:49.051 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-27 23:54:49.258 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-27 23:54:49.259 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-27 23:54:49.269 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2026-04-27 23:54:49.388 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$b4d01cf2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-27 23:54:49.422 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-27 23:54:49.422 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-27 23:54:49.422 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-27 23:54:49.441 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-27 23:54:49.441 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 389 ms
+2026-04-27 23:54:49.591 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2026-04-27 23:54:49.595 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2026-04-27 23:54:49.814 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-27 23:54:50.178 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-27 23:54:50.181 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-27 23:54:50.191 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 1.156 seconds (JVM running for 212.146)
+2026-04-27 23:54:50.200 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-27 23:54:50.200 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-27 23:54:50.208 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-27 23:54:50.209 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-27 23:54:50.210 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-27 23:54:50.210 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-27 23:54:50.214 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-27 23:54:50.214 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-27 23:54:50.219 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-27 23:54:50.225 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:54:50.226 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-27 23:54:50.226 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-27 23:54:50.226 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-27 23:54:50.228 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector,org.springframework.security.oauth2.client.registration.ClientRegistrationRepository,org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository; SearchStrategy: all) found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' authServiceImpl (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-04-27 23:54:50.228 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:54:50.228 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-27 23:54:50.228 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-27 23:54:50.229 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-27 23:54:54.507 [http-nio-9090-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-27 23:54:54.507 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-27 23:54:54.507 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-27 23:54:54.508 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-27 23:54:54.508 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-27 23:54:54.540 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 232 mappings in 'requestMappingHandlerMapping'
+2026-04-27 23:54:54.557 [http-nio-9090-exec-1] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-27 23:54:54.578 [http-nio-9090-exec-1] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-27 23:54:54.606 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-27 23:54:54.612 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-27 23:54:54.613 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@245204e8
+2026-04-27 23:54:54.619 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2ad6905
+2026-04-27 23:54:54.619 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-27 23:54:54.619 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 112 ms
+2026-04-27 23:54:54.621 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(javax.servlet.ServletRequest,javax.servlet.ServletResponse,javax.servlet.FilterChain) throws javax.servlet.ServletException,java.io.IOException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:54:54.621 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(javax.servlet.FilterConfig) throws javax.servlet.ServletException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-27 23:54:54.649 [http-nio-9090-exec-1] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1f46ceae, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7073c959, org.springframework.security.web.context.SecurityContextPersistenceFilter@b33834d, org.springframework.security.web.header.HeaderWriterFilter@26e6771d, org.springframework.web.filter.CorsFilter@55e9fafe, org.springframework.security.web.authentication.logout.LogoutFilter@802958a, com.skytrust.config.filter.JwtAuthenticationFilter@169dd80, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27629e4b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@32a94b25, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7bdd238, org.springframework.security.web.session.SessionManagementFilter@2e30711a, org.springframework.security.web.access.ExceptionTranslationFilter@3b5f911, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3fc88fb0]
+2026-04-27 23:54:54.651 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:54:54.652 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:54:54.655 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=lijianhong520LJH@, confirmPasswor (truncated)...]
+2026-04-27 23:54:54.660 [http-nio-9090-exec-1] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:54:54.703 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:54:54.704 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=5001, message=密码不能包含用户名, data=null, timestamp=2026-04-27T23:54:54.701748)]
+2026-04-27 23:54:54.705 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:33.974 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:33.974 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:33.975 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:33.976 [http-nio-9090-exec-5] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:33.978 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:33.978 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:33.976734500)]
+2026-04-27 23:55:33.979 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:35.255 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:35.256 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:35.256 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:35.257 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:35.258 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:35.259 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:35.258268700)]
+2026-04-27 23:55:35.259 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:35.634 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:35.634 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:35.635 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:35.635 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:35.641 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:35.641 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:35.640324900)]
+2026-04-27 23:55:35.642 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:35.825 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:35.826 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:35.826 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:35.827 [http-nio-9090-exec-2] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:35.828 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:35.828 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:35.828978800)]
+2026-04-27 23:55:35.829 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:36.003 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:36.004 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:36.004 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:36.005 [http-nio-9090-exec-6] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:36.008 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:36.008 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:36.007013400)]
+2026-04-27 23:55:36.008 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:36.185 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:36.186 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:36.186 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:36.187 [http-nio-9090-exec-7] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:36.189 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:36.189 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:36.188431)]
+2026-04-27 23:55:36.189 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:36.652 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:36.652 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:36.652 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:36.653 [http-nio-9090-exec-8] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:36.654 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:36.655 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:36.654206900)]
+2026-04-27 23:55:36.655 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:36.830 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:36.830 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:36.830 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=491914, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:36.831 [http-nio-9090-exec-9] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:36.832 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:36.832 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:36.832981900)]
+2026-04-27 23:55:36.834 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:37.745 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/forgot-password", parameters={}
+2026-04-27 23:55:37.745 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#forgotPassword(ForgotPasswordDTO)
+2026-04-27 23:55:37.746 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ForgotPasswordDTO(email=1463912959@qq.com)]
+2026-04-27 23:55:37.748 [http-nio-9090-exec-10] INFO  c.s.service.impl.AuthServiceImpl - 发送密码重置验证码: email=[1463912959@qq.com]
+2026-04-27 23:55:37.752 [http-nio-9090-exec-10] INFO  c.s.service.impl.AuthServiceImpl - 密码重置验证码已存入Redis: key=[reset:code:1463912959@qq.com], code=[581255], ttl=3min
+2026-04-27 23:55:37.754 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:37.754 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送到邮箱, data=null, timestamp=2026-04-27T23:55:37.753555600)]
+2026-04-27 23:55:37.754 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:48.153 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:48.153 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:48.153 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=581255, newPassword=127369@ljh, confirmPassword=12736 (truncated)...]
+2026-04-27 23:55:48.154 [http-nio-9090-exec-1] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:48.159 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:48.159 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=5001, message=密码必须包含至少一个大写字母, data=null, timestamp=2026-04-27T23:55:48.157599500)]
+2026-04-27 23:55:48.159 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:55:59.269 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:55:59.270 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:55:59.270 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=581255, newPassword=127369@ljhLJH, confirmPassword=12 (truncated)...]
+2026-04-27 23:55:59.271 [http-nio-9090-exec-5] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:55:59.272 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:55:59.273 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:55:59.272257500)]
+2026-04-27 23:55:59.273 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:56:38.584 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/forgot-password", parameters={}
+2026-04-27 23:56:38.584 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#forgotPassword(ForgotPasswordDTO)
+2026-04-27 23:56:38.585 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ForgotPasswordDTO(email=1463912959@qq.com)]
+2026-04-27 23:56:38.585 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 发送密码重置验证码: email=[1463912959@qq.com]
+2026-04-27 23:56:38.590 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 密码重置验证码已存入Redis: key=[reset:code:1463912959@qq.com], code=[393383], ttl=3min
+2026-04-27 23:56:38.590 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:56:38.590 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送到邮箱, data=null, timestamp=2026-04-27T23:56:38.590062500)]
+2026-04-27 23:56:38.591 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:56:46.541 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:56:46.541 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:56:46.542 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=393383, newPassword=127369@ljhLJH, confirmPassword=12 (truncated)...]
+2026-04-27 23:56:46.542 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:56:46.547 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:56:46.547 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=5001, message=密码不能包含用户名, data=null, timestamp=2026-04-27T23:56:46.546391900)]
+2026-04-27 23:56:46.547 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:57:23.055 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:57:23.055 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:57:23.056 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=393383, newPassword=127369ZXzx@, confirmPassword=1273 (truncated)...]
+2026-04-27 23:57:23.056 [http-nio-9090-exec-2] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:57:23.058 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:57:23.058 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=500, message=验证码已过期，请重新获取, data=null, timestamp=2026-04-27T23:57:23.057382500)]
+2026-04-27 23:57:23.058 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:57:39.064 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/forgot-password", parameters={}
+2026-04-27 23:57:39.065 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#forgotPassword(ForgotPasswordDTO)
+2026-04-27 23:57:39.065 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ForgotPasswordDTO(email=1463912959@qq.com)]
+2026-04-27 23:57:39.065 [http-nio-9090-exec-6] INFO  c.s.service.impl.AuthServiceImpl - 发送密码重置验证码: email=[1463912959@qq.com]
+2026-04-27 23:57:39.069 [http-nio-9090-exec-6] INFO  c.s.service.impl.AuthServiceImpl - 密码重置验证码已存入Redis: key=[reset:code:1463912959@qq.com], code=[785235], ttl=3min
+2026-04-27 23:57:39.070 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:57:39.070 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送到邮箱, data=null, timestamp=2026-04-27T23:57:39.070827100)]
+2026-04-27 23:57:39.071 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:57:46.486 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/reset-password", parameters={}
+2026-04-27 23:57:46.486 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#resetPassword(ResetPasswordDTO)
+2026-04-27 23:57:46.487 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ResetPasswordDTO(email=1463912959@qq.com, code=785235, newPassword=127369ZXzx@, confirmPassword=1273 (truncated)...]
+2026-04-27 23:57:46.487 [http-nio-9090-exec-7] INFO  c.s.service.impl.AuthServiceImpl - 重置密码: email=[1463912959@qq.com]
+2026-04-27 23:57:46.602 [http-nio-9090-exec-7] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type,     login_time, fail_reason, create_time, update_time )  VALUES (  ?, ?, ?, ?,     ?, ?, ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-27 23:57:46.602 [http-nio-9090-exec-7] INFO  c.s.service.impl.AuthServiceImpl - 密码重置成功: ljh
+2026-04-27 23:57:46.605 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:57:46.605 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=密码重置成功, data=null, timestamp=2026-04-27T23:57:46.603249200)]
+2026-04-27 23:57:46.606 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:57:48.651 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-27 23:57:48.651 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-27 23:57:48.664 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:57:48.664 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=a869df4805dc49d3ab2d025cefa7d65e, captchaIm (truncated)...]
+2026-04-27 23:57:48.665 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:58:15.890 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/login", parameters={}
+2026-04-27 23:58:15.891 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#login(LoginDTO, HttpServletRequest)
+2026-04-27 23:58:15.893 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginDTO(username=1463912959@qq.com, password=127369ZXzx@, captchaKey=a869df4805dc49d3ab2d025cefa7d6 (truncated)...]
+2026-04-27 23:58:15.895 [http-nio-9090-exec-9] INFO  c.s.service.impl.AuthServiceImpl - 用户登录: 1463912959@qq.com
+2026-04-27 23:58:16.006 [http-nio-9090-exec-9] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type, ip_address,  user_agent, device_info, login_time,  create_time, update_time )  VALUES (  ?, ?, ?, ?, ?,  ?, ?, ?,  ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-27 23:58:16.011 [http-nio-9090-exec-9] INFO  c.s.service.impl.AuthServiceImpl - 用户登录成功: ljh
+2026-04-27 23:58:16.013 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:58:16.020 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=登录成功, data=LoginVO(accessToken=eyJhbGciOiJIUzM4NCJ9.eyJ0eXBlIjoiYWNjZXNzIiw (truncated)...]
+2026-04-27 23:58:16.022 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-27 23:58:16.045 [http-nio-9090-exec-10] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-27 23:58:16.052 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-27 23:58:16.052 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:58:16.053 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-27 23:58:16.054 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-27 23:58:16.055 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-27 23:58:16.055 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:58:16.058 [http-nio-9090-exec-10] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-27 23:58:16.058 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-27 23:58:16.062 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-27 23:58:16.070 [http-nio-9090-exec-10] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-27 23:58:16.075 [http-nio-9090-exec-10] DEBUG c.s.service.impl.MenuServiceImpl - 获取用户有权限的菜单树形列表: userId=2048776943688699906
+2026-04-27 23:58:16.075 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的菜单ID列表: userId=2048776943688699906
+2026-04-27 23:58:16.075 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-27 23:58:16.076 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-27 23:58:16.086 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-27 23:58:16.086 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-27T23:58:16.085283900)]
+2026-04-27 23:58:16.087 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

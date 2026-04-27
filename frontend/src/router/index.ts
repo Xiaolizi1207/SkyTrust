@@ -9,13 +9,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/',
-    redirect: '/dashboard',
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import('@/views/dashboard/index.vue'),
-    meta: { requiresAuth: true },
+    redirect: '/admin/dashboard',
   },
   {
     path: '/register',
@@ -28,6 +22,20 @@ const routes: RouteRecordRaw[] = [
     name: 'ForgotPassword',
     component: () => import('@/views/forgot-password/index.vue'),
     meta: { requiresAuth: false },
+  },
+  {
+    path: '/admin',
+    component: () => import('@/layouts/AdminLayout.vue'),
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: { requiresAuth: true, title: '仪表盘' },
+      },
+      // 后续扩展子路由在此添加
+    ],
   },
   {
     path: '/:pathMatch(.*)*',

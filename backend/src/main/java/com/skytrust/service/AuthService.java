@@ -2,7 +2,9 @@ package com.skytrust.service;
 
 import com.skytrust.common.Result;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
+import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.vo.CaptchaVO;
 import com.skytrust.vo.LoginVO;
@@ -100,4 +102,20 @@ public interface AuthService extends UserDetailsService {
      * @return 是否成功
      */
     boolean logout(String token);
+
+    /**
+     * 发送密码重置验证码到邮箱
+     *
+     * @param dto 邮箱信息
+     * @return 发送结果
+     */
+    Result<Void> forgotPassword(ForgotPasswordDTO dto);
+
+    /**
+     * 验证验证码并重置密码
+     *
+     * @param dto 重置密码信息
+     * @return 重置结果
+     */
+    Result<Void> resetPassword(ResetPasswordDTO dto);
 }

@@ -2,9 +2,11 @@ package com.skytrust.controller;
 
 import com.skytrust.common.Result;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.RefreshTokenDTO;
 import com.skytrust.dto.RegisterDTO;
+import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
 import com.skytrust.service.AuthService;
 import com.skytrust.vo.CaptchaVO;
@@ -127,5 +129,23 @@ public class AuthController {
             return Result.error("用户未登录");
         }
         return Result.success("当前用户: " + username);
+    }
+
+    /**
+     * 忘记密码（发送重置验证码）
+     */
+    @Operation(summary = "忘记密码-发送重置验证码")
+    @PostMapping("/forgot-password")
+    public Result<Void> forgotPassword(@Valid @RequestBody ForgotPasswordDTO forgotPasswordDTO) {
+        return authService.forgotPassword(forgotPasswordDTO);
+    }
+
+    /**
+     * 重置密码
+     */
+    @Operation(summary = "重置密码")
+    @PostMapping("/reset-password")
+    public Result<Void> resetPassword(@Valid @RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return authService.resetPassword(resetPasswordDTO);
     }
 }

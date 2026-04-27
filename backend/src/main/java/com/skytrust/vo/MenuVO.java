@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import com.skytrust.enums.MenuStatusEnum;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 菜单视图对象
@@ -68,4 +69,7 @@ public class MenuVO {
 
     @Schema(description = "更新时间", example = "2023-10-01 12:00:00")
     private LocalDateTime updateTime;
+
+    @Schema(description = "子菜单列表")
+    private List<MenuVO> children;
 }

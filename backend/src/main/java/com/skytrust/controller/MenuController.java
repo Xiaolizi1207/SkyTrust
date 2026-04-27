@@ -415,7 +415,7 @@ public class MenuController {
     }
 
     /**
-     * 将Menu实体转换为MenuVO
+     * 将Menu实体转换为MenuVO（递归处理子菜单）
      */
     private MenuVO convertToVO(Menu menu) {
         if (menu == null) {
@@ -423,6 +423,13 @@ public class MenuController {
         }
         MenuVO menuVO = new MenuVO();
         BeanUtils.copyProperties(menu, menuVO);
+        // 递归转换子菜单
+        if (menu.getChildren() != null && !menu.getChildren().isEmpty()) {
+            List<MenuVO> childrenVO = menu.getChildren().stream()
+                    .map(this::convertToVO)
+                    .collect(Collectors.toList());
+            menuVO.setChildren(childrenVO);
+        }
         return menuVO;
     }
 

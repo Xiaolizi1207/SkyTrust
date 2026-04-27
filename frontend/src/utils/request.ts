@@ -22,6 +22,8 @@ const PUBLIC_PATHS = [
   '/auth/captcha',
   '/auth/send-code',
   '/auth/code-login',
+  '/auth/forgot-password',
+  '/auth/reset-password',
   '/users/register',
   '/users/login',
 ]

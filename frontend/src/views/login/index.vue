@@ -240,7 +240,7 @@ async function handlePasswordLogin() {
       localStorage.removeItem('savedUsername')
     }
 
-    const redirect = (route.query.redirect as string) || '/dashboard'
+    const redirect = (route.query.redirect as string) || '/admin/dashboard'
     router.replace(redirect)
   } catch (err: any) {
     getCaptcha()
@@ -307,7 +307,7 @@ async function handleCodeLogin() {
     authStore.setRefreshedTokens(accessToken, refreshToken)
     authStore.saveUser(user)
 
-    const redirect = (route.query.redirect as string) || '/dashboard'
+    const redirect = (route.query.redirect as string) || '/admin/dashboard'
     router.replace(redirect)
   } catch (err: any) {
     errorMsg.value = err?.response?.data?.message || err.message || '登录失败'

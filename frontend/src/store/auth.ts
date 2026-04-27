@@ -1,14 +1,16 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { LoginParams, UserInfo } from '@/types/api'
+import type { MenuNode } from '@/api/menu'
 import { loginApi, logoutApi, getUserInfoApi } from '@/api/auth'
-import { useRouter } from 'vue-router'
+import { getUserMenusApi } from '@/api/menu'
 
 export const useAuthStore = defineStore('auth', () => {
   // ========== 状态 ==========
   const accessToken = ref(localStorage.getItem('accessToken') || '')
   const refreshToken = ref(localStorage.getItem('refreshToken') || '')
   const user = ref<UserInfo | null>(JSON.parse(localStorage.getItem('userInfo') || 'null'))
+  const menus = ref<MenuNode[]>([])
 
   // ========== 计算属性 ==========
   const isAuthenticated = computed(() => !!accessToken.value)
@@ -35,6 +37,8 @@ export const useAuthStore = defineStore('auth', () => {
     const { accessToken: access, refreshToken: refresh, user: userInfo } = res.data.data
     saveTokens(access, refresh)
     saveUser(userInfo)
+    // 登录成功后获取菜单
+    await fetchMenus()
     return res.data.data
   }
 
@@ -53,6 +57,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  /** 获取当前用户菜单树 */
+  async function fetchMenus() {
+    try {
+      const res = await getUserMenusApi()
+      menus.value = res.data.data || []
+    } catch {
+      menus.value = []
+    }
+  }
+
   /** 注销 */
   async function logout() {
     try {
@@ -63,6 +77,7 @@ export const useAuthStore = defineStore('auth', () => {
       accessToken.value = ''
       refreshToken.value = ''
       user.value = null
+      menus.value = []
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
       localStorage.removeItem('userInfo')
@@ -73,12 +88,14 @@ export const useAuthStore = defineStore('auth', () => {
     accessToken,
     refreshToken,
     user,
+    menus,
     isAuthenticated,
     login,
     saveTokens,
     saveUser,
     logout,
     fetchUserInfo,
+    fetchMenus,
     setRefreshedTokens,
   }
 })
