@@ -21,4 +21,10 @@ public class LoginDTO {
     @Schema(description = "密码", example = "Password123!", required = true)
     @NotBlank(message = "密码不能为空")
     private String password;
+
+    @Schema(description = "验证码唯一标识", example = "a1b2c3d4e5f67890abcdef1234567890")
+    private String captchaKey;
+
+    @Schema(description = "验证码", example = "A3X9")
+    private String captchaCode;
 }

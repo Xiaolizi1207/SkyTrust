@@ -20,6 +20,7 @@ import com.skytrust.vo.UserVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -51,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
     private final TokenBlacklistService tokenBlacklistService;
     private final UserRoleService userRoleService;
     private final RoleMenuService roleMenuService;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -62,7 +64,25 @@ public class AuthServiceImpl implements AuthService {
             return Result.error(ResultCode.PARAM_ERROR, "用户名或密码不能为空");
         }
 
-        // 2. 查询用户（支持用户名、手机号、邮箱登录）
+        // 2. 验证图形验证码（如果提供了验证码信息）
+        if (loginDTO.getCaptchaKey() != null && loginDTO.getCaptchaCode() != null) {
+            String captchaKey = "captcha:" + loginDTO.getCaptchaKey();
+            String storedCaptcha = stringRedisTemplate.opsForValue().get(captchaKey);
+            // 验证码不存在或已过期
+            if (storedCaptcha == null) {
+                return Result.error(ResultCode.PARAM_ERROR, "验证码已过期，请重新获取");
+            }
+            // 验证码不匹配（忽略大小写）
+            if (!storedCaptcha.equalsIgnoreCase(loginDTO.getCaptchaCode())) {
+                // 删除已使用的验证码，防止暴力尝试
+                stringRedisTemplate.delete(captchaKey);
+                return Result.error(ResultCode.PARAM_ERROR, "验证码错误");
+            }
+            // 验证通过后立即删除，确保一次性使用
+            stringRedisTemplate.delete(captchaKey);
+        }
+
+        // 3. 查询用户（支持用户名、手机号、邮箱登录）
         User user = userService.getUserByUsername(loginDTO.getUsername());
         if (user == null) {
             // 尝试手机号登录
@@ -76,25 +96,25 @@ public class AuthServiceImpl implements AuthService {
             return Result.error(ResultCode.USER_NOT_EXIST, "用户不存在");
         }
 
-        // 3. 检查用户状态
+        // 4. 检查用户状态
         if (UserStatusEnum.DISABLED.getCode().equals(user.getStatus())) {
             return Result.error(ResultCode.USER_DISABLED, "用户已被禁用");
         }
 
-        // 4. 验证密码
+        // 5. 验证密码
         if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
             return Result.error(ResultCode.PASSWORD_ERROR, "密码错误");
         }
 
-        // 5. 更新最后登录时间
+        // 6. 更新最后登录时间
         user.setLastLoginTime(LocalDateTime.now());
         userService.updateById(user);
 
-        // 6. 生成令牌
+        // 7. 生成令牌
         String accessToken = generateAccessToken(user.getUsername());
         String refreshToken = generateRefreshToken(user.getUsername());
 
-        // 7. 构建响应
+        // 8. 构建响应
         LoginVO loginVO = new LoginVO();
         loginVO.setAccessToken(accessToken);
         loginVO.setRefreshToken(refreshToken);

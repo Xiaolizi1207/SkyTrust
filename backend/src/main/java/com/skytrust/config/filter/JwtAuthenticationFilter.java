@@ -98,14 +98,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
+        String path = request.getRequestURI();
         // 不需要JWT认证的路径（适配SpringDoc/Knife4j）
         return path.startsWith("/api/auth/login") ||
                 path.startsWith("/api/auth/register") ||
                 path.startsWith("/api/auth/refresh") ||
+                path.startsWith("/api/auth/captcha") ||
                 path.startsWith("/swagger-ui") ||
                 path.startsWith("/v3/api-docs") ||
-                path.startsWith("/doc.html") ||
+                path.equals("/doc.html") ||
                 path.startsWith("/favicon.ico");
     }
 }
