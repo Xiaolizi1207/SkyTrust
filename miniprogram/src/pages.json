@@ -1,0 +1,6 @@
+{
+  "pages": [
+    {"path": "pages/index/index", "style": {"navigationBarTitleText": "首页"}}
+  ],
+  "globalStyle": {"navigationBarTextStyle": "black", "navigationBarTitleText": "SkyTrust", "navigationBarBackgroundColor": "#F8F8F8"}
+}
