@@ -17,14 +17,15 @@
 }
 .not-found h1 {
   font-size: 72px;
-  color: #1a73e8;
+  color: #000;
 }
 .not-found p {
   font-size: 18px;
   margin: 16px 0;
 }
 .not-found a {
-  color: #1a73e8;
+  color: #000;
+  font-weight: 600;
   text-decoration: underline;
 }
 </style>

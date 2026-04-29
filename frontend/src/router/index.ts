@@ -34,6 +34,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/dashboard/index.vue'),
         meta: { requiresAuth: true, title: '仪表盘' },
       },
+      {
+        path: 'device',
+        name: 'Device',
+        component: () => import('@/views/device/index.vue'),
+        meta: { requiresAuth: true, title: '设备管理' },
+      },
       // 后续扩展子路由在此添加
     ],
   },

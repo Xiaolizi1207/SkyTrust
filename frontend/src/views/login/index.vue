@@ -352,18 +352,17 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  background: #000;
 }
 .login-card {
   width: 400px;
   padding: 40px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 2px solid #000;
 }
 .title {
   text-align: center;
-  color: #1a73e8;
+  color: #000;
   margin-bottom: 24px;
   font-size: 20px;
 }
@@ -371,7 +370,7 @@ onMounted(() => {
 /* Tab 栏 */
 .tab-bar {
   display: flex;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid #e0e0e0;
   margin-bottom: 24px;
 }
 .tab-item {
@@ -387,20 +386,20 @@ onMounted(() => {
   user-select: none;
 }
 .tab-item:hover {
-  color: #1a73e8;
+  color: #000;
 }
 .tab-item.active {
-  color: #1a73e8;
-  border-bottom-color: #1a73e8;
+  color: #000;
+  border-bottom-color: #000;
   font-weight: 600;
 }
 
 /* 错误提示 */
 .error-msg {
-  background: #fef2f2;
-  color: #dc2626;
+  background: #f5f5f5;
+  color: #000;
   padding: 10px 14px;
-  border-radius: 6px;
+  border: 1px solid #000;
   margin-bottom: 16px;
   font-size: 14px;
 }
@@ -417,16 +416,14 @@ onMounted(() => {
 .form-group input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s;
 }
 .form-group input:focus {
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.15);
+  border-color: #000;
 }
 
 /* 图形验证码 */
@@ -440,9 +437,8 @@ onMounted(() => {
 .captcha-img {
   width: 120px;
   height: 40px;
-  border-radius: 6px;
   cursor: pointer;
-  border: 1px solid #d1d5db;
+  border: 1px solid #ccc;
 }
 
 /* 验证码输入行（短信验证码） */
@@ -456,20 +452,20 @@ onMounted(() => {
 .btn-send-code {
   flex-shrink: 0;
   padding: 10px 14px;
-  background: #1a73e8;
+  background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.2s;
 }
 .btn-send-code:hover:not(:disabled) {
-  background: #1557b0;
+  background: #333;
 }
 .btn-send-code:disabled {
-  background: #93c5fd;
+  background: #ccc;
+  color: #999;
   cursor: not-allowed;
 }
 
@@ -489,7 +485,8 @@ onMounted(() => {
   cursor: pointer;
 }
 .forgot {
-  color: #1a73e8;
+  color: #000;
+  font-weight: 600;
   text-decoration: none;
 }
 .forgot:hover {
@@ -500,19 +497,19 @@ onMounted(() => {
 .btn-login {
   width: 100%;
   padding: 12px;
-  background: #1a73e8;
+  background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.2s;
 }
 .btn-login:hover:not(:disabled) {
-  background: #1557b0;
+  background: #333;
 }
 .btn-login:disabled {
-  background: #93c5fd;
+  background: #ccc;
+  color: #999;
   cursor: not-allowed;
 }
 
@@ -524,7 +521,8 @@ onMounted(() => {
   color: #666;
 }
 .register-link a {
-  color: #1a73e8;
+  color: #000;
+  font-weight: 600;
   text-decoration: none;
 }
 .register-link a:hover {

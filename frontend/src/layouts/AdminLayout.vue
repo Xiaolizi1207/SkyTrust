@@ -213,7 +213,7 @@ onUnmounted(() => {
 .admin-layout {
   display: flex;
   height: 100vh;
-  background: #f0f2f5;
+  background: var(--bg-page, #f5f5f5);
 }
 
 /* ========== 侧边栏遮罩 ========== */
@@ -227,7 +227,7 @@ onUnmounted(() => {
 /* ========== 侧边栏 ========== */
 .sidebar {
   width: 240px;
-  background: #001529;
+  background: #000;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -241,7 +241,7 @@ onUnmounted(() => {
 }
 .sidebar-header {
   padding: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #333;
   flex-shrink: 0;
 }
 .logo {
@@ -256,8 +256,8 @@ onUnmounted(() => {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: #1a73e8;
-  border-radius: 6px;
+  background: #fff;
+  color: #000;
   font-weight: 700;
   font-size: 18px;
   flex-shrink: 0;
@@ -278,28 +278,29 @@ onUnmounted(() => {
   width: 4px;
 }
 .sidebar-menu::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
+  background: #555;
 }
 .menu-item {
   display: flex;
   align-items: center;
   padding: 12px 16px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
   white-space: nowrap;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.65);
+  color: #999;
   font-size: 14px;
   user-select: none;
+  border-left: 3px solid transparent;
 }
 .menu-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: #1a1a1a;
   color: #fff;
 }
 .menu-item.active {
-  background: #1a73e8;
+  background: #1a1a1a;
   color: #fff;
+  border-left-color: #fff;
 }
 .menu-icon {
   font-size: 16px;
@@ -323,7 +324,7 @@ onUnmounted(() => {
   transform: rotate(90deg);
 }
 .sub-menu {
-  background: rgba(0, 0, 0, 0.2);
+  background: #0d0d0d;
 }
 .sub-item {
   padding-left: 46px;
@@ -333,12 +334,12 @@ onUnmounted(() => {
 /* ========== 侧边栏底部 ========== */
 .sidebar-footer {
   padding: 12px 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid #333;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.45);
+  color: #999;
   font-size: 13px;
   transition: color 0.2s;
   flex-shrink: 0;
@@ -367,7 +368,7 @@ onUnmounted(() => {
   padding: 0 24px;
   height: 56px;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e0e0e0;
   gap: 16px;
   flex-shrink: 0;
 }
@@ -399,23 +400,21 @@ onUnmounted(() => {
 .user-role {
   color: #999;
   font-size: 12px;
-  background: #f0f2f5;
+  background: #f0f0f0;
   padding: 2px 8px;
-  border-radius: 4px;
 }
 .btn-logout {
   padding: 6px 16px;
   background: none;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  border: 1px solid #ccc;
   cursor: pointer;
   font-size: 14px;
   color: #666;
   transition: border-color 0.2s, color 0.2s;
 }
 .btn-logout:hover {
-  border-color: #dc2626;
-  color: #dc2626;
+  border-color: #000;
+  color: #000;
 }
 
 /* ========== 内容区 ========== */

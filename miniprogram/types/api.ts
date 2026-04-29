@@ -135,3 +135,81 @@ export interface DeviceStatistics {
   maintenanceDevices: number
   scrappedDevices: number
 }
+
+// ===================== 微信小程序特有类型 =====================
+
+/** 微信登录请求 */
+export interface WechatLoginParams {
+  code: string
+  encryptedData?: string
+  iv?: string
+}
+
+/** 微信手机号解密请求 */
+export interface DecryptPhoneParams {
+  encryptedData: string
+  iv: string
+  sessionKey?: string
+}
+
+/** 租赁订单视图 */
+export interface RentalOrderVO {
+  id: number
+  orderNo: string
+  userId: number
+  deviceId: number
+  deviceName: string
+  deviceModel: string
+  deviceImage?: string
+  startTime: string
+  endTime: string
+  totalDays: number
+  rentalPrice: number
+  insuranceFee: number
+  totalAmount: number
+  status: number // 0-待支付 1-进行中 2-已完成 3-已取消
+  payStatus: number // 0-未支付 1-已支付
+  cancelReason?: string
+  remark?: string
+  createTime: string
+  updateTime?: string
+}
+
+/** 创建租赁订单请求 */
+export interface CreateOrderParams {
+  deviceId: number
+  startTime: string
+  endTime: string
+  remark?: string
+}
+
+/** 支付请求 */
+export interface PaymentParams {
+  orderId: number
+  paymentMethod: string // 'wechat'
+}
+
+/** 支付结果 */
+export interface PaymentResult {
+  paySign: string
+  nonceStr: string
+  package: string
+  signType: string
+  timeStamp: string
+}
+
+/** 订单查询参数 */
+export interface OrderQueryParams {
+  page?: number
+  size?: number
+  status?: number
+}
+
+/** 分页结果 */
+export interface PageResult<T> {
+  records: T[]
+  total: number
+  size: number
+  current: number
+  pages: number
+}

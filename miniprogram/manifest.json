@@ -1,0 +1,27 @@
+{
+  "name": "SkyTrust",
+  "appid": "",
+  "description": "SkyTrust 无人机租赁小程序",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "uniStatistics": {
+    "enable": false
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": true,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true,
+    "permission": {
+      "scope.userLocation": {
+        "desc": "用于展示设备位置信息"
+      }
+    },
+    "requiredPrivateInfos": ["getLocation", "chooseAddress"]
+  }
+}

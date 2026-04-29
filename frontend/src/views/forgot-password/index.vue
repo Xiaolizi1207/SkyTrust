@@ -210,34 +210,33 @@ function startCountdown() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+  background: #000;
 }
 .forgot-card {
   width: 400px;
   padding: 40px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border: 2px solid #000;
 }
 .title {
   text-align: center;
-  color: #1a73e8;
+  color: #000;
   margin-bottom: 24px;
   font-size: 20px;
 }
 .error-msg {
-  background: #fef2f2;
-  color: #dc2626;
+  background: #f5f5f5;
+  color: #000;
   padding: 10px 14px;
-  border-radius: 6px;
+  border: 1px solid #000;
   margin-bottom: 16px;
   font-size: 14px;
 }
 .success-msg {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: #f5f5f5;
+  color: #000;
   padding: 10px 14px;
-  border-radius: 6px;
+  border: 1px solid #000;
   margin-bottom: 16px;
   font-size: 14px;
 }
@@ -254,20 +253,18 @@ function startCountdown() {
 .form-group input {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 14px;
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s;
 }
 .form-group input:focus {
-  border-color: #1a73e8;
-  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.15);
+  border-color: #000;
 }
 .input-disabled {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: #f0f0f0;
+  color: #666;
   cursor: not-allowed;
 }
 .code-input-row {
@@ -280,38 +277,38 @@ function startCountdown() {
 .btn-send-code {
   flex-shrink: 0;
   padding: 10px 14px;
-  background: #1a73e8;
+  background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
   font-size: 13px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.2s;
 }
 .btn-send-code:hover:not(:disabled) {
-  background: #1557b0;
+  background: #333;
 }
 .btn-send-code:disabled {
-  background: #93c5fd;
+  background: #ccc;
+  color: #999;
   cursor: not-allowed;
 }
 .btn-submit {
   width: 100%;
   padding: 12px;
-  background: #1a73e8;
+  background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   transition: background 0.2s;
 }
 .btn-submit:hover:not(:disabled) {
-  background: #1557b0;
+  background: #333;
 }
 .btn-submit:disabled {
-  background: #93c5fd;
+  background: #ccc;
+  color: #999;
   cursor: not-allowed;
 }
 .back-link {
@@ -321,7 +318,8 @@ function startCountdown() {
   color: #666;
 }
 .back-link a {
-  color: #1a73e8;
+  color: #000;
+  font-weight: 600;
   text-decoration: none;
 }
 .back-link a:hover {

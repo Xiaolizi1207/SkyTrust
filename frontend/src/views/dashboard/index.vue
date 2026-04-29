@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon online-icon">🟢</div>
+        <div class="stat-icon online-icon">■</div>
         <div class="stat-info">
           <span class="stat-value">{{ stats.deviceOnline }}</span>
           <span class="stat-label">在线设备</span>
@@ -122,27 +122,23 @@ function goTo(path: string) {
 }
 .stat-card {
   background: #fff;
-  border-radius: 8px;
+  border: 1px solid #e0e0e0;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 .stat-icon {
   width: 48px;
   height: 48px;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   flex-shrink: 0;
+  border: 1px solid #000;
+  background: #fff;
 }
-.device-icon { background: #e8f4fd; }
-.online-icon { background: #e8faf0; }
-.order-icon { background: #fef3e2; }
-.user-icon { background: #f0e8fd; }
 .stat-info {
   display: flex;
   flex-direction: column;
@@ -150,12 +146,12 @@ function goTo(path: string) {
 .stat-value {
   font-size: 28px;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #000;
   line-height: 1.2;
 }
 .stat-label {
   font-size: 13px;
-  color: #888;
+  color: #666;
   margin-top: 2px;
 }
 
@@ -173,17 +169,16 @@ function goTo(path: string) {
 }
 .panel {
   background: #fff;
-  border-radius: 8px;
+  border: 1px solid #e0e0e0;
   padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 .panel-title {
   font-size: 15px;
   font-weight: 600;
-  color: #333;
+  color: #000;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 2px solid #000;
 }
 
 /* ========== 最近活动 ========== */
@@ -202,8 +197,7 @@ function goTo(path: string) {
 .activity-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: #1a73e8;
+  background: #000;
   flex-shrink: 0;
 }
 .activity-text {
@@ -228,16 +222,16 @@ function goTo(path: string) {
   align-items: center;
   gap: 8px;
   padding: 20px 12px;
-  background: #f8f9fb;
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: border-color 0.2s, background 0.2s;
   font-size: 14px;
-  color: #555;
+  color: #333;
 }
 .quick-item:hover {
-  background: #e8f0fe;
-  transform: translateY(-2px);
+  border-color: #000;
+  background: #fafafa;
 }
 .quick-icon {
   font-size: 28px;
@@ -245,11 +239,10 @@ function goTo(path: string) {
 
 /* ========== 欢迎信息 ========== */
 .welcome-bar {
-  background: linear-gradient(135deg, #1a73e8, #0d47a1);
+  background: #000;
   color: #fff;
   padding: 16px 20px;
-  border-radius: 8px;
   font-size: 14px;
-  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+  font-weight: 600;
 }
 </style>
