@@ -1,5 +1,5 @@
 {
-  "miniprogramRoot": "unpackage/dist/dev/mp-weixin/",
+  "miniprogramRoot": "",
   "projectname": "SkyTrust",
   "description": "SkyTrust 无人机租赁小程序",
   "appid": "",

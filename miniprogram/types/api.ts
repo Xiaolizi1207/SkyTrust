@@ -213,3 +213,36 @@ export interface PageResult<T> {
   current: number
   pages: number
 }
+
+/** 钱包余额 */
+export interface WalletVO {
+  userId: number
+  balance: number
+}
+
+/** 钱包交易记录 */
+export interface WalletTransactionVO {
+  id: number
+  userId: number
+  type: number
+  typeText: string
+  amount: number
+  balanceBefore: number
+  balanceAfter: number
+  description?: string
+  orderId?: number
+  status: number
+  createTime: string
+}
+
+/** 充值请求 */
+export interface RechargeParams {
+  amount: number
+  description?: string
+}
+
+/** 修改密码 */
+export interface PasswordUpdateParams {
+  oldPassword: string
+  newPassword: string
+}

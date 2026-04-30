@@ -86,6 +86,12 @@ public class User extends BaseEntity {
     private String walletAddress;
 
     /**
+     * 钱包余额（元）
+     */
+    @TableField(value = "balance")
+    private java.math.BigDecimal balance;
+
+    /**
      * 最后登录时间
      */
     @TableField(value = "last_login_time")

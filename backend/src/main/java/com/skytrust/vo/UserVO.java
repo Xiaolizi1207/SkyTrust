@@ -47,6 +47,9 @@ public class UserVO {
     @Schema(description = "钱包地址（区块链地址）", example = "0x742d35Cc6634C0532925a3b844Bc9e60F6433cdb")
     private String walletAddress;
 
+    @Schema(description = "钱包余额（元）", example = "1000.00")
+    private java.math.BigDecimal balance;
+
     @Schema(description = "最后登录时间", example = "2023-10-01 12:00:00")
     private LocalDateTime lastLoginTime;
 

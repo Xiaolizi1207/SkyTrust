@@ -2,8 +2,11 @@ package com.skytrust.controller;
 
 import com.skytrust.common.Result;
 import com.skytrust.common.ResultCode;
+import com.skytrust.common.utils.StringUtil;
 import com.skytrust.dto.RentalOrderDTO;
+import com.skytrust.entity.Device;
 import com.skytrust.entity.RentalOrder;
+import com.skytrust.service.DeviceService;
 import com.skytrust.service.RentalOrderService;
 import com.skytrust.vo.RentalOrderVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +17,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -29,9 +34,11 @@ import java.util.stream.Collectors;
 public class RentalOrderController {
 
     private final RentalOrderService rentalOrderService;
+    private final DeviceService deviceService;
 
-    public RentalOrderController(RentalOrderService rentalOrderService) {
+    public RentalOrderController(RentalOrderService rentalOrderService, DeviceService deviceService) {
         this.rentalOrderService = rentalOrderService;
+        this.deviceService = deviceService;
     }
 
     /**
@@ -220,6 +227,25 @@ public class RentalOrderController {
     }
 
     /**
+     * 续租订单
+     */
+    @Operation(summary = "续租订单")
+    @PutMapping("/{id}/renew")
+    public Result<RentalOrderVO> renewOrder(
+            @Parameter(description = "订单ID", required = true) @PathVariable Long id,
+            @RequestBody Map<String, Integer> body) {
+        Integer days = body.get("days");
+        if (days == null || days <= 0 || days > 30) {
+            return Result.error(ResultCode.PARAM_ERROR.getCode(), "续租天数必须在1-30之间");
+        }
+        var result = rentalOrderService.renewOrder(id, days);
+        if (!result.isSuccess()) {
+            return Result.error(result.getCode(), result.getMessage());
+        }
+        return Result.success(convertToVO(result.getData()), "续租成功");
+    }
+
+    /**
      * 生成订单号
      */
     @Operation(summary = "生成订单号")
@@ -238,6 +264,48 @@ public class RentalOrderController {
         }
         RentalOrderVO orderVO = new RentalOrderVO();
         BeanUtils.copyProperties(order, orderVO);
+
+        // 前端兼容字段：status 映射 (后端0-5 → 前端0-3)
+        Integer backendStatus = order.getStatus();
+        if (backendStatus != null) {
+            if (backendStatus == 5) {
+                orderVO.setStatus(3); // 已取消
+            } else if (backendStatus >= 4) {
+                orderVO.setStatus(2); // 已完成
+            } else if (backendStatus >= 3) {
+                orderVO.setStatus(1); // 进行中
+            } else {
+                orderVO.setStatus(0); // 待支付
+            }
+        }
+
+        // 前端兼容字段：payStatus 直接映射
+        orderVO.setPayStatus(order.getPaymentStatus());
+        // 前端兼容字段：totalAmount
+        orderVO.setTotalAmount(order.getTotalAmount());
+        // 前端兼容字段：dailyInsuranceFee
+        orderVO.setDailyInsuranceFee(order.getInsuranceFee());
+
+        // 设备关联字段
+        if (order.getDeviceId() != null) {
+            Device device = deviceService.getById(order.getDeviceId());
+            if (device != null) {
+                orderVO.setDeviceName(device.getDeviceName());
+                orderVO.setDeviceModel(device.getModel());
+                orderVO.setRentalPrice(device.getRentalPrice());
+                if (StringUtil.isNotEmpty(device.getImages())) {
+                    String firstImage = device.getImages().split(",")[0].trim();
+                    orderVO.setDeviceImage(firstImage);
+                }
+            }
+        }
+
+        // 计算租赁天数
+        if (order.getStartTime() != null && order.getEndTime() != null) {
+            long days = ChronoUnit.DAYS.between(order.getStartTime(), order.getEndTime());
+            orderVO.setTotalDays((int) Math.max(1, days));
+        }
+
         return orderVO;
     }
 }

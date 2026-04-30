@@ -96,6 +96,50 @@
         <button class="action-cancel" @click="handleDelete">删除订单</button>
       </template>
     </view>
+
+    <!-- 续租弹窗 -->
+    <view v-if="showRenewModal" class="modal-mask" @click="showRenewModal = false">
+      <view class="modal-content renew-modal" @click.stop>
+        <text class="modal-title">续租</text>
+
+        <view class="modal-item">
+          <text class="modal-label">设备</text>
+          <text class="modal-value">{{ order.deviceName }}</text>
+        </view>
+
+        <view class="modal-item">
+          <text class="modal-label">当前到期</text>
+          <text class="modal-value">{{ formatDateTime(order.endTime) }}</text>
+        </view>
+
+        <view class="modal-item">
+          <text class="modal-label">续租天数</text>
+          <view class="days-selector">
+            <view class="day-btn" @click="renewDays = Math.max(1, renewDays - 1)">
+              <text class="day-btn-text">-</text>
+            </view>
+            <text class="day-num">{{ renewDays }}</text>
+            <view class="day-btn" @click="renewDays = Math.min(30, renewDays + 1)">
+              <text class="day-btn-text">+</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="modal-divider" />
+
+        <view class="modal-total">
+          <text class="total-label">预计新增费用</text>
+          <text class="total-price">¥{{ (order.rentalPrice + order.insuranceFee) * renewDays }}</text>
+        </view>
+
+        <view class="modal-actions">
+          <button class="modal-cancel" @click="showRenewModal = false">取消</button>
+          <button class="modal-confirm" :loading="renewing" @click="confirmRenew">
+            确认续租
+          </button>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -204,12 +248,28 @@ async function handleCancel() {
 }
 
 // ========== 续租 ==========
+const renewDays = ref(1)
+const showRenewModal = ref(false)
+const renewing = ref(false)
+
 function handleRenew() {
-  uni.showModal({
-    title: '续租',
-    content: '续租功能开发中，请联系客服',
-    showCancel: false,
-  })
+  renewDays.value = 1
+  showRenewModal.value = true
+}
+
+async function confirmRenew() {
+  renewing.value = true
+  try {
+    const { renewOrderApi } = await import('@/api/order')
+    await renewOrderApi(orderId.value, renewDays.value)
+    uni.showToast({ title: '续租成功', icon: 'success' })
+    showRenewModal.value = false
+    setTimeout(() => loadOrder(), 1000)
+  } catch (err: any) {
+    uni.showToast({ title: err.message || '续租失败', icon: 'none' })
+  } finally {
+    renewing.value = false
+  }
 }
 
 // ========== 删除 ==========
@@ -388,6 +448,138 @@ function getOrderStatusText(status: number) {
   color: #999;
   border: 2rpx solid #ccc;
   font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 续租弹窗 */
+.renew-modal {
+  width: 600rpx;
+}
+
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 48rpx 40rpx;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #000;
+  display: block;
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.modal-item {
+  margin-bottom: 20rpx;
+}
+
+.modal-label {
+  font-size: 26rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.modal-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.days-selector {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.day-btn {
+  width: 56rpx;
+  height: 56rpx;
+  border: 2rpx solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.day-btn-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  line-height: 1;
+  color: #000;
+}
+
+.day-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  min-width: 48rpx;
+  text-align: center;
+  color: #000;
+}
+
+.modal-divider {
+  height: 2rpx;
+  background: #e0e0e0;
+  margin: 20rpx 0;
+}
+
+.modal-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+
+.total-label {
+  font-size: 28rpx;
+  color: #000;
+  font-weight: 600;
+}
+
+.total-price {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: #000;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.modal-cancel {
+  flex: 1;
+  height: 80rpx;
+  background: #f5f5f5;
+  color: #333;
+  font-size: 28rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-confirm {
+  flex: 2;
+  height: 80rpx;
+  background: #000;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;

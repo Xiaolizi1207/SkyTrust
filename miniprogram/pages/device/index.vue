@@ -103,6 +103,12 @@
         <text class="insurance-info">含保险 ¥{{ device.insuranceFee }}/天</text>
       </view>
       <button
+        class="share-btn"
+        @click="showQRCode = true"
+      >
+        分享
+      </button>
+      <button
         class="rent-btn"
         :class="{ 'rent-btn--disabled': !canRent }"
         :disabled="!canRent"
@@ -110,6 +116,23 @@
       >
         立即租赁
       </button>
+    </view>
+
+    <!-- 二维码弹窗 -->
+    <view v-if="showQRCode" class="modal-mask" @click="showQRCode = false">
+      <view class="modal-content qr-modal" @click.stop>
+        <text class="modal-title">扫一扫打开设备</text>
+        <image
+          class="qr-image"
+          :src="qrCodeUrl"
+          mode="aspectFit"
+          style="width: 400rpx; height: 400rpx"
+        />
+        <text class="qr-hint">使用微信扫码查看设备详情</text>
+        <button class="modal-cancel" style="margin-top: 24rpx" @click="showQRCode = false">
+          关闭
+        </button>
+      </view>
     </view>
 
     <!-- 下单确认弹窗 -->
@@ -166,6 +189,7 @@ import { ref, computed, onMounted } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getDeviceApi } from '@/api/device'
 import { createOrderApi } from '@/api/order'
+import { API_BASE_URL } from '@/config'
 import type { DeviceVO } from '@/types/api'
 
 // ========== 路由参数 ==========
@@ -177,6 +201,12 @@ onLoad((options: any) => {
     loadDevice()
   }
 })
+
+// ========== 二维码分享 ==========
+const showQRCode = ref(false)
+const qrCodeUrl = computed(() =>
+  `${API_BASE_URL}/qrcode?path=${encodeURIComponent('pages/device/index?id=' + deviceId.value)}&size=300`
+)
 
 // ========== 设备信息 ==========
 const device = ref<DeviceVO>({
@@ -490,6 +520,37 @@ function getStatusText(status: number) {
 .rent-btn--disabled {
   background: #e0e0e0;
   color: #999;
+}
+
+.share-btn {
+  padding: 16rpx 32rpx;
+  background: #fff;
+  color: #000;
+  font-size: 26rpx;
+  font-weight: 600;
+  border: 2rpx solid #000;
+  white-space: nowrap;
+  margin-right: 16rpx;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.qr-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-image {
+  margin: 24rpx auto;
+}
+
+.qr-hint {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
 }
 
 /* 弹窗遮罩 */

@@ -87,6 +87,35 @@ public class RentalOrderVO {
     @Schema(description = "备注", example = "希望设备电量充足")
     private String remark;
 
+    // ===== 前端兼容字段 =====
+
+    @Schema(description = "订单状态（前端映射: 0-待支付，1-进行中，2-已完成，3-已取消）", example = "0")
+    private Integer status;
+
+    @Schema(description = "支付状态（前端映射: 0-未支付，1-已支付）", example = "0")
+    private Integer payStatus;
+
+    @Schema(description = "总金额（元）", example = "450.00")
+    private BigDecimal totalAmount;
+
+    @Schema(description = "设备名称", example = "DJI Mavic 3")
+    private String deviceName;
+
+    @Schema(description = "设备型号", example = "Mavic 3 Pro")
+    private String deviceModel;
+
+    @Schema(description = "设备图片URL", example = "https://cdn.example.com/device1.jpg")
+    private String deviceImage;
+
+    @Schema(description = "租赁天数", example = "3")
+    private Integer totalDays;
+
+    @Schema(description = "日租金（元/天）", example = "150.00")
+    private BigDecimal rentalPrice;
+
+    @Schema(description = "日保险费（元/天）", example = "10.00")
+    private BigDecimal dailyInsuranceFee;
+
     @Schema(description = "创建时间", example = "2023-10-01T09:50:00")
     private LocalDateTime createTime;
 

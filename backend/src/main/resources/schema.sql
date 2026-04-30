@@ -413,7 +413,7 @@ CREATE TABLE IF NOT EXISTS `sys_user_role` (
 -- -----------------------------------------------------
 -- 初始化系统配置数据
 -- -----------------------------------------------------
-INSERT INTO `system_config` (`id`, `config_key`, `config_value`, `config_type`, `description`, `modifiable`, `config_group`, `sort_order`, `create_time`, `update_time`, `deleted`) VALUES
+INSERT IGNORE INTO `system_config` (`id`, `config_key`, `config_value`, `config_type`, `description`, `modifiable`, `config_group`, `sort_order`, `create_time`, `update_time`, `deleted`) VALUES
 (1, 'system.name', 'SkyTrust无人机共享租赁区块链平台', 0, '系统名称', 0, 'system', 1, NOW(), NOW(), 0),
 (2, 'system.version', '1.0.0', 0, '系统版本', 0, 'system', 2, NOW(), NOW(), 0),
 (3, 'system.copyright', 'Copyright © 2026 SkyTrust团队', 0, '版权信息', 0, 'system', 3, NOW(), NOW(), 0),
@@ -429,6 +429,41 @@ INSERT INTO `system_config` (`id`, `config_key`, `config_value`, `config_type`, 
 (13, 'rental.default_insurance_fee', '10.00', 1, '默认保险费（元/次）', 1, 'rental', 2, NOW(), NOW(), 0),
 (14, 'user.default_credit_score', '100', 1, '用户默认信用评分', 1, 'user', 1, NOW(), NOW(), 0),
 (15, 'upload.max_file_size', '10485760', 0, '最大文件上传大小（字节）', 1, 'upload', 1, NOW(), NOW(), 0);
+
+-- -----------------------------------------------------
+-- wallet：user 表添加余额字段（仅当列不存在时执行）
+-- -----------------------------------------------------
+SET @stmt = IF(
+  (SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS
+   WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'user' AND COLUMN_NAME = 'balance') = 0,
+  'ALTER TABLE `user` ADD COLUMN `balance` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT ''钱包余额（元）'' AFTER `wallet_address`',
+  'SELECT ''Column balance already exists'' AS msg'
+);
+PREPARE stmt FROM @stmt;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- -----------------------------------------------------
+-- 表：wallet_transaction（钱包交易记录表）
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `wallet_transaction` (
+  `id` BIGINT NOT NULL COMMENT '主键ID',
+  `user_id` BIGINT NOT NULL COMMENT '用户ID',
+  `type` TINYINT NOT NULL COMMENT '交易类型（0-充值，1-消费，2-退款，3-提现）',
+  `amount` DECIMAL(10,2) NOT NULL COMMENT '交易金额（元）',
+  `balance_before` DECIMAL(10,2) NOT NULL COMMENT '交易前余额',
+  `balance_after` DECIMAL(10,2) NOT NULL COMMENT '交易后余额',
+  `description` VARCHAR(255) NULL COMMENT '交易描述',
+  `order_id` BIGINT NULL COMMENT '关联订单ID',
+  `status` TINYINT NOT NULL DEFAULT 0 COMMENT '交易状态（0-成功，1-失败，2-处理中）',
+  `remark` VARCHAR(500) NULL COMMENT '备注',
+  `create_time` DATETIME NOT NULL COMMENT '创建时间',
+  `update_time` DATETIME NOT NULL COMMENT '更新时间',
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '逻辑删除标志',
+  PRIMARY KEY (`id`),
+  INDEX `idx_wallet_user_id` (`user_id`),
+  INDEX `idx_wallet_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='钱包交易记录表';
 
 -- 重新启用外键检查
 SET FOREIGN_KEY_CHECKS = 1;

@@ -67,6 +67,15 @@ public interface RentalOrderService extends IService<RentalOrder> {
     boolean completeOrder(Long orderId);
 
     /**
+     * 续租订单
+     *
+     * @param orderId 订单ID
+     * @param days    续租天数
+     * @return 续租结果
+     */
+    com.skytrust.common.Result<RentalOrder> renewOrder(Long orderId, Integer days);
+
+    /**
      * 生成订单号
      *
      * @return 订单号

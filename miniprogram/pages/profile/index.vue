@@ -74,11 +74,11 @@ function goOrders() {
 }
 
 function goWallet() {
-  uni.showToast({ title: '钱包功能开发中', icon: 'none' })
+  uni.navigateTo({ url: '/pages/wallet/index' })
 }
 
 function goSettings() {
-  uni.showToast({ title: '设置功能开发中', icon: 'none' })
+  uni.navigateTo({ url: '/pages/settings/index' })
 }
 
 function goAbout() {

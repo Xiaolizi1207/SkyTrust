@@ -170,6 +170,60 @@ public class RentalOrderServiceImpl extends BaseService<RentalOrderMapper, Renta
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<RentalOrder> renewOrder(Long orderId, Integer days) {
+        log.info("续租订单: orderId={}, days={}", orderId, days);
+
+        if (orderId == null) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "订单ID不能为空");
+        }
+        if (days == null || days <= 0 || days > 30) {
+            throw new BusinessException(ResultCode.PARAM_ERROR, "续租天数必须在1-30之间");
+        }
+
+        RentalOrder order = getById(orderId);
+        if (order == null) {
+            throw new BusinessException(ResultCode.ORDER_NOT_EXIST, "订单不存在");
+        }
+
+        // 只有进行中(status=3)的订单可以续租
+        Integer status = order.getStatus();
+        if (status == null || status != 3) {
+            throw new BusinessException(ResultCode.ORDER_CANNOT_CANCEL, "仅进行中的订单可以续租");
+        }
+
+        // 计算日均费用作为续租单价
+        java.math.BigDecimal totalFee = order.getTotalFee() != null ? order.getTotalFee() : java.math.BigDecimal.ZERO;
+        java.math.BigDecimal dailyRate;
+        if (order.getDuration() != null && order.getDuration().compareTo(java.math.BigDecimal.ZERO) > 0) {
+            dailyRate = totalFee.divide(order.getDuration(), 2, java.math.RoundingMode.HALF_UP);
+        } else {
+            // fallback: use rentalFee + insuranceFee as daily rate
+            dailyRate = (order.getRentalFee() != null ? order.getRentalFee() : java.math.BigDecimal.ZERO)
+                    .add(order.getInsuranceFee() != null ? order.getInsuranceFee() : java.math.BigDecimal.ZERO);
+        }
+        java.math.BigDecimal additionalFee = dailyRate.multiply(java.math.BigDecimal.valueOf(days));
+
+        // 更新订单
+        order.setEndTime(order.getEndTime().plusDays(days));
+        order.setDuration(order.getDuration() != null
+                ? order.getDuration().add(java.math.BigDecimal.valueOf(days))
+                : java.math.BigDecimal.valueOf(days));
+        order.setTotalFee(totalFee.add(additionalFee));
+        if (order.getActualPayment() != null) {
+            order.setActualPayment(order.getActualPayment().add(additionalFee));
+        }
+
+        boolean updated = updateById(order);
+        if (!updated) {
+            throw new BusinessException(ResultCode.SYSTEM_ERROR, "续租失败，请重试");
+        }
+
+        log.info("订单续租成功: orderId={}, 新增{}天, 新结束时间={}", orderId, days, order.getEndTime());
+        return Result.success(order, "续租成功");
+    }
+
+    @Override
     public String generateOrderNo() {
         return DateUtil.generateOrderNo("RO");
     }
