@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/auth/code-login",
                         "/api/auth/forgot-password",
                         "/api/auth/reset-password",
+                        "/api/auth/wechat-login",
+                        "/api/auth/decrypt-phone",
                         "/api/users/register",
                         "/api/users/login",
                         "/api/users/refresh-token",

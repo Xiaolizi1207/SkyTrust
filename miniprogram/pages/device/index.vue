@@ -22,8 +22,8 @@
     <view class="info-section">
       <view class="info-header">
         <text class="device-name">{{ device.deviceName }}</text>
-        <view class="status-tag" :class="getStatusClass(device.status)">
-          <text>{{ getStatusText(device.status) }}</text>
+        <view class="status-tag" :class="{'status-online': device.status === 1, 'status-flying': device.status === 2, 'status-maintenance': device.status === 3, 'status-scrapped': device.status === 4, 'status-offline': device.status !== 1 && device.status !== 2 && device.status !== 3 && device.status !== 4}">
+          <text>{{ device.status === 0 ? '离线' : device.status === 1 ? '在线' : device.status === 2 ? '飞行中' : device.status === 3 ? '维护中' : device.status === 4 ? '已报废' : '未知' }}</text>
         </view>
       </view>
 
@@ -171,7 +171,7 @@ import type { DeviceVO } from '@/types/api'
 // ========== 路由参数 ==========
 const deviceId = ref(0)
 
-onLoad((options) => {
+onLoad((options: any) => {
   if (options?.id) {
     deviceId.value = Number(options.id)
     loadDevice()

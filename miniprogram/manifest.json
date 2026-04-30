@@ -1,5 +1,6 @@
 {
   "name": "SkyTrust",
+  "vueVersion": "3",
   "appid": "",
   "description": "SkyTrust 无人机租赁小程序",
   "versionName": "1.0.0",

@@ -27,6 +27,19 @@
       <text v-if="wechatError" class="error-text">{{ wechatError }}</text>
     </view>
 
+    <!-- 微信手机号授权（单独按钮） -->
+    <view class="login-section">
+      <button
+        class="phone-auth-btn"
+        open-type="getPhoneNumber"
+        @getphonenumber="handleGetPhoneNumber"
+        :loading="phoneAuthLoading"
+        :disabled="phoneAuthLoading"
+      >
+        <text>微信手机号快速登录</text>
+      </button>
+    </view>
+
     <!-- 分隔 -->
     <view class="divider-section">
       <view class="divider-line" />
@@ -80,6 +93,13 @@
         登录即表示同意《用户协议》和《隐私政策》
       </text>
     </view>
+
+    <!-- 注册 / 忘记密码 -->
+    <view class="footer-links">
+      <text class="footer-link" @click="goRegister">注册账号</text>
+      <text class="footer-divider">|</text>
+      <text class="footer-link" @click="goForgotPassword">忘记密码</text>
+    </view>
   </view>
 </template>
 
@@ -92,6 +112,9 @@ const authStore = useAuthStore()
 // ========== 微信登录状态 ==========
 const wechatLoading = ref(false)
 const wechatError = ref('')
+
+// ========== 微信手机号授权状态 ==========
+const phoneAuthLoading = ref(false)
 
 // ========== 手机号+验证码登录状态 ==========
 const phone = ref('')
@@ -158,7 +181,8 @@ async function handleCodeLogin() {
   try {
     const { codeLoginApi } = await import('@/api/auth')
     const res = await codeLoginApi({ phone: phone.value, code: code.value })
-    const { accessToken, refreshToken, user: userInfo } = res.data.data
+    const data = res.data.data as any
+    const { accessToken, refreshToken, user: userInfo } = data
     authStore.saveTokens(accessToken, refreshToken)
     authStore.saveUser(userInfo)
 
@@ -168,6 +192,43 @@ async function handleCodeLogin() {
   } finally {
     codeLoading.value = false
   }
+}
+
+// ========== 微信手机号授权 ==========
+async function handleGetPhoneNumber(e: any) {
+  if (e.detail.errMsg !== 'getPhoneNumber:ok') {
+    uni.showToast({ title: '授权已取消', icon: 'none' })
+    return
+  }
+
+  phoneAuthLoading.value = true
+  try {
+    // 1. 先获取微信登录 code
+    const loginRes = await uni.login({ provider: 'weixin' })
+    if (!loginRes.code) throw new Error('获取微信授权失败')
+
+    // 2. 用 code 换取 openid/session_key，同时传入手机号加密数据
+    await authStore.wechatLogin({
+      code: loginRes.code,
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv,
+    })
+
+    uni.switchTab({ url: '/pages/index/index' })
+  } catch (err: any) {
+    uni.showToast({ title: err.message || '登录失败', icon: 'none' })
+  } finally {
+    phoneAuthLoading.value = false
+  }
+}
+
+// ========== 导航 ==========
+function goRegister() {
+  uni.navigateTo({ url: '/pages/register/index' })
+}
+
+function goForgotPassword() {
+  uni.navigateTo({ url: '/pages/forgot-password/index' })
 }
 </script>
 
@@ -355,6 +416,42 @@ async function handleCodeLogin() {
 }
 
 .agreement-text {
+  font-size: 22rpx;
+  color: #ccc;
+}
+
+/* 手机号授权按钮 */
+.phone-auth-btn {
+  width: 100%;
+  height: 80rpx;
+  background: #fff;
+  color: #000;
+  font-size: 28rpx;
+  border: 2rpx solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-auth-btn::after {
+  border: none;
+}
+
+/* 底部链接 */
+.footer-links {
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.footer-link {
+  font-size: 26rpx;
+  color: #000;
+  font-weight: 600;
+}
+
+.footer-divider {
   font-size: 22rpx;
   color: #ccc;
 }

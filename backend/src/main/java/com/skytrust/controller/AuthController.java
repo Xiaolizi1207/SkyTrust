@@ -2,12 +2,14 @@ package com.skytrust.controller;
 
 import com.skytrust.common.Result;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.DecryptPhoneDTO;
 import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.RefreshTokenDTO;
 import com.skytrust.dto.RegisterDTO;
 import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
+import com.skytrust.dto.WechatLoginDTO;
 import com.skytrust.service.AuthService;
 import com.skytrust.vo.CaptchaVO;
 import com.skytrust.vo.LoginVO;
@@ -147,5 +149,23 @@ public class AuthController {
     @PostMapping("/reset-password")
     public Result<Void> resetPassword(@Valid @RequestBody ResetPasswordDTO resetPasswordDTO) {
         return authService.resetPassword(resetPasswordDTO);
+    }
+
+    /**
+     * 微信一键登录
+     */
+    @Operation(summary = "微信一键登录")
+    @PostMapping("/wechat-login")
+    public Result<LoginVO> wechatLogin(@Valid @RequestBody WechatLoginDTO wechatLoginDTO, HttpServletRequest request) {
+        return authService.wechatLogin(wechatLoginDTO, request);
+    }
+
+    /**
+     * 解密微信手机号
+     */
+    @Operation(summary = "解密微信手机号")
+    @PostMapping("/decrypt-phone")
+    public Result<String> decryptPhone(@Valid @RequestBody DecryptPhoneDTO decryptPhoneDTO) {
+        return authService.decryptPhone(decryptPhoneDTO);
     }
 }

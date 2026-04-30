@@ -1,1 +1,7 @@
-global.uniPlugin = { options: {} };
+global.uniPlugin = {
+  options: {},
+  preprocess: {
+    vueContext: new Set(),
+  },
+};
+

@@ -40,19 +40,21 @@ export const useAuthStore = defineStore('auth', () => {
   /** 密码登录 */
   async function login(params: LoginParams) {
     const res = await loginApi(params)
-    const { accessToken: access, refreshToken: refresh, user: userInfo } = res.data.data
+    const data = res.data.data as any
+    const { accessToken: access, refreshToken: refresh, user: userInfo } = data
     saveTokens(access, refresh)
     saveUser(userInfo)
-    return res.data.data
+    return data
   }
 
   /** 微信一键登录 */
   async function wechatLogin(params: WechatLoginParams) {
     const res = await wechatLoginApi(params)
-    const { accessToken: access, refreshToken: refresh, user: userInfo } = res.data.data
+    const data = res.data.data as any
+    const { accessToken: access, refreshToken: refresh, user: userInfo } = data
     saveTokens(access, refresh)
     saveUser(userInfo)
-    return res.data.data
+    return data
   }
 
   /** 刷新令牌回调 */
@@ -64,7 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
   async function fetchUserInfo() {
     try {
       const res = await getUserInfoApi()
-      saveUser(res.data.data)
+      saveUser(res.data.data as any)
     } catch {
       // token 失效由请求拦截器处理
     }

@@ -31,8 +31,8 @@
         <!-- 订单头部 -->
         <view class="order-header">
           <text class="order-no">{{ order.orderNo }}</text>
-          <view class="order-status" :class="getOrderStatusClass(order.status)">
-            <text>{{ getOrderStatusText(order.status) }}</text>
+          <view class="order-status" :class="{'status-pending': order.status === 0, 'status-active': order.status === 1, 'status-done': order.status === 2, 'status-cancelled': order.status === 3}">
+            <text>{{ order.status === 0 ? '待支付' : order.status === 1 ? '进行中' : order.status === 2 ? '已完成' : order.status === 3 ? '已取消' : '未知' }}</text>
           </view>
         </view>
 

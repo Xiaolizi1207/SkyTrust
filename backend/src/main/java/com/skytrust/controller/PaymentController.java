@@ -182,6 +182,23 @@ public class PaymentController {
     }
 
     /**
+     * 根据订单ID查询支付状态
+     */
+    @Operation(summary = "根据订单ID查询支付状态")
+    @GetMapping("/status/{orderId}")
+    public Result<PaymentVO> getPaymentStatusByOrderId(@Parameter(description = "订单ID", required = true) @PathVariable Long orderId) {
+        Payment payment = paymentService.getByOrderId(orderId);
+        if (payment == null) {
+            // 不存在支付记录时返回待支付状态，不报错
+            PaymentVO emptyVO = new PaymentVO();
+            emptyVO.setOrderId(orderId);
+            emptyVO.setStatus(0);
+            return Result.success(emptyVO);
+        }
+        return Result.success(convertToVO(payment));
+    }
+
+    /**
      * 生成交易号
      */
     @Operation(summary = "生成交易号")

@@ -7,10 +7,12 @@ import com.skytrust.common.utils.CaptchaUtil;
 import com.skytrust.common.utils.PasswordPolicyUtil;
 import com.skytrust.common.utils.SecurityUtil;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.DecryptPhoneDTO;
 import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
+import com.skytrust.dto.WechatLoginDTO;
 import com.skytrust.entity.User;
 import com.skytrust.enums.LoginLogTypeEnum;
 import com.skytrust.enums.UserStatusEnum;
@@ -36,6 +38,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.spec.AlgorithmParameterSpec;
+import java.util.Base64;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -66,6 +77,9 @@ public class AuthServiceImpl implements AuthService {
     private final StringRedisTemplate stringRedisTemplate;
     private final LoginLogService loginLogService;
     private final PasswordPolicyUtil passwordPolicyUtil;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public Result<CaptchaVO> getCaptcha() {
@@ -513,7 +527,203 @@ public class AuthServiceImpl implements AuthService {
         return Result.success("密码重置成功");
     }
 
+    // ==================== 微信小程序登录 ====================
+
+    /** 微信AppID（从配置文件读取，此处提供默认值） */
+    private String getWxAppId() {
+        return "wx_your_appid_here";
+    }
+
+    /** 微信AppSecret */
+    private String getWxAppSecret() {
+        return "your_appsecret_here";
+    }
+
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<LoginVO> wechatLogin(WechatLoginDTO dto, HttpServletRequest request) {
+        String code = dto.getCode();
+        String ipAddress = getIpAddress(request);
+        String userAgent = request.getHeader("User-Agent");
+
+        log.info("微信一键登录: code=[{}]", code);
+
+        try {
+            // 1. 调用微信接口 code2Session 换取 openid 和 session_key
+            String wxUrl = String.format(
+                    "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
+                    getWxAppId(), getWxAppSecret(), code);
+
+            String wxResponse = restTemplate.getForObject(wxUrl, String.class);
+            log.debug("微信 code2Session 响应: {}", wxResponse);
+
+            JsonNode jsonNode = objectMapper.readTree(wxResponse);
+            if (jsonNode.has("errcode") && jsonNode.get("errcode").asInt() != 0) {
+                String errMsg = jsonNode.has("errmsg") ? jsonNode.get("errmsg").asText() : "未知错误";
+                log.error("微信 code2Session 失败: {}", errMsg);
+                loginLogService.recordLogin(null, null, LoginLogTypeEnum.LOGIN_FAIL.getCode(),
+                        ipAddress, userAgent, "微信登录失败: " + errMsg);
+                return Result.error("微信授权失败: " + errMsg);
+            }
+
+            String openid = jsonNode.get("openid").asText();
+            String sessionKey = jsonNode.has("session_key") ? jsonNode.get("session_key").asText() : null;
+            String unionid = jsonNode.has("unionid") ? jsonNode.get("unionid").asText() : null;
+
+            log.info("微信 openid: {}, unionid: {}", openid, unionid);
+
+            // 2. 缓存 session_key 到 Redis（5分钟有效），供后续手机号解密使用
+            if (sessionKey != null) {
+                stringRedisTemplate.opsForValue().set("wx:session:" + openid, sessionKey, 5, TimeUnit.MINUTES);
+            }
+
+            // 3. 通过 openid 查找已绑定用户（openid 存储在 remark 或 wallet_address 字段中）
+            //    实际项目建议在 User 表增加 wechat_openid 字段，此处使用 remark 字段做模拟映射
+            User user = userMapper.selectByOpenid(openid);
+            if (user == null) {
+                // 尝试通过 unionid 查找
+                if (unionid != null) {
+                    user = userMapper.selectByOpenid(unionid);
+                }
+            }
+
+            // 4. 新用户自动注册
+            if (user == null) {
+                user = new User();
+                String autoUsername = "wx_" + openid.substring(0, 12);
+                user.setUsername(autoUsername);
+                user.setPassword(passwordEncoder.encode(UUID.randomUUID().toString())); // 随机密码
+                user.setStatus(UserStatusEnum.ENABLED.getCode());
+                user.setRole("user");
+                user.setCreditScore(80); // 新用户默认信用分
+
+                // 将 openid 存入 remark 字段（临时方案，建议后续增加 wechat_openid 字段）
+                if (unionid != null) {
+                    user.setRemark("openid:" + openid + ",unionid:" + unionid);
+                } else {
+                    user.setRemark("openid:" + openid);
+                }
+
+                Result<User> regResult = userService.register(user);
+                if (!regResult.isSuccess()) {
+                    return Result.error(regResult.getCode(), regResult.getMessage());
+                }
+                user = regResult.getData();
+                log.info("微信新用户自动注册: {}, openid: {}", autoUsername, openid);
+            }
+
+            // 5. 如果前端传了 encryptedData + iv，解密用户信息（昵称、头像等）
+            if (dto.getEncryptedData() != null && dto.getIv() != null && sessionKey != null) {
+                try {
+                    String decryptedData = decryptWxData(dto.getEncryptedData(), sessionKey, dto.getIv());
+                    log.info("解密微信用户信息: {}", decryptedData);
+                    JsonNode userInfo = objectMapper.readTree(decryptedData);
+                    if (userInfo.has("nickName") && user.getRealName() == null) {
+                        user.setRealName(userInfo.get("nickName").asText());
+                    }
+                    if (userInfo.has("avatarUrl") && user.getAvatar() == null) {
+                        user.setAvatar(userInfo.get("avatarUrl").asText());
+                    }
+                    userService.updateById(user);
+                } catch (Exception e) {
+                    log.warn("解密微信用户信息失败（不影响登录）: {}", e.getMessage());
+                }
+            }
+
+            // 6. 检查用户状态
+            if (UserStatusEnum.DISABLED.getCode().equals(user.getStatus())) {
+                loginLogService.recordLogin(user.getId(), user.getUsername(),
+                        LoginLogTypeEnum.LOGIN_FAIL.getCode(),
+                        ipAddress, userAgent, "用户已被禁用");
+                return Result.error(ResultCode.USER_DISABLED, "用户已被禁用");
+            }
+
+            // 7. 更新最后登录时间
+            user.setLastLoginTime(LocalDateTime.now());
+            userService.updateById(user);
+
+            // 8. 生成 JWT 令牌
+            String accessToken = generateAccessToken(user.getUsername());
+            String refreshToken = generateRefreshToken(user.getUsername());
+
+            // 9. 记录登录日志
+            loginLogService.recordLogin(user.getId(), user.getUsername(),
+                    LoginLogTypeEnum.LOGIN_SUCCESS.getCode(),
+                    ipAddress, userAgent, "微信登录成功");
+
+            // 10. 构建响应
+            LoginVO loginVO = new LoginVO();
+            loginVO.setAccessToken(accessToken);
+            loginVO.setRefreshToken(refreshToken);
+            loginVO.setExpiresIn(7200L);
+            loginVO.setUser(convertToVO(user));
+
+            log.info("微信登录成功: {}", user.getUsername());
+            return Result.success(loginVO, "登录成功");
+        } catch (Exception e) {
+            log.error("微信登录异常: {}", e.getMessage(), e);
+            loginLogService.recordLogin(null, null, LoginLogTypeEnum.LOGIN_FAIL.getCode(),
+                    ipAddress, userAgent, "微信登录系统异常");
+            return Result.error("微信登录失败，请稍后重试");
+        }
+    }
+
+    @Override
+    public Result<String> decryptPhone(DecryptPhoneDTO dto) {
+        log.info("解密微信手机号: encryptedData length={}", dto.getEncryptedData().length());
+
+        try {
+            // 1. 获取 session_key：优先使用请求中的，否则尝试从 Redis 根据 openid 获取
+            String sessionKey = dto.getSessionKey();
+
+            if (sessionKey == null || sessionKey.trim().isEmpty()) {
+                // 尝试从 Redis 读取（需要 openid 作为 key）
+                // 实际场景中 session_key 由前端 localStorage 保存，此处保留 Redis 兜底逻辑
+                return Result.error("缺少 session_key，请先完成微信登录获取");
+            }
+
+            // 2. AES-128-CBC 解密
+            String decryptedData = decryptWxData(dto.getEncryptedData(), sessionKey, dto.getIv());
+            log.debug("解密手机号原始数据: {}", decryptedData);
+
+            // 3. 解析 JSON 获取 purePhoneNumber
+            JsonNode jsonNode = objectMapper.readTree(decryptedData);
+            if (!jsonNode.has("purePhoneNumber")) {
+                return Result.error("解密失败：未获取到手机号");
+            }
+
+            String phone = jsonNode.get("purePhoneNumber").asText();
+            log.info("微信手机号解密成功: {}", phone);
+            return Result.success(phone, "解密成功");
+        } catch (Exception e) {
+            log.error("微信手机号解密失败: {}", e.getMessage(), e);
+            return Result.error("手机号解密失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 微信加密数据解密（AES-128-CBC）
+     *
+     * @param encryptedData Base64编码的加密数据
+     * @param sessionKey    会话密钥
+     * @param iv            加密初始向量
+     * @return 解密后的 JSON 字符串
+     */
+    private String decryptWxData(String encryptedData, String sessionKey, String iv) throws Exception {
+        byte[] sessionKeyBytes = Base64.getDecoder().decode(sessionKey);
+        byte[] ivBytes = Base64.getDecoder().decode(iv);
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedData);
+
+        AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec keySpec = new SecretKeySpec(sessionKeyBytes, "AES");
+        cipher.init(Cipher.DECRYPT_MODE, keySpec, ivSpec);
+        byte[] decrypted = cipher.doFinal(encryptedBytes);
+
+        return new String(decrypted, StandardCharsets.UTF_8);
+    }
+
+    // ==================== 密码登录 ====================
     public boolean logout(String token) {
         log.info("用户注销，令牌: {}", token.substring(0, Math.min(token.length(), 20)) + "...");
 

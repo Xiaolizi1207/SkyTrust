@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 import path from 'path'

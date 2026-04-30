@@ -14,7 +14,10 @@
       "Bash(find 'D:\\\\Real Projects\\\\SkyTrust\\\\SkyTrust2026.4.11\\\\SkyTrust2026.4.11\\\\backend' -name *.sql -o -name *.sql)",
       "Bash(git:*)",
       "Bash(npx vue-tsc:*)",
-      "Bash(node node_modules/.bin/vue-tsc --noEmit)"
+      "Bash(node node_modules/.bin/vue-tsc --noEmit)",
+      "Bash(node *)",
+      "Bash(npm view *)",
+      "Bash(npm install *)"
     ]
   }
 }

@@ -2,10 +2,12 @@ package com.skytrust.service;
 
 import com.skytrust.common.Result;
 import com.skytrust.dto.CodeLoginDTO;
+import com.skytrust.dto.DecryptPhoneDTO;
 import com.skytrust.dto.ForgotPasswordDTO;
 import com.skytrust.dto.LoginDTO;
 import com.skytrust.dto.ResetPasswordDTO;
 import com.skytrust.dto.SendCodeDTO;
+import com.skytrust.dto.WechatLoginDTO;
 import com.skytrust.vo.CaptchaVO;
 import com.skytrust.vo.LoginVO;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -118,4 +120,23 @@ public interface AuthService extends UserDetailsService {
      * @return 重置结果
      */
     Result<Void> resetPassword(ResetPasswordDTO dto);
+
+    /**
+     * 微信一键登录
+     * 通过微信临时code换取openid，查找或创建用户，返回JWT
+     *
+     * @param dto     微信登录参数（code + 可选encryptedData/iv）
+     * @param request HTTP请求（用于记录登录日志）
+     * @return 登录结果（包含Token和用户信息）
+     */
+    Result<LoginVO> wechatLogin(WechatLoginDTO dto, HttpServletRequest request);
+
+    /**
+     * 解密微信手机号
+     * 使用session_key解密微信返回的加密手机号数据
+     *
+     * @param dto 解密参数（encryptedData + iv + sessionKey）
+     * @return 解密后的手机号
+     */
+    Result<String> decryptPhone(DecryptPhoneDTO dto);
 }

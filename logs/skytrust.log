@@ -164,3 +164,983 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-04-30 03:24:35.552 [http-nio-9090-exec-9] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 177918552 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-29T19:24:35.552Z. Allowed clock skew: 0 milliseconds.
 2026-04-30 03:24:37.109 [http-nio-9090-exec-6] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 177920109 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-29T19:24:37.109Z. Allowed clock skew: 0 milliseconds.
 2026-04-30 03:24:37.112 [http-nio-9090-exec-10] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 177920112 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-29T19:24:37.112Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 04:43:20.282 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-30 04:43:20.284 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-30 15:48:19.959 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 38152 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 15:48:19.960 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 15:48:19.960 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 15:48:19.999 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-30 15:48:19.999 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-30 15:48:20.832 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 15:48:20.833 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 15:48:20.862 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2026-04-30 15:48:21.558 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$e9ae9953] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 15:48:21.860 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 15:48:21.866 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 15:48:21.866 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 15:48:21.938 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 15:48:21.939 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1939 ms
+2026-04-30 15:48:22.212 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-30 15:48:22.375 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-30 15:48:22.894 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 15:48:23.420 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final org.springframework.amqp.rabbit.connection.Connection org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection() throws org.springframework.amqp.AmqpException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:48:23.420 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.amqp.rabbit.connection.CachingConnectionFactory.destroy()] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:48:23.456 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-30 15:48:23.462 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-30 15:48:23.483 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 3.863 seconds (JVM running for 4.651)
+2026-04-30 15:48:23.497 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-30 15:48:23.498 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-30 15:48:23.609 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-30 15:48:23.611 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-30 15:48:23.611 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-30 15:48:23.611 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-30 15:48:23.621 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-30 15:48:23.622 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-30 15:48:23.631 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-30 15:48:23.644 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 15:48:23.651 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-30 15:48:23.651 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-30 15:48:23.651 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-30 15:48:23.654 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 15:48:23.654 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-30 15:48:23.654 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-30 15:48:23.654 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 15:48:23.922 [RMI TCP Connection(1)-10.150.51.3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-04-30 15:48:23.938 [RMI TCP Connection(3)-10.150.51.3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-30 15:48:23.938 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-30 15:48:23.938 [RMI TCP Connection(1)-10.150.51.3] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:94)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:88)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor18.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:62)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1234)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1184)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:641)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:616)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 50 common frames omitted
+2026-04-30 15:48:23.939 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-30 15:48:23.940 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-30 15:48:23.941 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-30 15:48:24.032 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 232 mappings in 'requestMappingHandlerMapping'
+2026-04-30 15:48:24.067 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-30 15:48:24.099 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-30 15:48:24.165 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-30 15:48:24.200 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-30 15:48:24.203 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7356a553
+2026-04-30 15:48:24.220 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@36362892
+2026-04-30 15:48:24.221 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-30 15:48:24.221 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 283 ms
+2026-04-30 15:50:14.109 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(javax.servlet.ServletRequest,javax.servlet.ServletResponse,javax.servlet.FilterChain) throws javax.servlet.ServletException,java.io.IOException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:50:14.109 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(javax.servlet.FilterConfig) throws javax.servlet.ServletException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:50:14.195 [http-nio-9090-exec-1] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@344ac9f2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d3a1aa1, org.springframework.security.web.context.SecurityContextPersistenceFilter@65d31440, org.springframework.security.web.header.HeaderWriterFilter@406f2b12, org.springframework.web.filter.CorsFilter@300918db, org.springframework.security.web.authentication.logout.LogoutFilter@26945e08, com.skytrust.config.filter.JwtAuthenticationFilter@51686fad, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a8c84c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3d82956, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@182560a4, org.springframework.security.web.session.SessionManagementFilter@19a526c9, org.springframework.security.web.access.ExceptionTranslationFilter@58ec7def, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f77a46b]
+2026-04-30 15:50:14.265 [http-nio-9090-exec-1] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222657264 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:14.264Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:16.554 [http-nio-9090-exec-2] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222659554 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:16.554Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:16.558 [http-nio-9090-exec-4] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222659558 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:16.558Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:19.464 [http-nio-9090-exec-3] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222662464 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:19.464Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:21.168 [http-nio-9090-exec-5] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222664168 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:21.168Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:22.645 [http-nio-9090-exec-6] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222665645 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:22.645Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:22.649 [http-nio-9090-exec-7] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222665648 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:22.648Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:50:27.800 [http-nio-9090-exec-8] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 222670800 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T07:50:27.800Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 15:58:03.599 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-30 15:58:03.600 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-30 15:58:05.502 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 17536 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 15:58:05.503 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 15:58:05.503 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 15:58:05.543 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-30 15:58:05.543 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-30 15:58:06.184 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 15:58:06.185 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 15:58:06.204 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-04-30 15:58:06.727 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$f8cc3561] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 15:58:06.980 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 15:58:06.985 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 15:58:06.985 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 15:58:07.049 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 15:58:07.049 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1506 ms
+2026-04-30 15:58:07.293 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-30 15:58:07.385 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-30 15:58:07.828 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 15:58:08.311 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.amqp.rabbit.connection.CachingConnectionFactory.destroy()] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:58:08.312 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final org.springframework.amqp.rabbit.connection.Connection org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection() throws org.springframework.amqp.AmqpException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 15:58:08.348 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-30 15:58:08.354 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-30 15:58:08.378 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 3.227 seconds (JVM running for 3.754)
+2026-04-30 15:58:08.391 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-30 15:58:08.393 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-30 15:58:08.472 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-30 15:58:08.474 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-30 15:58:08.475 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-30 15:58:08.476 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-30 15:58:08.482 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-30 15:58:08.482 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-30 15:58:08.488 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-30 15:58:08.496 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 15:58:08.500 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-30 15:58:08.500 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-30 15:58:08.500 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-30 15:58:08.501 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 15:58:08.501 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-30 15:58:08.501 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-30 15:58:08.501 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 15:58:08.868 [RMI TCP Connection(1)-10.150.51.3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-04-30 15:58:08.878 [RMI TCP Connection(3)-10.150.51.3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-30 15:58:08.878 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-30 15:58:08.878 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-30 15:58:08.879 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-30 15:58:08.882 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-30 15:58:08.907 [RMI TCP Connection(1)-10.150.51.3] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:94)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:88)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:62)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1234)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1184)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:641)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:616)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 51 common frames omitted
+2026-04-30 15:58:08.941 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 232 mappings in 'requestMappingHandlerMapping'
+2026-04-30 15:58:08.971 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-30 15:58:08.998 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-30 15:58:09.045 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-30 15:58:09.069 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-30 15:58:09.071 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@288132c4
+2026-04-30 15:58:09.081 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@78148404
+2026-04-30 15:58:09.081 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-30 15:58:09.081 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 203 ms
+2026-04-30 16:10:16.169 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 6 class path changes (0 additions, 6 deletions, 0 modifications)
+2026-04-30 16:10:16.188 [Thread-5] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-30 16:10:16.189 [Thread-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2026-04-30 16:10:16.190 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.17/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.17/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1679)
+ java.base@17.0.17/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.17/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.17/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-30 16:10:16.191 [Thread-5] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [lettuce-timer-3-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.17/java.lang.Thread.sleep(Native Method)
+ app//io.netty.util.HashedWheelTimer$Worker.waitForNextTick(HashedWheelTimer.java:600)
+ app//io.netty.util.HashedWheelTimer$Worker.run(HashedWheelTimer.java:496)
+ app//io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+ java.base@17.0.17/java.lang.Thread.run(Thread.java:840)
+2026-04-30 16:10:16.327 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-30 16:10:16.331 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-30 16:10:16.411 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 17536 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 16:10:16.411 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 16:10:16.411 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 16:10:16.766 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 16:10:16.766 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 16:10:16.781 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2026-04-30 16:10:17.027 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$f8cc3561] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 16:10:17.091 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 16:10:17.091 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 16:10:17.091 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 16:10:17.124 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 16:10:17.125 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 712 ms
+2026-04-30 16:10:17.193 [restartedMain] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ec5fd35e-90f5-4737-a81c-81ace5cfb060
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-04-30 16:10:17.234 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 16:10:17.613 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-04-30 16:10:17.619 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-04-30 16:10:17.859 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customPermissionEvaluator' defined in file [D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes\com\skytrust\security\permission\CustomPermissionEvaluator.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userRoleServiceImpl' defined in file [D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes\com\skytrust\service\impl\UserRoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'baseMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.skytrust.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+2026-04-30 16:10:17.867 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-04-30 16:10:17.868 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-04-30 16:10:17.868 [restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-04-30 16:10:17.877 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2026-04-30 16:10:17.896 [restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'customPermissionEvaluator' defined in file [D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes\com\skytrust\security\permission\CustomPermissionEvaluator.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userRoleServiceImpl' defined in file [D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes\com\skytrust\service\impl\UserRoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'baseMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.skytrust.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:229) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1372) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:233) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1284) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveNamedBean(DefaultListableBeanFactory.java:1245) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:494) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:349) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:342) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration.getSingleBeanOrNull(GlobalMethodSecurityConfiguration.java:183) ~[spring-security-config-5.7.10.jar:5.7.10]
+	at org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration.afterSingletonsInstantiated(GlobalMethodSecurityConfiguration.java:161) ~[spring-security-config-5.7.10.jar:5.7.10]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:974) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:921) ~[spring-context-5.3.29.jar:5.3.29]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.29.jar:5.3.29]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.15.jar:2.7.15]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) ~[spring-boot-2.7.15.jar:2.7.15]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) ~[spring-boot-2.7.15.jar:2.7.15]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) ~[spring-boot-2.7.15.jar:2.7.15]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) ~[spring-boot-2.7.15.jar:2.7.15]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) ~[spring-boot-2.7.15.jar:2.7.15]
+	at com.skytrust.SkyTrustApplication.main(SkyTrustApplication.java:21) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-2.7.15.jar:2.7.15]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userRoleServiceImpl' defined in file [D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes\com\skytrust\service\impl\UserRoleServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'baseMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.skytrust.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:800) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:229) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1372) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1222) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:887) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-5.3.29.jar:5.3.29]
+	... 31 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userServiceImpl': Unsatisfied dependency expressed through field 'baseMapper'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.skytrust.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:662) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:642) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1391) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:887) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791) ~[spring-beans-5.3.29.jar:5.3.29]
+	... 45 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.skytrust.mapper.UserMapper' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1801) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1357) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311) ~[spring-beans-5.3.29.jar:5.3.29]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-5.3.29.jar:5.3.29]
+	... 60 common frames omitted
+2026-04-30 16:10:19.378 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 17536 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 16:10:19.378 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 16:10:19.378 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 16:10:19.588 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 16:10:19.588 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 16:10:19.597 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2026-04-30 16:10:19.707 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$f8cc3561] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 16:10:19.741 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 16:10:19.741 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 16:10:19.741 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 16:10:19.760 [restartedMain] INFO  o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 16:10:19.760 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 381 ms
+2026-04-30 16:10:19.909 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2026-04-30 16:10:19.912 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2026-04-30 16:10:20.111 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 16:10:20.345 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-30 16:10:20.348 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-30 16:10:20.360 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 0.998 seconds (JVM running for 735.736)
+2026-04-30 16:10:20.369 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-30 16:10:20.369 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-30 16:10:20.378 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-30 16:10:20.379 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-30 16:10:20.380 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-30 16:10:20.380 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-30 16:10:20.384 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-30 16:10:20.384 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-30 16:10:20.389 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-30 16:10:20.396 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:10:20.397 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-30 16:10:20.397 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-30 16:10:20.397 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-30 16:10:20.399 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-04-30 16:10:20.400 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 16:10:20.400 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-30 16:10:20.400 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-30 16:10:20.400 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 16:12:21.057 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2026-04-30 16:12:21.062 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2026-04-30 16:12:22.943 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 30100 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 16:12:22.943 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 16:12:22.944 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 16:12:22.982 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-30 16:12:22.982 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-30 16:12:23.588 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 16:12:23.590 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 16:12:23.610 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-04-30 16:12:24.135 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$1d724ffb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 16:12:24.376 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 16:12:24.381 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 16:12:24.381 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 16:12:24.443 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 16:12:24.443 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1460 ms
+2026-04-30 16:12:24.676 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-30 16:12:24.759 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-30 16:12:25.170 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 16:12:25.633 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.amqp.rabbit.connection.CachingConnectionFactory.destroy()] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 16:12:25.633 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final org.springframework.amqp.rabbit.connection.Connection org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection() throws org.springframework.amqp.AmqpException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 16:12:25.672 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-30 16:12:25.680 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-30 16:12:25.701 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 3.059 seconds (JVM running for 3.7)
+2026-04-30 16:12:25.717 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-30 16:12:25.717 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-30 16:12:25.797 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-30 16:12:25.800 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-30 16:12:25.801 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-30 16:12:25.801 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-30 16:12:25.809 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-30 16:12:25.809 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-30 16:12:25.817 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-30 16:12:25.828 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:12:25.831 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-30 16:12:25.831 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-30 16:12:25.831 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-30 16:12:25.833 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 16:12:25.833 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-30 16:12:25.833 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-30 16:12:25.833 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 16:12:25.908 [RMI TCP Connection(3)-10.150.51.3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-30 16:12:25.909 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-30 16:12:25.909 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-30 16:12:25.912 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-30 16:12:25.913 [RMI TCP Connection(2)-10.150.51.3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-04-30 16:12:25.913 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-30 16:12:25.926 [RMI TCP Connection(2)-10.150.51.3] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:94)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:88)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor16.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:62)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1234)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1184)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:641)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:616)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 50 common frames omitted
+2026-04-30 16:12:25.998 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 235 mappings in 'requestMappingHandlerMapping'
+2026-04-30 16:12:26.029 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-30 16:12:26.059 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-30 16:12:26.116 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-30 16:12:26.149 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-30 16:12:26.152 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7154242b
+2026-04-30 16:12:26.164 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@78cc4c49
+2026-04-30 16:12:26.164 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-30 16:12:26.164 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 255 ms
+2026-04-30 16:21:39.690 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(javax.servlet.ServletRequest,javax.servlet.ServletResponse,javax.servlet.FilterChain) throws javax.servlet.ServletException,java.io.IOException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 16:21:39.690 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(javax.servlet.FilterConfig) throws javax.servlet.ServletException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 16:21:39.808 [http-nio-9090-exec-1] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@26088e56, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d15fae8, org.springframework.security.web.context.SecurityContextPersistenceFilter@47a9a5fb, org.springframework.security.web.header.HeaderWriterFilter@5b544bd1, org.springframework.web.filter.CorsFilter@643af373, org.springframework.security.web.authentication.logout.LogoutFilter@6639173b, com.skytrust.config.filter.JwtAuthenticationFilter@279d8c38, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b582b68, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2991e6e1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1184208a, org.springframework.security.web.session.SessionManagementFilter@4ecda80b, org.springframework.security.web.access.ExceptionTranslationFilter@7b6dcca5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7fe781e0]
+2026-04-30 16:21:39.899 [http-nio-9090-exec-3] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224542898 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:39.898Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:39.899 [http-nio-9090-exec-2] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224542898 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:39.898Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:39.899 [http-nio-9090-exec-1] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224542898 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:39.898Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:43.711 [http-nio-9090-exec-5] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224546711 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:43.711Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:43.711 [http-nio-9090-exec-6] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224546711 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:43.711Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:43.711 [http-nio-9090-exec-4] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224546711 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:43.711Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:46.766 [http-nio-9090-exec-7] DEBUG c.s.c.filter.JwtAuthenticationFilter - JWT令牌解析失败: JWT expired 224549765 milliseconds ago at 2026-04-27T17:59:17.000Z. Current time: 2026-04-30T08:21:46.765Z. Allowed clock skew: 0 milliseconds.
+2026-04-30 16:21:46.820 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-30 16:21:46.828 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-30 16:21:47.025 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:21:47.028 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=5ea8e223a22f49bc9ce8fa82ceb10284, captchaIm (truncated)...]
+2026-04-30 16:21:47.038 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:21:58.512 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/login", parameters={}
+2026-04-30 16:21:58.513 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#login(LoginDTO, HttpServletRequest)
+2026-04-30 16:21:58.532 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginDTO(username=ljh, password=lijianhong520LJH, captchaKey=5ea8e223a22f49bc9ce8fa82ceb10284, captc (truncated)...]
+2026-04-30 16:21:58.569 [http-nio-9090-exec-9] INFO  c.s.service.impl.AuthServiceImpl - 用户登录: ljh
+2026-04-30 16:21:58.709 [http-nio-9090-exec-9] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type, ip_address,  user_agent, device_info, login_time, fail_reason, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-30 16:21:58.711 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:21:58.711 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=1007, message=密码错误, data=null, timestamp=2026-04-30T16:21:58.709356300)]
+2026-04-30 16:21:58.711 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:21:58.718 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-30 16:21:58.718 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-30 16:21:58.728 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:21:58.729 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=84de85fa54a44f82a5954ffd4f876737, captchaIm (truncated)...]
+2026-04-30 16:21:58.729 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:07.589 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/login", parameters={}
+2026-04-30 16:22:07.589 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#login(LoginDTO, HttpServletRequest)
+2026-04-30 16:22:07.590 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginDTO(username=ljh, password=lijianhong520LJH, captchaKey=84de85fa54a44f82a5954ffd4f876737, captc (truncated)...]
+2026-04-30 16:22:07.590 [http-nio-9090-exec-2] INFO  c.s.service.impl.AuthServiceImpl - 用户登录: ljh
+2026-04-30 16:22:07.657 [http-nio-9090-exec-2] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type, ip_address,  user_agent, device_info, login_time, fail_reason, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-30 16:22:07.658 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:07.658 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=1007, message=密码错误, data=null, timestamp=2026-04-30T16:22:07.658044600)]
+2026-04-30 16:22:07.659 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:07.664 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/auth/captcha", parameters={}
+2026-04-30 16:22:07.664 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#getCaptcha()
+2026-04-30 16:22:07.673 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:07.673 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=CaptchaVO(captchaKey=1bf0d01b4dc045d58e301b66a2253ec3, captchaIm (truncated)...]
+2026-04-30 16:22:07.674 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:20.691 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/send-code", parameters={}
+2026-04-30 16:22:20.691 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#sendCode(SendCodeDTO)
+2026-04-30 16:22:20.693 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [SendCodeDTO(phone=null, email=1463912959@qq.com)]
+2026-04-30 16:22:20.697 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 发送验证码: target=[1463912959@qq.com]
+2026-04-30 16:22:20.699 [http-nio-9090-exec-3] INFO  c.s.service.impl.AuthServiceImpl - 验证码已存入Redis: key=[verify:code:1463912959@qq.com], code=[876678], ttl=3min
+2026-04-30 16:22:20.700 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:20.700 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=验证码已发送, data=null, timestamp=2026-04-30T16:22:20.700739400)]
+2026-04-30 16:22:20.702 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:33.110 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/api/auth/code-login", parameters={}
+2026-04-30 16:22:33.110 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.AuthController#codeLogin(CodeLoginDTO, HttpServletRequest)
+2026-04-30 16:22:33.112 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [CodeLoginDTO(phone=null, email=1463912959@qq.com, code=876678)]
+2026-04-30 16:22:33.114 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 验证码登录: target=[1463912959@qq.com], code=[876678]
+2026-04-30 16:22:33.114 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 从Redis读取验证码: key=[verify:code:1463912959@qq.com]
+2026-04-30 16:22:33.116 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - Redis查询结果: storedCode=[876678]
+2026-04-30 16:22:33.148 [http-nio-9090-exec-4] ERROR c.s.service.impl.LoginLogServiceImpl - 记录登录日志失败: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+### The error may exist in com/skytrust/mapper/LoginLogMapper.java (best guess)
+### The error may involve com.skytrust.mapper.LoginLogMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO login_log  ( id, user_id, username, log_type, ip_address,  user_agent, device_info, login_time, fail_reason, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?  )
+### Cause: java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'skytrust_dev.login_log' doesn't exist
+2026-04-30 16:22:33.153 [http-nio-9090-exec-4] INFO  c.s.service.impl.AuthServiceImpl - 验证码登录成功: ljh
+2026-04-30 16:22:33.153 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:33.160 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=登录成功, data=LoginVO(accessToken=eyJhbGciOiJIUzM4NCJ9.eyJ0eXBlIjoiYWNjZXNzIiw (truncated)...]
+2026-04-30 16:22:33.162 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:33.185 [http-nio-9090-exec-6] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:22:33.194 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:22:33.194 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:33.198 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:22:33.198 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:33.204 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:22:33.204 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:33.210 [http-nio-9090-exec-6] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:22:33.211 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 16:22:33.215 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 16:22:33.226 [http-nio-9090-exec-6] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 16:22:33.231 [http-nio-9090-exec-6] DEBUG c.s.service.impl.MenuServiceImpl - 获取用户有权限的菜单树形列表: userId=2048776943688699906
+2026-04-30 16:22:33.231 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的菜单ID列表: userId=2048776943688699906
+2026-04-30 16:22:33.231 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:33.235 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:33.243 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:33.243 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T16:22:33.242916100)]
+2026-04-30 16:22:33.243 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:34.568 [http-nio-9090-exec-5] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:22:34.568 [http-nio-9090-exec-7] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:22:34.571 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:22:34.571 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:34.571 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:22:34.572 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:34.574 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:22:34.574 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:34.574 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:22:34.574 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:34.575 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:22:34.575 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:22:34.575 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:34.575 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:34.577 [http-nio-9090-exec-5] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:22:34.578 [http-nio-9090-exec-7] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:22:34.578 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices/statistics", parameters={}
+2026-04-30 16:22:34.578 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices?page=1&size=10", parameters={masked}
+2026-04-30 16:22:34.609 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceList(Integer, Integer, String, String, String, Integer, BigDecimal, BigDecimal, Integer, String)
+2026-04-30 16:22:34.609 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceStatistics()
+2026-04-30 16:22:34.626 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:34.626 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T16:22:34.626794200)]
+2026-04-30 16:22:34.627 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:34.630 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:34.630 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=com.skytrust.service.DeviceService$DeviceStatistics@3fb5869f, ti (truncated)...]
+2026-04-30 16:22:34.631 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:38.451 [http-nio-9090-exec-8] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:22:38.454 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:22:38.454 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:38.455 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:22:38.455 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:38.456 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:22:38.456 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:38.458 [http-nio-9090-exec-8] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:22:38.458 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 16:22:38.459 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 16:22:38.459 [http-nio-9090-exec-8] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 16:22:38.465 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:38.465 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T16:22:38.464733800)]
+2026-04-30 16:22:38.465 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:22:39.945 [http-nio-9090-exec-9] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:22:39.948 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:22:39.948 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:39.949 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:22:39.949 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:22:39.950 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:22:39.950 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:22:39.953 [http-nio-9090-exec-9] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:22:39.953 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 16:22:39.953 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 16:22:39.953 [http-nio-9090-exec-9] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 16:22:39.956 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:22:39.956 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T16:22:39.955231300)]
+2026-04-30 16:22:39.956 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:24:03.420 [http-nio-9090-exec-10] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:24:03.422 [http-nio-9090-exec-2] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 16:24:03.424 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:24:03.424 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 16:24:03.424 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:24:03.424 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:24:03.426 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:24:03.426 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 16:24:03.426 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:24:03.426 [http-nio-9090-exec-10] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 16:24:03.427 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:24:03.427 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 16:24:03.427 [http-nio-9090-exec-10] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:24:03.427 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 16:24:03.429 [http-nio-9090-exec-10] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:24:03.429 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices?page=1&size=10", parameters={masked}
+2026-04-30 16:24:03.429 [http-nio-9090-exec-2] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 16:24:03.429 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceList(Integer, Integer, String, String, String, Integer, BigDecimal, BigDecimal, Integer, String)
+2026-04-30 16:24:03.429 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices/statistics", parameters={}
+2026-04-30 16:24:03.429 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceStatistics()
+2026-04-30 16:24:03.430 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:24:03.430 [http-nio-9090-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T16:24:03.430798600)]
+2026-04-30 16:24:03.431 [http-nio-9090-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 16:24:03.434 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 16:24:03.434 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=com.skytrust.service.DeviceService$DeviceStatistics@28090961, ti (truncated)...]
+2026-04-30 16:24:03.435 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:20:05.580 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-30 17:20:05.593 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-30 17:20:08.981 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Starting SkyTrustApplication using Java 17.0.17 on MSI with PID 28928 (D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11\backend\target\classes started by xiaolizi1207 in D:\Real Projects\SkyTrust\SkyTrust2026.4.11\SkyTrust2026.4.11)
+2026-04-30 17:20:08.981 [restartedMain] DEBUG com.skytrust.SkyTrustApplication - Running with Spring Boot v2.7.15, Spring v5.3.29
+2026-04-30 17:20:08.982 [restartedMain] INFO  com.skytrust.SkyTrustApplication - The following 1 profile is active: "dev"
+2026-04-30 17:20:09.027 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-04-30 17:20:09.027 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-04-30 17:20:09.751 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 17:20:09.752 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 17:20:09.773 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2026-04-30 17:20:10.372 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'methodSecurityConfig' of type [com.skytrust.config.MethodSecurityConfig$$EnhancerBySpringCGLIB$$b7d99c3e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-04-30 17:20:10.655 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http)
+2026-04-30 17:20:10.663 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 17:20:10.664 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.79]
+2026-04-30 17:20:10.731 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 17:20:10.731 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1704 ms
+2026-04-30 17:20:10.972 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-30 17:20:11.066 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-30 17:20:11.541 [restartedMain] DEBUG c.s.c.filter.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-30 17:20:12.054 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final org.springframework.amqp.rabbit.connection.Connection org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection() throws org.springframework.amqp.AmqpException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 17:20:12.055 [restartedMain] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.amqp.rabbit.connection.CachingConnectionFactory.destroy()] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 17:20:12.095 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path ''
+2026-04-30 17:20:12.103 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2026-04-30 17:20:12.125 [restartedMain] INFO  com.skytrust.SkyTrustApplication - Started SkyTrustApplication in 3.483 seconds (JVM running for 4.113)
+2026-04-30 17:20:12.141 [restartedMain] INFO  com.skytrust.config.DataInitializer - 开始初始化RBAC系统数据...
+2026-04-30 17:20:12.141 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化角色数据...
+2026-04-30 17:20:12.236 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=admin
+2026-04-30 17:20:12.238 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=user
+2026-04-30 17:20:12.240 [restartedMain] INFO  com.skytrust.config.DataInitializer - 角色已存在: roleCode=pilot
+2026-04-30 17:20:12.240 [restartedMain] INFO  com.skytrust.config.DataInitializer - 初始化菜单数据...
+2026-04-30 17:20:12.249 [restartedMain] INFO  com.skytrust.config.DataInitializer - 菜单数据已存在，跳过初始化
+2026-04-30 17:20:12.249 [restartedMain] INFO  com.skytrust.config.DataInitializer - 迁移现有用户角色数据...
+2026-04-30 17:20:12.257 [restartedMain] DEBUG c.s.service.impl.RoleServiceImpl - 根据角色代码获取角色: roleCode=user
+2026-04-30 17:20:12.270 [restartedMain] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:20:12.275 [restartedMain] DEBUG com.skytrust.config.DataInitializer - 用户角色已存在: userId=2048776943688699906, roleId=2041887487458021377
+2026-04-30 17:20:12.275 [restartedMain] INFO  com.skytrust.config.DataInitializer - 用户角色数据迁移完成，共迁移0个用户
+2026-04-30 17:20:12.275 [restartedMain] INFO  com.skytrust.config.DataInitializer - RBAC系统数据初始化完成
+2026-04-30 17:20:12.279 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 17:20:12.279 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     SkyTrust 无人机平台 启动成功！
+2026-04-30 17:20:12.279 [restartedMain] INFO  com.skytrust.SkyTrustApplication -     前端开发地址：http://localhost:3000 
+2026-04-30 17:20:12.279 [restartedMain] INFO  com.skytrust.SkyTrustApplication - ==============================================
+2026-04-30 17:20:12.671 [RMI TCP Connection(2)-10.150.51.3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-04-30 17:20:12.672 [RMI TCP Connection(3)-10.150.51.3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-30 17:20:12.672 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-30 17:20:12.673 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-04-30 17:20:12.674 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-04-30 17:20:12.675 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2026-04-30 17:20:12.686 [RMI TCP Connection(2)-10.150.51.3] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: getsockopt
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:603)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:725)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:252)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2210)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2183)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2163)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:94)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:88)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:78)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor18.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:672)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:62)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1234)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1184)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:641)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:616)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:566)
+	... 50 common frames omitted
+2026-04-30 17:20:12.763 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 235 mappings in 'requestMappingHandlerMapping'
+2026-04-30 17:20:12.800 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2026-04-30 17:20:12.830 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-04-30 17:20:12.877 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 2 ResponseBodyAdvice
+2026-04-30 17:20:12.906 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 2 @ExceptionHandler, 2 ResponseBodyAdvice
+2026-04-30 17:20:12.909 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@59d86cfb
+2026-04-30 17:20:12.922 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@3d7493e7
+2026-04-30 17:20:12.922 [RMI TCP Connection(3)-10.150.51.3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-04-30 17:20:12.922 [RMI TCP Connection(3)-10.150.51.3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 250 ms
+2026-04-30 17:30:49.465 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.OncePerRequestFilter.doFilter(javax.servlet.ServletRequest,javax.servlet.ServletResponse,javax.servlet.FilterChain) throws javax.servlet.ServletException,java.io.IOException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 17:30:49.466 [http-nio-9090-exec-1] INFO  o.s.aop.framework.CglibAopProxy - Unable to proxy interface-implementing method [public final void org.springframework.web.filter.GenericFilterBean.init(javax.servlet.FilterConfig) throws javax.servlet.ServletException] because it is marked as final: Consider using interface-based JDK proxies instead!
+2026-04-30 17:30:49.574 [http-nio-9090-exec-1] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3fc853d1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4ed5c3fb, org.springframework.security.web.context.SecurityContextPersistenceFilter@31772722, org.springframework.security.web.header.HeaderWriterFilter@9efc023, org.springframework.web.filter.CorsFilter@37c8f0bd, org.springframework.security.web.authentication.logout.LogoutFilter@50cd2a64, com.skytrust.config.filter.JwtAuthenticationFilter@62d95fc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@e97d460, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4e3fd496, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@248e006e, org.springframework.security.web.session.SessionManagementFilter@4c771375, org.springframework.security.web.access.ExceptionTranslationFilter@6d5f169d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5fa38552]
+2026-04-30 17:30:49.698 [http-nio-9090-exec-1] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:30:49.717 [http-nio-9090-exec-1] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:30:49.717 [http-nio-9090-exec-1] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:49.719 [http-nio-9090-exec-1] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:30:49.719 [http-nio-9090-exec-1] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:49.721 [http-nio-9090-exec-1] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:30:49.721 [http-nio-9090-exec-1] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:49.728 [http-nio-9090-exec-1] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:30:49.733 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 17:30:49.742 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 17:30:49.773 [http-nio-9090-exec-1] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 17:30:49.783 [http-nio-9090-exec-1] DEBUG c.s.service.impl.MenuServiceImpl - 获取用户有权限的菜单树形列表: userId=2048776943688699906
+2026-04-30 17:30:49.783 [http-nio-9090-exec-1] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的菜单ID列表: userId=2048776943688699906
+2026-04-30 17:30:49.783 [http-nio-9090-exec-1] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:49.785 [http-nio-9090-exec-1] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:49.807 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:30:49.810 [http-nio-9090-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:30:49.797515300)]
+2026-04-30 17:30:49.817 [http-nio-9090-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:30:50.096 [http-nio-9090-exec-2] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:30:50.099 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:30:50.099 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:50.103 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:30:50.103 [http-nio-9090-exec-2] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:50.105 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:30:50.105 [http-nio-9090-exec-2] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:50.108 [http-nio-9090-exec-2] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:30:50.108 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 17:30:50.109 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 17:30:50.109 [http-nio-9090-exec-2] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 17:30:50.116 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:30:50.116 [http-nio-9090-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:30:50.115064)]
+2026-04-30 17:30:50.116 [http-nio-9090-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:30:51.002 [http-nio-9090-exec-4] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:30:51.003 [http-nio-9090-exec-5] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:30:51.005 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:30:51.005 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:51.005 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:30:51.006 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:51.007 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:30:51.007 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:30:51.007 [http-nio-9090-exec-4] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:51.007 [http-nio-9090-exec-5] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:51.008 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:30:51.008 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:30:51.008 [http-nio-9090-exec-5] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:51.008 [http-nio-9090-exec-4] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:51.011 [http-nio-9090-exec-5] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:30:51.011 [http-nio-9090-exec-4] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:30:51.011 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices/statistics", parameters={}
+2026-04-30 17:30:51.012 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices?page=1&size=10", parameters={masked}
+2026-04-30 17:30:51.039 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceStatistics()
+2026-04-30 17:30:51.040 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceList(Integer, Integer, String, String, String, Integer, BigDecimal, BigDecimal, Integer, String)
+2026-04-30 17:30:51.057 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:30:51.057 [http-nio-9090-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:30:51.056452)]
+2026-04-30 17:30:51.058 [http-nio-9090-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:30:51.058 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:30:51.059 [http-nio-9090-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=com.skytrust.service.DeviceService$DeviceStatistics@70c5d0b, tim (truncated)...]
+2026-04-30 17:30:51.060 [http-nio-9090-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:30:54.390 [http-nio-9090-exec-3] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:30:54.393 [http-nio-9090-exec-3] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:30:54.393 [http-nio-9090-exec-3] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:54.395 [http-nio-9090-exec-3] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:30:54.395 [http-nio-9090-exec-3] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:30:54.396 [http-nio-9090-exec-3] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:30:54.396 [http-nio-9090-exec-3] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:30:54.398 [http-nio-9090-exec-3] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:30:54.399 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 17:30:54.399 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 17:30:54.400 [http-nio-9090-exec-3] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 17:30:54.400 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:30:54.402 [http-nio-9090-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:30:54.400919600)]
+2026-04-30 17:30:54.402 [http-nio-9090-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:55:42.241 [http-nio-9090-exec-6] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:55:42.261 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:55:42.261 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:55:42.265 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:55:42.265 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:55:42.268 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:55:42.268 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:55:42.275 [http-nio-9090-exec-6] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:55:42.282 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 17:55:42.286 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 17:55:42.314 [http-nio-9090-exec-6] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 17:55:42.323 [http-nio-9090-exec-6] DEBUG c.s.service.impl.MenuServiceImpl - 获取用户有权限的菜单树形列表: userId=2048776943688699906
+2026-04-30 17:55:42.323 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的菜单ID列表: userId=2048776943688699906
+2026-04-30 17:55:42.323 [http-nio-9090-exec-6] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:55:42.326 [http-nio-9090-exec-6] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:55:42.341 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:55:42.342 [http-nio-9090-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:55:42.338180800)]
+2026-04-30 17:55:42.346 [http-nio-9090-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 17:55:52.251 [http-nio-9090-exec-7] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 17:55:52.254 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 17:55:52.254 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:55:52.256 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 17:55:52.256 [http-nio-9090-exec-7] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 17:55:52.257 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 17:55:52.257 [http-nio-9090-exec-7] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 17:55:52.260 [http-nio-9090-exec-7] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 17:55:52.260 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/menus/current/tree", parameters={}
+2026-04-30 17:55:52.261 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.MenuController#getCurrentUserMenuTree()
+2026-04-30 17:55:52.261 [http-nio-9090-exec-7] INFO  c.skytrust.controller.MenuController - 获取当前用户有权限的菜单树形列表请求
+2026-04-30 17:55:52.263 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 17:55:52.263 [http-nio-9090-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T17:55:52.263005200)]
+2026-04-30 17:55:52.264 [http-nio-9090-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 18:00:25.816 [http-nio-9090-exec-9] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 18:00:25.817 [http-nio-9090-exec-8] DEBUG c.s.service.impl.AuthServiceImpl - 加载用户详情: ljh
+2026-04-30 18:00:25.822 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 18:00:25.822 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取用户有权限的权限标识列表: userId=2048776943688699906
+2026-04-30 18:00:25.822 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 18:00:25.822 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 18:00:25.823 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 18:00:25.823 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的权限标识列表: roleId=2041887487458021377
+2026-04-30 18:00:25.823 [http-nio-9090-exec-9] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 18:00:25.823 [http-nio-9090-exec-8] DEBUG c.s.service.impl.RoleMenuServiceImpl - 获取角色的菜单ID列表: roleId=2041887487458021377
+2026-04-30 18:00:25.824 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 18:00:25.824 [http-nio-9090-exec-8] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 18:00:25.824 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色代码列表: userId=2048776943688699906
+2026-04-30 18:00:25.824 [http-nio-9090-exec-9] DEBUG c.s.service.impl.UserRoleServiceImpl - 获取用户的角色ID列表: userId=2048776943688699906
+2026-04-30 18:00:25.826 [http-nio-9090-exec-8] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 18:00:25.826 [http-nio-9090-exec-9] DEBUG c.s.c.filter.JwtAuthenticationFilter - 用户认证成功: ljh
+2026-04-30 18:00:25.827 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices/statistics", parameters={}
+2026-04-30 18:00:25.827 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/devices?page=1&size=10", parameters={masked}
+2026-04-30 18:00:25.828 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceStatistics()
+2026-04-30 18:00:25.828 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.skytrust.controller.DeviceController#getDeviceList(Integer, Integer, String, String, String, Integer, BigDecimal, BigDecimal, Integer, String)
+2026-04-30 18:00:25.839 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 18:00:25.840 [http-nio-9090-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=[], timestamp=2026-04-30T18:00:25.839164300)]
+2026-04-30 18:00:25.841 [http-nio-9090-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-04-30 18:00:25.842 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json, application/json, application/*+json]
+2026-04-30 18:00:25.842 [http-nio-9090-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [Result(code=200, message=操作成功, data=com.skytrust.service.DeviceService$DeviceStatistics@42a27480, ti (truncated)...]
+2026-04-30 18:00:25.842 [http-nio-9090-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK

@@ -132,7 +132,7 @@ const hasActions = computed(() => {
   return false
 })
 
-onLoad((options) => {
+onLoad((options: any) => {
   if (options?.id) {
     orderId.value = Number(options.id)
     loadOrder()

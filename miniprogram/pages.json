@@ -1,10 +1,4 @@
 {
-  "easycom": {
-    "autoscan": true,
-    "custom": {
-      "^u-(.*)": "@/components/u-$1/u-$1.vue"
-    }
-  },
   "pages": [
     {
       "path": "pages/index/index",
@@ -51,6 +45,22 @@
       "path": "pages/login/index",
       "style": {
         "navigationBarTitleText": "登录",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/register/index",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/forgot-password/index",
+      "style": {
+        "navigationBarTitleText": "找回密码",
         "navigationBarBackgroundColor": "#000",
         "navigationBarTextStyle": "white"
       }
