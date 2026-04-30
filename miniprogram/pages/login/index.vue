@@ -106,6 +106,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useAuthStore } from '@/store/auth'
+import { sendCodeApi, codeLoginApi } from '@/api/auth'
 
 const authStore = useAuthStore()
 
@@ -132,19 +133,19 @@ async function handleWechatLogin() {
   wechatError.value = ''
 
   try {
-    // 1. 调用 wx.login 获取临时 code
     const loginRes = await uni.login({ provider: 'weixin' })
     if (!loginRes.code) {
-      throw new Error('获取微信授权失败')
+      throw new Error('获取微信授权失败，请确认已配置微信 AppID')
     }
-
-    // 2. 将 code 发送到后端换取 JWT
     await authStore.wechatLogin({ code: loginRes.code })
-
-    // 3. 登录成功，跳转首页
     uni.switchTab({ url: '/pages/index/index' })
   } catch (err: any) {
-    wechatError.value = err.message || '微信登录失败，请使用手机号登录'
+    const msg = err.message || ''
+    if (msg.includes('login:fail') || msg.includes('not exist')) {
+      wechatError.value = '微信登录需要在微信开发者工具中配置 AppID，请使用手机号验证码登录'
+    } else {
+      wechatError.value = msg || '微信登录失败，请使用手机号登录'
+    }
   } finally {
     wechatLoading.value = false
   }
@@ -155,7 +156,6 @@ async function sendCode() {
   if (!validPhone.value || countdown.value > 0) return
 
   try {
-    const { sendCodeApi } = await import('@/api/auth')
     await sendCodeApi({ phone: phone.value })
 
     // 倒计时
@@ -179,7 +179,6 @@ async function handleCodeLogin() {
 
   codeLoading.value = true
   try {
-    const { codeLoginApi } = await import('@/api/auth')
     const res = await codeLoginApi({ phone: phone.value, code: code.value })
     const data = res.data.data as any
     const { accessToken, refreshToken, user: userInfo } = data

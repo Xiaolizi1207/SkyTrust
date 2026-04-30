@@ -189,8 +189,11 @@ import { ref, computed, onMounted } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
 import { getDeviceApi } from '@/api/device'
 import { createOrderApi } from '@/api/order'
+import { useAuthStore } from '@/store/auth'
 import { API_BASE_URL } from '@/config'
 import type { DeviceVO } from '@/types/api'
+
+const authStore = useAuthStore()
 
 // ========== 路由参数 ==========
 const deviceId = ref(0)
@@ -254,6 +257,21 @@ async function loadDevice() {
 
 // ========== 提交订单 ==========
 async function submitOrder() {
+  if (!authStore.isAuthenticated) {
+    showOrderModal.value = false
+    uni.showModal({
+      title: '请先登录',
+      content: '下单需要登录账号',
+      confirmText: '去登录',
+      success: (res) => {
+        if (res.confirm) {
+          uni.navigateTo({ url: '/pages/login/index' })
+        }
+      },
+    })
+    return
+  }
+
   submitting.value = true
   try {
     const startTime = new Date()

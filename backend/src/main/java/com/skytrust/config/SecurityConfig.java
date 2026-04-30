@@ -49,6 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/users/register",
                         "/api/users/login",
                         "/api/users/refresh-token",
+                        "/api/devices/**",
+                        "/api/qrcode/**",
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/doc.html",

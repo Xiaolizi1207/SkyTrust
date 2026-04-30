@@ -99,6 +99,13 @@ function request<T = any>(config: UniRequestConfig): Promise<UniResponse<T>> {
       data: config.data,
       header,
       success: (res) => {
+        // HTTP 状态码错误（如 403、404、500 等）
+        if (res.statusCode !== 200) {
+          const body = res.data as any
+          reject(new Error(body?.message || body?.error || `请求失败 (${res.statusCode})`))
+          return
+        }
+
         const responseData = res.data as { code: number; message: string; data: T; timestamp: string }
 
         // 业务错误

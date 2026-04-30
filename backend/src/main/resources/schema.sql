@@ -465,6 +465,16 @@ CREATE TABLE IF NOT EXISTS `wallet_transaction` (
   INDEX `idx_wallet_create_time` (`create_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='钱包交易记录表';
 
+-- -----------------------------------------------------
+-- 初始化测试设备数据
+-- -----------------------------------------------------
+INSERT IGNORE INTO `device` (`id`, `device_name`, `model`, `serial_number`, `status`, `latitude`, `longitude`, `battery_level`, `speed`, `total_flight_hours`, `rental_price`, `insurance_fee`, `description`, `images`, `specifications`, `create_time`, `update_time`, `deleted`) VALUES
+(1, 'DJI Mavic 3 Pro', 'Mavic 3 Pro', 'SN-2024-M3P-001', 1, 39.9042, 116.4074, 85, 0, 120.50, 150.00, 15.00, '大疆御3 Pro，哈苏相机，43分钟续航，15公里图传', 'https://img.alicdn.com/imgextra/i1/2200724141263/O1CN01Jv5P8r1kDqCmYhE0W_!!2200724141263.jpg,https://img.alicdn.com/imgextra/i2/2200724141263/O1CN01YZ5NgG1kDqCkTn2gS_!!2200724141263.jpg', '{\"相机\":\"哈苏 4/3 CMOS\",\"续航\":\"43分钟\",\"图传\":\"15公里\",\"重量\":\"958g\"}', NOW(), NOW(), 0),
+(2, 'DJI Air 3', 'Air 3', 'SN-2024-AIR-002', 1, 31.2304, 121.4737, 92, 0, 85.20, 120.00, 10.00, '大疆Air 3，双摄旗舰，46分钟续航，全向避障', 'https://img.alicdn.com/imgextra/i3/2200724141263/O1CN01aTGh4E1kDqCiNHRFY_!!2200724141263.jpg', '{\"相机\":\"1/1.3英寸 CMOS 双摄\",\"续航\":\"46分钟\",\"图传\":\"20公里\",\"重量\":\"720g\"}', NOW(), NOW(), 0),
+(3, 'DJI Mini 4 Pro', 'Mini 4 Pro', 'SN-2024-MINI-003', 1, 22.5431, 114.0579, 78, 0, 45.00, 80.00, 8.00, '大疆Mini 4 Pro，249g轻巧机身，4K/100fps，全向避障', 'https://img.alicdn.com/imgextra/i4/2200724141263/O1CN01xHhJoW1kDqCjtXKcY_!!2200724141263.jpg', '{\"相机\":\"1/1.3英寸 CMOS\",\"续航\":\"34分钟\",\"图传\":\"20公里\",\"重量\":\"249g\"}', NOW(), NOW(), 0),
+(4, 'DJI Avata 2', 'Avata 2', 'SN-2024-AVA-004', 0, 30.5728, 104.0668, 0, 0, 30.00, 200.00, 20.00, '大疆Avata 2，沉浸式飞行体验，4K超广角，23分钟续航', 'https://img.alicdn.com/imgextra/i2/2200724141263/O1CN01dKxyQs1kDqCpcq5tX_!!2200724141263.jpg', '{\"相机\":\"1/1.3英寸 CMOS 超广角\",\"续航\":\"23分钟\",\"图传\":\"13公里\",\"重量\":\"410g\"}', NOW(), NOW(), 0),
+(5, 'DJI Inspire 3', 'Inspire 3', 'SN-2024-INS-005', 3, 34.3416, 108.9398, 50, 0, 200.00, 500.00, 50.00, '大疆悟3，全画幅8K，电影级航拍，双控支持', 'https://img.alicdn.com/imgextra/i1/2200724141263/O1CN01FXz8s71kDqCmMAtDl_!!2200724141263.jpg', '{\"相机\":\"全画幅 8K CinemaDNG\",\"续航\":\"28分钟\",\"图传\":\"15公里\",\"重量\":\"4.3kg\"}', NOW(), NOW(), 0);
+
 -- 重新启用外键检查
 SET FOREIGN_KEY_CHECKS = 1;
 
