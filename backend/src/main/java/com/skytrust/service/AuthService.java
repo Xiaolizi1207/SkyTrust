@@ -61,9 +61,10 @@ public interface AuthService extends UserDetailsService {
      * @param password 密码
      * @param phone    手机号
      * @param email    邮箱（可选）
+     * @param inviteCode 邀请码（可选）
      * @return 注册结果
      */
-    Result<LoginVO> register(String username, String password, String phone, String email);
+    Result<LoginVO> register(String username, String password, String phone, String email, String inviteCode);
 
     /**
      * 刷新访问令牌

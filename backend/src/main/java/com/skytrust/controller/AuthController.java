@@ -87,7 +87,8 @@ public class AuthController {
                 registerDTO.getUsername(),
                 registerDTO.getPassword(),
                 registerDTO.getPhone(),
-                registerDTO.getEmail()
+                registerDTO.getEmail(),
+                registerDTO.getInviteCode()
         );
     }
 

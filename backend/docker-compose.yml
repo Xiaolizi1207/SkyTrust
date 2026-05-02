@@ -169,7 +169,7 @@ services:
     container_name: skytrust-app
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "9090:9090"
     environment:
       # 数据库配置
       DB_HOST: mysql
@@ -222,10 +222,24 @@ services:
     networks:
       - skytrust-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9090/api/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 5
+
+  # SkyTrust前端
+  skytrust-frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: skytrust-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - skytrust-app
+    networks:
+      - skytrust-network
 
   # Nginx反向代理 (可选)
   nginx:

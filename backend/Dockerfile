@@ -46,11 +46,11 @@ COPY --from=builder /app/target/*.jar app.jar
 RUN mkdir -p config
 
 # 暴露端口
-EXPOSE 8080
+EXPOSE 9090
 
 # 健康检查
 HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8080/api/actuator/health || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:9090/api/actuator/health || exit 1
 
 # 设置JVM参数
 ENV JAVA_OPTS="-Xms512m -Xmx2048m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1HeapRegionSize=8m -XX:+ParallelRefProcEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/logs/heapdump.hprof -XX:+ExitOnOutOfMemoryError"

@@ -157,22 +157,6 @@ async function handleRegister() {
     errorMsg.value = '两次密码输入不一致'
     return
   }
-  if (!form.phone.trim()) {
-    errorMsg.value = '请输入手机号'
-    return
-  }
-  if (!form.password) {
-    errorMsg.value = '请输入密码'
-    return
-  }
-  if (form.password.length < 6) {
-    errorMsg.value = '密码至少6位'
-    return
-  }
-  if (form.password !== form.confirmPassword) {
-    errorMsg.value = '两次密码输入不一致'
-    return
-  }
 
   loading.value = true
   try {
@@ -182,6 +166,7 @@ async function handleRegister() {
       email: form.email.trim() || undefined,
       password: form.password,
       confirmPassword: form.confirmPassword,
+      inviteCode: form.inviteCode.trim() || undefined,
     })
     successMsg.value = '注册成功！即将跳转登录页...'
     setTimeout(() => {

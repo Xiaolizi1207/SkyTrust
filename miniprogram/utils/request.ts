@@ -3,7 +3,7 @@
  * 提供请求/响应拦截器、Token 自动刷新、错误统一处理
  */
 
-const API_BASE_URL = 'http://localhost:9090/api'
+import { API_BASE_URL } from '@/config/index'
 
 /** 存储待刷新请求的队列 */
 let isRefreshing = false

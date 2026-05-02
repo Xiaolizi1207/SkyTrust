@@ -88,6 +88,30 @@
         "navigationBarBackgroundColor": "#000",
         "navigationBarTextStyle": "white"
       }
+    },
+    {
+      "path": "pages/blockchain/passport",
+      "style": {
+        "navigationBarTitleText": "数字护照",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/blockchain/flight-log",
+      "style": {
+        "navigationBarTitleText": "飞行日志",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/blockchain/license",
+      "style": {
+        "navigationBarTitleText": "执照验证",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "globalStyle": {

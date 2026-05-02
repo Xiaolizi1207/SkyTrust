@@ -13,6 +13,7 @@
       </div>
 
       <form v-else @submit.prevent="handleSubmit">
+        <div v-if="errorMsg" class="error-box">{{ errorMsg }}</div>
         <div class="form-group"><label>企业名称 <span class="req">*</span></label><input v-model="form.company" class="input" placeholder="请输入企业全称" /></div>
         <div class="form-row">
           <div class="form-group"><label>联系人 <span class="req">*</span></label><input v-model="form.contact" class="input" placeholder="姓名" /></div>
@@ -34,17 +35,35 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { submitQualificationApi } from '@/api/qualification'
 
 const form = reactive({ company: '', contact: '', phone: '', email: '', scale: '', reason: '' })
 const submitting = ref(false)
 const submitted = ref(false)
+const errorMsg = ref('')
 
 async function handleSubmit() {
-  if (!form.company || !form.contact || !form.phone || !form.email) return
+  errorMsg.value = ''
+  if (!form.company || !form.contact || !form.phone || !form.email) {
+    errorMsg.value = '请填写所有必填字段'
+    return
+  }
   submitting.value = true
-  try { submitted.value = true }
-  catch {}
-  finally { submitting.value = false }
+  try {
+    await submitQualificationApi({
+      company: form.company,
+      contact: form.contact,
+      phone: form.phone,
+      email: form.email,
+      scale: form.scale,
+      reason: form.reason,
+    })
+    submitted.value = true
+  } catch (e: any) {
+    errorMsg.value = e.message || '提交失败，请重试'
+  } finally {
+    submitting.value = false
+  }
 }
 </script>
 
@@ -67,5 +86,6 @@ textarea.input { resize: vertical; }
 .success-box { background: #f5f5f5; border: 2px solid #000; padding: 24px; text-align: center; }
 .success-box strong { display: block; font-size: 18px; margin-bottom: 8px; }
 .success-box p { color: #666; font-size: 14px; margin: 0 0 20px; line-height: 1.6; }
+.error-box { background: #fbe9e7; color: #b71c1c; border: 1px solid #b71c1c; padding: 10px 16px; font-size: 13px; margin-bottom: 16px; }
 @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .main-card { padding: 24px; } }
 </style>

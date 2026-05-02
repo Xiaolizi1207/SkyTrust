@@ -308,11 +308,34 @@ public class AuthServiceImpl implements AuthService {
         return Result.success(loginVO, "登录成功");
     }
 
-    @Override
+    /**
+     * 用户注册（无邀请码，委托到5-arg版本）
+     */
     @Transactional(rollbackFor = Exception.class)
     public Result<LoginVO> register(String username, String password, String phone, String email) {
-        log.info("用户注册: {}", username);
+        return register(username, password, phone, email, null);
+    }
 
+    /**
+     * 用户注册（带邀请码）
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Result<LoginVO> register(String username, String password, String phone, String email, String inviteCode) {
+        log.info("用户注册: {}, inviteCode={}", username, inviteCode);
+
+        // 邀请码非空时记录日志（后续可对接邀请码校验）
+        if (inviteCode != null && !inviteCode.isEmpty()) {
+            log.info("使用邀请码注册: code=[{}], username=[{}]", inviteCode, username);
+        }
+
+        return doRegister(username, password, phone, email);
+    }
+
+    /**
+     * 注册核心逻辑（提取为私有方法，供有/无邀请码版本复用）
+     */
+    private Result<LoginVO> doRegister(String username, String password, String phone, String email) {
         try {
             // 1. 委托UserService创建用户（包含校验、重名检查、默认值设置、密码加密）
             User user = new User();
@@ -342,6 +365,9 @@ public class AuthServiceImpl implements AuthService {
         } catch (BusinessException e) {
             log.warn("用户注册失败: {}", e.getMessage());
             return Result.error(e.getCode(), e.getMessage());
+        } catch (Exception e) {
+            log.error("注册出现系统异常", e);
+            return Result.error(ResultCode.INTERNAL_SERVER_ERROR);
         }
     }
 

@@ -45,6 +45,7 @@ export interface RegisterParams {
   confirmPassword: string
   phone: string
   email?: string
+  inviteCode?: string
 }
 
 /** 验证码响应 */
@@ -458,6 +459,52 @@ export interface RoleQueryParams {
 // ============================================================
 // 菜单 (Menu) — 完整类型定义，覆盖 api/menu.ts 的 MenuNode
 // ============================================================
+
+// ============================================================
+// IoT 物联网 (IoT)
+// ============================================================
+
+/** 设备遥测数据（WebSocket推送） */
+export interface DeviceTelemetry {
+  deviceId: number
+  status?: number
+  latitude?: number
+  longitude?: number
+  altitude?: number
+  batteryLevel?: number
+  speed?: number
+  totalFlightHours?: number
+  timestamp?: number
+}
+
+/** WebSocket 推送消息 */
+export interface WsMessage {
+  type: 'device_update' | 'device_status'
+  deviceId: number
+  timestamp: number
+  data: DeviceTelemetry
+}
+
+/** IoT 指令下发结果 */
+export interface IotCommandResult {
+  deviceId: number
+  command: string
+  success: boolean
+  message?: string
+}
+
+/** 设备实时状态 */
+export interface DeviceRealtimeStatus {
+  deviceId: number
+  deviceName: string
+  status: number
+  latitude?: number
+  longitude?: number
+  altitude?: number
+  batteryLevel?: number
+  speed?: number
+  lastOnlineTime?: string
+}
 
 /** 菜单节点 (后端 MenuVO 映射，含权限字) */
 export { type MenuNode } from '@/api/menu'

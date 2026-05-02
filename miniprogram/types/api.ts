@@ -246,3 +246,39 @@ export interface PasswordUpdateParams {
   oldPassword: string
   newPassword: string
 }
+
+// ===================== 区块链 =====================
+
+/** 无人机数字护照 */
+export interface DronePassport {
+  tokenId: number
+  manufacturer: string
+  manufactureDate: string
+  serialNumber: string
+  firmwareVersion: string
+  batteryCycles: number
+  repairCount: number
+  repairHistory: RepairRecord[]
+}
+
+/** 维修记录 */
+export interface RepairRecord {
+  repairDataHash: string
+  maintenanceProviderDID: string
+  timestamp: number
+}
+
+/** 飞行日志条目 */
+export interface FlightLogEntry {
+  logHash: string
+  timestamp: number
+  verified: boolean
+}
+
+/** 执照记录 */
+export interface LicenseRecord {
+  userDID: string
+  licenseHash: string
+  orderId: string
+  verified: boolean
+}
