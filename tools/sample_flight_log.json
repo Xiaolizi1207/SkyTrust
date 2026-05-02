@@ -1,0 +1,25 @@
+{
+  "orderId": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "entries": [
+    {
+      "waypointData": {"lat": 31.23, "lon": 121.47, "alt": 100.5, "heading": 45},
+      "timestamp": 1714608000
+    },
+    {
+      "waypointData": {"lat": 31.25, "lon": 121.50, "alt": 110.2, "heading": 60},
+      "timestamp": 1714608600
+    },
+    {
+      "waypointData": {"lat": 31.28, "lon": 121.54, "alt": 120.0, "heading": 30},
+      "timestamp": 1714609200
+    },
+    {
+      "waypointData": {"lat": 31.30, "lon": 121.58, "alt": 130.3, "heading": 15},
+      "timestamp": 1714609800
+    },
+    {
+      "waypointData": {"lat": 31.32, "lon": 121.60, "alt": 140.7, "heading": 0},
+      "timestamp": 1714610400
+    }
+  ]
+}

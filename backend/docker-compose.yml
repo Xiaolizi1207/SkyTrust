@@ -19,7 +19,7 @@ services:
       MYSQL_USER: skytrust
       MYSQL_PASSWORD: skytrust_123
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
       - ./config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
@@ -41,7 +41,7 @@ services:
     container_name: skytrust-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis-data:/data
       - ./config/redis/redis.conf:/usr/local/etc/redis/redis.conf
@@ -114,7 +114,7 @@ services:
     networks:
       - skytrust-network
     healthcheck:
-      test: ["CMD", "mosquitto_pub", "-h", "localhost", "-t", "\$SYS/broker/uptime", "-m", "test", "-q", "1"]
+      test: ["CMD", "mosquitto_pub", "-h", "localhost", "-t", "$$SYS/broker/uptime", "-m", "test", "-q", "1"]
       interval: 30s
       timeout: 10s
       retries: 3

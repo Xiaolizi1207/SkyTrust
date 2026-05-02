@@ -1,7 +1,7 @@
 <template>
   <div class="register-page">
     <div class="register-card">
-      <h2 class="title">SkyTrust 用户注册</h2>
+      <h2 class="title">企业管理员注册</h2>
 
       <!-- 错误提示 -->
       <div v-if="errorMsg" class="error-msg">{{ errorMsg }}</div>
@@ -10,6 +10,17 @@
       <div v-if="successMsg" class="success-msg">{{ successMsg }}</div>
 
       <form @submit.prevent="handleRegister">
+        <!-- 邀请码 -->
+        <div class="form-group">
+          <label>邀请码 <span class="required">*</span></label>
+          <input
+            v-model="form.inviteCode"
+            type="text"
+            placeholder="请输入企业邀请码"
+            :disabled="loading"
+          />
+          <span class="hint">邀请码由企业上级管理者审核资质通过后发放，一个邀请码只能注册一个账号</span>
+        </div>
         <!-- 用户名 -->
         <div class="form-group">
           <label>用户名</label>
@@ -52,10 +63,16 @@
           <input
             v-model="form.password"
             type="password"
-            placeholder="至少6位密码"
+            placeholder="至少8位，包含大写、小写、数字"
             :disabled="loading"
             autocomplete="new-password"
           />
+          <div class="password-rules">
+            <span :class="{ pass: pwRule.length }">✓ 至少8位字符</span>
+            <span :class="{ pass: pwRule.upper }">✓ 至少1个大写字母</span>
+            <span :class="{ pass: pwRule.lower }">✓ 至少1个小写字母</span>
+            <span :class="{ pass: pwRule.digit }">✓ 至少1个数字</span>
+          </div>
         </div>
 
         <!-- 确认密码 -->
@@ -85,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { registerApi } from '@/api/auth'
 
@@ -97,18 +114,47 @@ const form = reactive({
   email: '',
   password: '',
   confirmPassword: '',
+  inviteCode: '',
 })
 const loading = ref(false)
 const errorMsg = ref('')
 const successMsg = ref('')
+
+// 密码规则实时检测
+const pwRule = computed(() => ({
+  length: form.password.length >= 8,
+  upper: /[A-Z]/.test(form.password),
+  lower: /[a-z]/.test(form.password),
+  digit: /\d/.test(form.password),
+}))
 
 async function handleRegister() {
   errorMsg.value = ''
   successMsg.value = ''
 
   // 前端校验
+  if (!form.inviteCode.trim()) {
+    errorMsg.value = '请输入企业邀请码'
+    return
+  }
   if (!form.username.trim()) {
     errorMsg.value = '请输入用户名'
+    return
+  }
+  if (!form.phone.trim()) {
+    errorMsg.value = '请输入手机号'
+    return
+  }
+  if (!form.password) {
+    errorMsg.value = '请输入密码'
+    return
+  }
+  if (form.password.length < 8 || !pwRule.value.upper || !pwRule.value.lower || !pwRule.value.digit) {
+    errorMsg.value = '密码不满足安全要求：至少8位，需包含大写字母、小写字母和数字'
+    return
+  }
+  if (form.password !== form.confirmPassword) {
+    errorMsg.value = '两次密码输入不一致'
     return
   }
   if (!form.phone.trim()) {

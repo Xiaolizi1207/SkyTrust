@@ -10,8 +10,8 @@ export function setupGuards(router: Router) {
       return next({ name: 'Login', query: { redirect: to.fullPath } })
     }
 
-    // 已登录用户访问登录页 → 跳首页
-    if (to.name === 'Login' && authStore.isAuthenticated) {
+    // 已登录用户访问登录页或介绍首页 → 跳仪表盘（登录后的真正首页）
+    if ((to.name === 'Login' || to.name === 'Home') && authStore.isAuthenticated) {
       return next({ name: 'Dashboard' })
     }
 

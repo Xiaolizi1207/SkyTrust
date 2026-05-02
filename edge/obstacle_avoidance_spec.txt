@@ -1,0 +1,79 @@
+Title: MobileNet-SSD / EfficientDet-Lite based TF Lite obstacle avoidance model specification (ARM edge device)
+Context: Linux/RTOS on ARM Cortex-A72 class devices with limited compute. No binary model files are produced here; this is a specification for the downstream ML deployment pipeline.
+
+1. Objective
+- Provide a lightweight object detection model that can detect a small set of critical obstacles and output actionable avoidance commands for an autonomous drone/rover on edge devices.
+
+2. Model family (recommendations)
+- Primary: MobileNet-SSD (Tiny/Small variants) or EfficientDet-Lite (official variants for edge devices).
+- Quantization-friendly architectures with strong performance on ARM.
+
+3. Model architecture details (recommended)
+- Backbone: MobileNetV2/V3 or EfficientNet-lite backbone (as supported by chosen family).
+- Detection heads: Single-shot detection producing bounding boxes, class scores, and a depth estimate per box.
+- Output per detection: [ymin, xmin, ymax, xmax] in normalized coordinates (0..1) or absolute pixel coordinates depending on pre/post processing.
+
+4. Input specification
+- Image size: 320 x 320 RGB, uint8, values in [0, 255].
+- Preprocessing: normalize to [0, 1] and optionally apply mean subtraction if the model expects it.
+- Data layout: NCHW or NHWC; align with runtime guidance (default NHWC for TensorFlow Lite / NCNN).
+
+5. Output specification
+- For each detection: bounding box (ymin, xmin, ymax, xmax) in normalized coordinates or absolute pixels, class score, and class id.
+- Depth estimation: per-detection depth in meters from the camera (or a single depth estimate per frame, depending on the model variant).
+- Classes supported: tree, power_line, building, person, vehicle.
+
+6. Quantization and precision
+- Quantization: int8 weights and activations for ARM CPU inference.
+- Optional: float16 (FP16) for GPU delegates if available.
+- Calibration: per-layer calibration to minimize accuracy loss.
+
+7. Runtime integration
+- Inference engine: TF Lite runtime or NCNN (or a middleware layer chosen by deployment).
+- Ensure minimal runtime overhead by reusing buffers and avoiding dynamic allocations per frame.
+- Output mapping: convert model coordinates to world-space semantics via camera intrinsics, if depth is provided.
+
+8. Inference performance targets
+- Minimal inference time target: < 50 ms per frame on a representative ARM Cortex-A72 device.
+- Power and thermal constraints considered; use batching only if frame-to-frame latency remains within budget.
+
+9. Classes and semantics
+- Detectable classes: tree, power_line, building, person, vehicle.
+- Depth estimation output should be used to compute an avoidance distance if the bounding box indicates an imminent obstacle.
+
+10. Pipeline overview
+- Camera -> Preprocess -> Inference -> Postprocess -> Avoidance Command
+- Preprocess: resize to 320x320, normalize; Postprocess: apply NMS, thresholding, and non-empty detections.
+
+11. Postprocessing and avoidance decision logic (pseudo)
+- Input: frame detections with boxes, scores, and depths (optional)
+- Step 1: Filter detections by score_threshold (e.g., 0.5)
+- Step 2: For each obstacle, compute 2D distance to the drone and estimated depth; keep the closest obstacle per class
+- Step 3: Compute avoidance command: steer away from the nearest obstacle by a yaw delta; clamp to [-30, 30] degrees
+- Step 4: If obstacle within danger distance (e.g., 5-10 meters), generate strong avoidance vector and stop or hover as needed
+
+12. Pseudo-code: avoidance decision logic
+-------------------------------------------
+function decide_avoidance(detections, ego_pose, ego_velocity):
+    obstacles = filter_by_score(detections, threshold=0.5)
+    if obstacles is empty:
+        return {command: "maintain_course", yaw_delta: 0, distance: None}
+    nearest = argmin( distance_to_ego(obj) for obj in obstacles )
+    # Compute avoidance yaw delta to steer away from nearest obstacle
+    away_yaw = compute_avoidance_yaw(ego_pose, obstacles[nearest])
+    distance = estimate_distance(ego_pose, obstacles[nearest])
+    if distance < 5.0:
+        command = "hover"  # or stop
+    else:
+        command = "adjust_course"
+    return {"command": command, "yaw_delta": clamp(away_yaw, -30, 30), "distance_m": distance}
+
+Notes:
+- The above logic should be implemented in a lightweight C++ module for embedded platforms.
+- Use depth estimation when available to improve distance estimates.
+
+13. Validation and testing guidance
+- Use synthetic test frames with known obstacles to validate that the avoidance vector produces reasonable yaw deltas.
+- Validate with both CPU-only and GPU-delegates if available to ensure robustness.
+
+End of specification.

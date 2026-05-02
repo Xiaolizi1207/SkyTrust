@@ -45,6 +45,12 @@ public class RentalOrderDTO {
     @Digits(integer = 10, fraction = 2, message = "其他费用格式不正确")
     private BigDecimal otherFee = BigDecimal.ZERO;
 
+    @Schema(description = "订单总金额（元）", example = "350.00", required = true)
+    @NotNull(message = "订单总金额不能为空")
+    @DecimalMin(value = "0.01", message = "订单总金额必须大于0")
+    @Digits(integer = 10, fraction = 2, message = "订单总金额格式不正确")
+    private BigDecimal totalAmount;
+
     @Schema(description = "支付方式（alipay-支付宝，wechat-微信，wallet-钱包）", example = "alipay", required = true)
     @NotNull(message = "支付方式不能为空")
     @Size(max = 20, message = "支付方式长度不能超过20个字符")

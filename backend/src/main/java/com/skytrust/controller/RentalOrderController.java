@@ -1,5 +1,8 @@
 package com.skytrust.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.skytrust.common.Result;
 import com.skytrust.common.ResultCode;
 import com.skytrust.common.utils.StringUtil;
@@ -125,20 +128,18 @@ public class RentalOrderController {
             @Parameter(description = "订单状态") @RequestParam(required = false) Integer status,
             @Parameter(description = "订单号") @RequestParam(required = false) String orderNo) {
 
-        // 简化处理：使用Service的分页查询（这里先简单实现）
-        List<RentalOrder> orders = rentalOrderService.list();
+        // 使用 MyBatis Plus 分页 + 条件查询
+        LambdaQueryWrapper<RentalOrder> wrapper = new LambdaQueryWrapper<>();
+        if (userId != null) wrapper.eq(RentalOrder::getUserId, userId);
+        if (deviceId != null) wrapper.eq(RentalOrder::getDeviceId, deviceId);
+        if (status != null) wrapper.eq(RentalOrder::getOrderStatus, status);
+        if (orderNo != null && !orderNo.isEmpty()) wrapper.like(RentalOrder::getOrderNo, orderNo);
+        wrapper.orderByDesc(RentalOrder::getCreateTime);
 
-        // 应用过滤条件
-        List<RentalOrder> filteredOrders = orders.stream()
-                .filter(order -> userId == null || order.getUserId().equals(userId))
-                .filter(order -> deviceId == null || order.getDeviceId().equals(deviceId))
-                .filter(order -> status == null || order.getOrderStatus().equals(status))
-                .filter(order -> orderNo == null || order.getOrderNo().contains(orderNo))
-                .skip((page - 1) * (long) size)
-                .limit(size)
-                .collect(Collectors.toList());
+        Page<RentalOrder> pageParam = new Page<>(page, size);
+        Page<RentalOrder> pageResult = rentalOrderService.page(pageParam, wrapper);
 
-        List<RentalOrderVO> orderVOs = filteredOrders.stream()
+        List<RentalOrderVO> orderVOs = pageResult.getRecords().stream()
                 .map(this::convertToVO)
                 .collect(Collectors.toList());
 

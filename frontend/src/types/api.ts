@@ -187,6 +187,131 @@ export interface RentalOrderQueryParams {
 }
 
 // ============================================================
+// 区块链相关（Blockchain）
+// ============================================================
+
+/** 无人机区块链护照信息（Drone Passport） */
+export interface DronePassport {
+  tokenId: number
+  manufacturer: string
+  manufactureDate: string
+  serialNumber: string
+  firmwareVersion: string
+  batteryCycles: number
+  repairCount: number
+  repairHistory: RepairRecord[]
+}
+
+/** 维修记录 */
+export interface RepairRecord {
+  repairDataHash: string
+  maintenanceProviderDID: string
+  timestamp: number
+}
+
+/** 许可证记录 */
+export interface LicenseRecord {
+  userDID: string
+  licenseHash: string
+  orderId: string
+  verified: boolean
+}
+
+/** 租赁订单 */
+export interface RentalOrder {
+  orderId: string
+  userDID: string
+  licenseHash: string
+  signature: string
+  timestamp: number
+}
+
+/** 飞行日志条目 */
+export interface FlightLogEntry {
+  logHash: string
+  timestamp: number
+  verified: boolean
+}
+
+/** 飞行日志批次 */
+export interface FlightLogBatch {
+  orderId: string
+  entries: FlightLogEntry[]
+}
+
+// ============================================================
+// 地理围栏（Geofence）
+// ============================================================
+
+/** 禁飞区信息 */
+export interface NoFlyZone {
+  id: string
+  name: string
+  type: 'Polygon' | 'Circle'
+  coordinates: number[][]
+  radius?: number
+  active: boolean
+}
+
+/** 地理围栏检查结果 */
+export interface GeofenceCheckResult {
+  currentPos: { lat: number; lon: number }
+  predictedPos: { lat: number; lon: number }
+  status: 'SAFE' | 'WARNING' | 'VIOLATION_IMMINENT' | 'VIOLATED'
+  distanceToZone: number
+}
+
+// ============================================================
+// 定价与调度（Pricing）
+// ============================================================
+
+/** 价格预测 */
+export interface PriceForecast {
+  baseId: string
+  forecast: { timestamp: string; price: number; demandLevel: number }[]
+  minPrice: number
+  maxPrice: number
+}
+
+/** 调度任务 */
+export interface DispatchTask {
+  id: string
+  baseId: string
+  deviceId: string
+  taskType: 'BATTERY_REPLACE' | 'REDEPLOY'
+  suggestedTimeWindow: { start: string; end: string }
+  priority: 'HIGH' | 'MEDIUM' | 'LOW'
+  reason: string
+}
+
+// ============================================================
+// AI 与对话（AI Chatbot）
+// ============================================================
+
+/** 聊天消息 */
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+  timestamp: number
+}
+
+export interface FlightParams {
+  route: { lat: number; lon: number; alt: number }[]
+  gimbalPitch: number
+  exposure: number
+  speed: number
+}
+
+/** 机前检查清单项 */
+export interface PreFlightChecklistItem {
+  item: string
+  checked: boolean
+  critical: boolean
+}
+
+export type PreFlightChecklist = PreFlightChecklistItem[]
+
+// ============================================================
 // 支付 (Payment)
 // ============================================================
 

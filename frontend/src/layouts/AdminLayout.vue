@@ -13,7 +13,7 @@
       </div>
 
       <nav class="sidebar-menu">
-        <template v-for="item in authStore.menus" :key="item.id">
+        <template v-for="item in displayMenus" :key="item.id">
           <!-- 目录类型（有子菜单） -->
           <div v-if="item.children && item.children.length > 0" class="menu-group">
             <div class="menu-item" :class="{ active: isMenuActive(item) }" @click="toggleSubMenu(item.id)">
@@ -87,6 +87,34 @@ const sidebarVisible = ref(false)
 const isMobile = ref(false)
 const openSubMenus = ref(new Set<number>())
 
+// 硬编码导航菜单（绕过依赖后端 menu 接口的问题）
+const hardcodedMenus = [
+  { id: 1, menuName: '主页', menuPath: '/admin/dashboard', icon: 'dashboard' },
+  { id: 2, menuName: '设备管理', menuPath: '/admin/device', icon: 'device' },
+  { id: 3, menuName: '订单管理', menuPath: '/admin/orders', icon: 'order' },
+  { id: 4, menuName: '个人中心', menuPath: '/admin/profile', icon: 'user' },
+  { id: 10, menuName: '区块链模块', children: [
+    { id: 11, menuName: '数字护照', menuPath: '/admin/blockchain/passport', icon: 'log' },
+    { id: 12, menuName: '执照验证', menuPath: '/admin/blockchain/licensing', icon: 'log' },
+    { id: 13, menuName: '飞行日志', menuPath: '/admin/blockchain/flight-log', icon: 'log' },
+  ]},
+  { id: 20, menuName: '智能模块', children: [
+    { id: 21, menuName: '地理围栏', menuPath: '/admin/geofence', icon: 'setting' },
+    { id: 22, menuName: '动态定价', menuPath: '/admin/pricing', icon: 'payment' },
+    { id: 23, menuName: 'AI 助手', menuPath: '/admin/ai/chatbot', icon: 'message' },
+  ]},
+  { id: 30, menuName: '物联网模块', children: [
+    { id: 31, menuName: '设备监控', menuPath: '/admin/iot/monitor', icon: 'device' },
+    { id: 32, menuName: '远程控制', menuPath: '/admin/iot/control', icon: 'setting' },
+  ]},
+]
+
+// 合并菜单：后端菜单为空时使用 hardcoded menus
+const displayMenus = computed(() => {
+  if (authStore.menus && authStore.menus.length > 0) return authStore.menus
+  return hardcodedMenus
+})
+
 // ========== 计算属性 ==========
 const currentTitle = computed(() => {
   return (route.meta?.title as string) || 'SkyTrust 管理后台'
@@ -155,21 +183,21 @@ async function handleLogout() {
   router.replace('/login')
 }
 
-/** 获取图标（简单映射） */
+/** 获取图标（简单映射） - 使用文本符号并以统一样式显示 */
 function getIcon(icon?: string): string {
   if (!icon) return '○'
   const iconMap: Record<string, string> = {
-    user: '👤',
-    system: '⚙',
-    device: '🛸',
-    order: '📋',
-    payment: '💰',
-    message: '✉',
-    dashboard: '📊',
-    setting: '🔧',
-    menu: '📑',
-    role: '🔐',
-    log: '📝',
+    user: 'U',
+    system: '#',
+    device: 'D',
+    order: 'O',
+    payment: '$',
+    message: '@',
+    dashboard: '=',
+    setting: '#',
+    menu: 'M',
+    role: 'R',
+    log: 'L',
   }
   return iconMap[icon] || '○'
 }
@@ -303,13 +331,38 @@ onUnmounted(() => {
   border-left-color: #fff;
 }
 .menu-icon {
-  font-size: 16px;
-  width: 20px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #fff;
+  border-radius: 0;
+  padding: 0 4px;
   text-align: center;
   flex-shrink: 0;
+  color: #fff;
+  background: transparent;
 }
 .menu-icon.small {
-  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #fff;
+  border-radius: 0;
+  padding: 0 3px;
+  text-align: center;
+  flex-shrink: 0;
+  color: #fff;
+  background: transparent;
 }
 .menu-label {
   flex: 1;
@@ -324,7 +377,7 @@ onUnmounted(() => {
   transform: rotate(90deg);
 }
 .sub-menu {
-  background: #0d0d0d;
+  background: #1A1A1A;
 }
 .sub-item {
   padding-left: 46px;
@@ -420,8 +473,15 @@ onUnmounted(() => {
 /* ========== 内容区 ========== */
 .content {
   flex: 1;
-  padding: 24px;
+  padding: 24px 40px;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+.content > * {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 100%;
 }
 
 /* ========== 响应式 ========== */
@@ -441,6 +501,9 @@ onUnmounted(() => {
   }
   .btn-toggle {
     display: block;
+  }
+  .content {
+    padding: 16px;
   }
 }
 </style>

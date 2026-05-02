@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui/**",
                         "/v3/api-docs/**",
                         "/doc.html",
+                        "/webjars/**",
                         "/favicon.ico"
                 ).permitAll()
                 // 管理员专属端点

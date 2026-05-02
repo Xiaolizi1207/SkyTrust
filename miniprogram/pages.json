@@ -74,6 +74,14 @@
       }
     },
     {
+      "path": "pages/scan/index",
+      "style": {
+        "navigationBarTitleText": "扫码租机",
+        "navigationBarBackgroundColor": "#000",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
       "path": "pages/settings/index",
       "style": {
         "navigationBarTitleText": "设置",
