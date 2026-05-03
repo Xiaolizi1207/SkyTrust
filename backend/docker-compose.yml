@@ -1,12 +1,11 @@
 # SkyTrust无人机共享租赁区块链平台 - Docker Compose配置
+# 所有密钥通过 .env 文件注入，详见 .env.example
 version: '3.8'
 
-# 网络配置
 networks:
   skytrust-network:
     driver: bridge
 
-# 服务定义
 services:
   # MySQL数据库
   mysql:
@@ -14,10 +13,10 @@ services:
     container_name: skytrust-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: skytrust_root_123
-      MYSQL_DATABASE: skytrust_dev
-      MYSQL_USER: skytrust
-      MYSQL_PASSWORD: skytrust_123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-skytrust_dev}
+      MYSQL_USER: ${MYSQL_USER:-skytrust}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -60,8 +59,8 @@ services:
     container_name: skytrust-rabbitmq
     restart: unless-stopped
     environment:
-      RABBITMQ_DEFAULT_USER: skytrust
-      RABBITMQ_DEFAULT_PASS: skytrust_123
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-skytrust}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
       RABBITMQ_DEFAULT_VHOST: /
     ports:
       - "5672:5672"
@@ -82,8 +81,8 @@ services:
     container_name: skytrust-minio
     restart: unless-stopped
     environment:
-      MINIO_ROOT_USER: skytrustadmin
-      MINIO_ROOT_PASSWORD: skytrustminio123
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_DEFAULT_BUCKETS: "uploads,contracts,logs"
     ports:
       - "9000:9000"
@@ -106,7 +105,7 @@ services:
     restart: unless-stopped
     ports:
       - "1883:1883"
-      - "9002:9002"  # WebSocket端口
+      - "9002:9002"
     volumes:
       - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mqtt-data:/mosquitto/data
@@ -171,35 +170,27 @@ services:
     ports:
       - "9090:9090"
     environment:
-      # 数据库配置
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_NAME: skytrust_dev
-      DB_USER: skytrust
-      DB_PASSWORD: skytrust_123
-      # Redis配置
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      # RabbitMQ配置
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      RABBITMQ_USER: skytrust
-      RABBITMQ_PASSWORD: skytrust_123
-      # MinIO配置
-      MINIO_ENDPOINT: http://minio:9000
-      MINIO_ACCESS_KEY: skytrustadmin
-      MINIO_SECRET_KEY: skytrustminio123
-      # MQTT配置
-      MQTT_BROKER_URL: tcp://mqtt:1883
-      MQTT_USERNAME: skytrust
-      MQTT_PASSWORD: skytrust123
-      # 区块链配置
-      BLOCKCHAIN_NODE_URL: http://ganache:8545
-      BLOCKCHAIN_CHAIN_ID: 1337
-      # AI服务配置
-      AI_SERVICE_URL: http://ai-service:5000
-      # JWT配置
-      JWT_SECRET: skytrust-jwt-secret-for-development
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-skytrust_dev}
+      DB_USER: ${DB_USER:-skytrust}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
+      RABBITMQ_PORT: ${RABBITMQ_PORT:-5672}
+      RABBITMQ_USER: ${RABBITMQ_USER:-skytrust}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      MINIO_ENDPOINT: ${MINIO_ENDPOINT:-http://minio:9000}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-admin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MQTT_BROKER_URL: ${MQTT_BROKER_URL:-tcp://mqtt:1883}
+      MQTT_USERNAME: ${MQTT_USERNAME:-skytrust}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+      BLOCKCHAIN_NODE_URL: ${BLOCKCHAIN_NODE_URL:-http://ganache:8545}
+      BLOCKCHAIN_CHAIN_ID: ${BLOCKCHAIN_CHAIN_ID:-1337}
+      AI_SERVICE_URL: ${AI_SERVICE_URL:-http://ai-service:5000}
+      JWT_SECRET: ${JWT_SECRET}
     volumes:
       - app-logs:/logs
       - app-uploads:/uploads
@@ -257,7 +248,6 @@ services:
     networks:
       - skytrust-network
 
-# 数据卷定义
 volumes:
   mysql-data:
   redis-data:

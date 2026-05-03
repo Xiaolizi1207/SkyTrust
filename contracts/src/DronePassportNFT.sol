@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -64,7 +64,12 @@ contract DronePassportNFT is ERC721, AccessControl {
     event BatteryCyclesUpdated(uint256 indexed tokenId, uint256 cycles, uint256 nonce, address signer);
 
     constructor() ERC721("DronePassport", "DPASS") {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    }
+
+    /// @dev OZ v5 removed _exists(); provide a private helper
+    function _exists(uint256 tokenId) private view returns (bool) {
+        return _ownerOf(tokenId) != address(0);
     }
 
     /// @notice Mint a new DronePassport NFT with initial manufacturer data

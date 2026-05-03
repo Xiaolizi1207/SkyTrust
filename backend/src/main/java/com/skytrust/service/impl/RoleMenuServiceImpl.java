@@ -37,7 +37,8 @@ public class RoleMenuServiceImpl extends BaseService<RoleMenuMapper, RoleMenu> i
     private final RoleMenuMapper roleMenuMapper;
     private final RoleService roleService;
     @Autowired
-    private  MenuService menuService;
+    @Lazy
+    private MenuService menuService;
     private final UserRoleService userRoleService;
 
     @Override

@@ -1,0 +1,20 @@
+{
+  "name": "@skytrust/contracts",
+  "version": "1.0.0",
+  "description": "SkyTrust smart contracts — DronePassportNFT, LicenseVerification, FlightLogHash",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:ganache": "hardhat run scripts/deploy.js --network ganache",
+    "clean": "hardhat clean",
+    "coverage": "hardhat coverage"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  }
+}

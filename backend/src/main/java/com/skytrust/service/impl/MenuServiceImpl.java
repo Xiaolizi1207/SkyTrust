@@ -35,6 +35,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MenuServiceImpl extends BaseService<MenuMapper, Menu> implements MenuService {
     private final MenuMapper menuMapper;
+    @Lazy
     private final RoleMenuService roleMenuService;
 
     @Override

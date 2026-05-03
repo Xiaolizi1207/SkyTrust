@@ -1,48 +1,43 @@
 # SkyTrust无人机共享租赁区块链平台 - 主配置文件
+# 所有密钥使用 ${ENV_VAR:default} 占位符，实际值从环境变量注入
 spring:
-# SpringDoc OpenAPI 3（无需手动配置路径匹配策略）
-
   application:
     name: skytrust-platform
     version: 1.0.0
 
-  # 配置文件激活
   profiles:
-    active: dev
+    active: ${SPRING_PROFILES_ACTIVE:dev}
 
-  # Servlet配置
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
 
-  # Jackson配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: non_null
 
-  # 国际化配置
   messages:
     basename: i18n/messages
     encoding: UTF-8
 
-  # 数据源配置（全环境默认值）
+  # 数据源 — 密钥从环境变量注入
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/skytrust_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: 123456
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:skytrust_dev}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD}
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
 
-  # Redis配置
+  # Redis
   data:
     redis:
-      host: localhost
-      port: 6379
-      password: ''
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
       database: 0
       timeout: 3000
       lettuce:
@@ -52,22 +47,20 @@ spring:
           min-idle: 5
           max-wait: -1
 
-  # 缓存配置
   cache:
     type: redis
     redis:
       time-to-live: 3600000
       cache-null-values: false
 
-  # RabbitMQ配置
+  # RabbitMQ
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
     virtual-host: /
 
-# MyBatis Plus配置
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -79,11 +72,8 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 
-# SpringDoc OpenAPI 3 文档配置（自动集成，无需额外设置）
-
-# 服务器配置
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
   servlet:
     context-path: /
     session:
@@ -93,7 +83,6 @@ server:
     min-spare-threads: 20
     connection-timeout: 5000ms
 
-# 日志配置
 logging:
   level:
     com.skytrust: DEBUG
@@ -107,7 +96,6 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %clr(%-5level) %clr(%logger{36}){cyan} - %msg%n"
 
-# 监控端点
 management:
   endpoints:
     web:
@@ -126,66 +114,58 @@ skytrust:
   platform:
     name: SkyTrust无人机共享租赁平台
     version: 1.0.0
-    copyright: \u00a9 2026 SkyTrust Inc.
+    copyright: "\u00a9 2026 SkyTrust Inc."
 
-  # 文件上传配置
   upload:
     max-size: 100MB
     allowed-types: jpg,jpeg,png,gif,pdf,doc,docx,xls,xlsx
     path: ${user.home}/skytrust/uploads
 
-  # JWT配置
+  # JWT — 密钥从环境变量注入 (启动时 JwtConfig 将 secret 传给 SecurityUtil)
   jwt:
-    secret: skytrust-secret-key-change-in-production
+    secret: ${JWT_SECRET}
     expiration: 7200
     refresh-expiration: 604800
     header: Authorization
     prefix: Bearer
 
-  # 短信验证码配置
   sms:
-    enabled: false
-    template-id: SYS_001
-    expire-time: 300
+    enabled: ${SMS_ENABLED:false}
+    template-id: ${SMS_TEMPLATE_ID:SYS_001}
+    expire-time: ${SMS_EXPIRE_TIME:300}
 
-  # 区块链配置
   blockchain:
-    enabled: false
+    enabled: ${BLOCKCHAIN_ENABLED:false}
     type: ethereum
-    node-url: http://localhost:8545
-    chain-id: 1337
-    contract-address: "0x0000000000000000000000000000000000000000"
+    node-url: ${BLOCKCHAIN_NODE_URL:http://localhost:8545}
+    chain-id: ${BLOCKCHAIN_CHAIN_ID:1337}
+    contract-address: ${BLOCKCHAIN_CONTRACT_ADDR:0x0000000000000000000000000000000000000000}
 
-  # AI服务配置
   ai:
-    service-url: http://localhost:5000
+    service-url: ${AI_SERVICE_URL:http://localhost:5000}
     timeout: 30000
-    enabled: false
+    enabled: ${AI_ENABLED:false}
 
-  # 物联网配置
   iot:
     mqtt:
-      broker-url: tcp://localhost:1883
-      username: skytrust
-      password: skytrust123
+      broker-url: ${MQTT_BROKER_URL:tcp://localhost:1883}
+      username: ${MQTT_USERNAME:skytrust}
+      password: ${MQTT_PASSWORD}
       client-id: skytrust-server
       qos: 1
       reconnect-interval: 5000
 
-  # 风控配置
   risk:
     max-devices-per-user: 5
     max-rental-hours: 24
     deposit-rate: 0.2
 
-  # 调度算法配置
   scheduling:
     max-distance: 5000
     check-interval: 30000
 
-  # CORS跨域配置
   cors:
-    allowed-origins: "*"
+    allowed-origins: ${CORS_ORIGINS:*}
     allowed-methods: GET,POST,PUT,DELETE,OPTIONS
     allowed-headers: "*"
     allow-credentials: false

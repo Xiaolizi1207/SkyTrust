@@ -1,0 +1,29 @@
+# Environment (密钥文件，绝对不要提交)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Build output
+target/
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/

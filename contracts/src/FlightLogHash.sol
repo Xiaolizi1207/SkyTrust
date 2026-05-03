@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
@@ -22,12 +22,12 @@ contract FlightLogHash is AccessControl {
     /// @param orderId The order identifier this log belongs to
     /// @param timestamp The timestamp of the log entry
     /// @param logHash The hash of the log data
-    event FlightLogHash(bytes32 indexed orderId, uint256 timestamp, bytes32 logHash);
+    event FlightLogStored(bytes32 indexed orderId, uint256 timestamp, bytes32 logHash);
 
     /// @notice Constructor granting admin and submitter roles
     constructor() {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(SUBMITTER_ROLE, msg.sender);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(SUBMITTER_ROLE, msg.sender);
     }
 
     /// @notice Submit a batch of flight log hashes for a given orderId
@@ -42,7 +42,7 @@ contract FlightLogHash is AccessControl {
             require(!usedEntries[entryHash], "Replay detected");
             usedEntries[entryHash] = true;
             logsByOrder[orderId].push(LogEntry({logHash: logHashes[i], timestamp: timestamps[i]}));
-            emit FlightLogHash(orderId, timestamps[i], logHashes[i]);
+            emit FlightLogStored(orderId, timestamps[i], logHashes[i]);
         }
     }
 

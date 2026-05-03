@@ -23,11 +23,13 @@ import java.util.function.Function;
  */
 public class SecurityUtil {
 
-    private static String jwtSecret = "skytrust-secret-key-2026-blockchain-drone-rental-platform";
+    // JWT 密钥由 JwtConfig 启动时从 application.yml (环境变量 JWT_SECRET) 注入
+    // 此处仅声明字段，实际值通过 init() 方法初始化
+    private static String jwtSecret;
     private static long jwtExpiration = 2 * 60 * 60 * 1000L; // 2小时
     private static long jwtRefreshExpiration = 7 * 24 * 60 * 60 * 1000L; // 7天
 
-    private static SecretKey jwtKey = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    private static SecretKey jwtKey;
 
     private SecurityUtil() {
         // 工具类，防止实例化
@@ -35,8 +37,12 @@ public class SecurityUtil {
 
     /**
      * 初始化JWT配置（启动时由JwtConfig调用，从application.yml加载）
+     * 生产环境密钥必须通过环境变量 JWT_SECRET 注入
      */
     public static void init(String secret, long expirationMs, long refreshExpirationMs) {
+        if (secret == null || secret.isEmpty()) {
+            throw new IllegalStateException("JWT secret not configured — set JWT_SECRET environment variable");
+        }
         jwtSecret = secret;
         jwtExpiration = expirationMs;
         jwtRefreshExpiration = refreshExpirationMs;
@@ -213,33 +219,24 @@ public class SecurityUtil {
     // ==================== 加密相关方法 ====================
 
     /**
-     * 简单的密码加密（实际项目中应使用BCryptPasswordEncoder等）
-     *
-     * @param password 原始密码
-     * @return 加密后的密码
+     * 密码加密 — 使用 BCryptPasswordEncoder
      */
     public static String encryptPassword(String password) {
         if (StringUtil.isEmpty(password)) {
             return null;
         }
-        // 注意：这里只是简单示例，实际项目应使用BCryptPasswordEncoder
         org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder encoder =
             new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
         return encoder.encode(password);
     }
 
     /**
-     * 验证密码（简单示例）
-     *
-     * @param rawPassword     原始密码
-     * @param encodedPassword 加密后的密码
-     * @return 是否匹配
+     * 验证密码 — 使用 BCryptPasswordEncoder
      */
     public static boolean matchesPassword(String rawPassword, String encodedPassword) {
         if (StringUtil.isEmpty(rawPassword) || StringUtil.isEmpty(encodedPassword)) {
             return false;
         }
-        // 注意：这里只是简单示例，实际项目应使用BCryptPasswordEncoder
         org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder encoder =
             new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
         return encoder.matches(rawPassword, encodedPassword);

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.24;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
@@ -51,8 +51,8 @@ contract LicenseVerification is AccessControl {
 
     /// @notice Constructor granting admin roles to deployer
     constructor() {
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _setupRole(LICENSE_ADMIN_ROLE, msg.sender);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(LICENSE_ADMIN_ROLE, msg.sender);
     }
 
     /// @notice Stores a license hash computed from the provided licenseHashInput, userDID and timestamp.
